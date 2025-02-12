@@ -35,15 +35,31 @@ const RegisterUser = asyncHandler(async (req,res) => {
 })
 
 const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body
+
+  const user = await User.findOne({email})
+
+  if(user && (await bcrypt.compare(password, user.password))){
+    res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      token: generateToken(user._id),
+      message: `User Logged in successfully`
+    })
+  } else{
+    res.status(400)
+    throw new Error('Invalid Credentials')
+  }
 
 })
 
-const generateToken = asyncHandler(async (id) => {
+const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
     expiresIn: '30d'
   })
-})
+}
 
 module.exports = {
-  RegisterUser
+  RegisterUser,
+  loginUser
 }
