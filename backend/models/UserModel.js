@@ -1,28 +1,22 @@
 const mongoose = require('mongoose')
 
-const User = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
     {
-        Phone: {
-            type: Number,
+        email: {
+            type: String,
             required: true,
-            unique: true,
-            validate: {
-                validator: function(v){
-                    var r = '/\d{10}'
-                    return r.test(v)
-                },
-                message: props => `${props.value} is not a valid phone number!`
-            }
+            unique: true
+        },
+        password: {
+            type: String,
+            required: true
         },
         otp: {
             type: Number,
         },
-        otpExpires: {
-            type: Date,
-        },
-        isGuest: {
+        isVerified: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     {
@@ -30,4 +24,4 @@ const User = new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('User', UserSchema)
