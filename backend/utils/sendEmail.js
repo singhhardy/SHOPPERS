@@ -5,8 +5,8 @@ const sendEmail = async(email, otp) => {
         host: 'smtp.gmail.com',
         port: 465,
         auth: {
-            user: 'hardik.wottaweb@gmail.com',
-            pass: 'bblofqnwhfdwgdee'
+            user: process.env.EMAIL,
+            pass: process.env.APP_PASS
         },
         secure: true
     })
