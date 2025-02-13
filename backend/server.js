@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes')
 const cors = require('cors')
 const { errorHandler } = require('./middleware/errorMiddleware')
 const productRoutes = require('./routes/productsRoutes')
+const cartRoutes = require('./routes/cartRoutes')
 
 connectDb();
 
@@ -18,8 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
+app.use('/api/cart', cartRoutes)
 
 app.use(errorHandler)
-app.listen(port, () => {
+app.listen(port, () => {    
     console.log(`Server running in ${process.env.NODE_ENV} on port ${port} `)
 })
