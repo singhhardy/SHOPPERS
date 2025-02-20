@@ -7,6 +7,7 @@ const cors = require('cors')
 const { errorHandler } = require('./middleware/errorMiddleware')
 const productRoutes = require('./routes/productsRoutes')
 const cartRoutes = require('./routes/cartRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 connectDb();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/cart', cartRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(errorHandler)
 app.listen(port, () => {    
