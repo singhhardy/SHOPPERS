@@ -11,46 +11,72 @@ const GetAllUsers = asyncHandler(async (req, res) => {
     }
 })
 
-const UpdateAllUsers = asyncHandler(async (req, res) => {
-    try {
-        console.log("Request User:", req.user);
 
-        const { userId } = req.params;
-        const { firstName, lastName, password, role, phone, address, dateOfBirth, gender, isActive } = req.body;
+// Delete User
 
-        const user = await Users.findById(userId);
-        if (!user) {
-            return res.status(400).json({ message: "User not found" });
-        }
-
-        if (role) {
-            if (!req.user || req.user.role !== "SuperAdmin") {
-                return res.status(403).json({ message: "Only SuperAdmin can change roles" });
-            }
-        }
-
-        const updatedUser = await Users.findByIdAndUpdate(userId, {
-            firstName,
-            lastName,
-            password,
-            phone,
-            address,
-            dateOfBirth,
-            gender,
-            isActive,
-            ...(role && req.user.role === "SuperAdmin" ? { role } : {}) 
-        }, { new: true, runValidators: true });
-
-        res.status(200).json({ message: "User updated successfully", user: updatedUser });
-    } catch (error) {
-        res.status(500).json({ message: "Error updating user", error: error.message });
+const DeleteUserById = asyncHandler(async (req, res) => {
+    const {userId } = req.params
+    const user = await Users.findOne({userId})
+    if(!user){
+        res.status(400)
+        throw new Error('User Not found')
     }
-});
 
+    await user.deleteOne()
 
+    res.status(201).json({message: 'User Deleted Successfully', })
+})
 
+const GetUserProfile = asyncHandler(async (req, res) => {
+    const {userId} = req.params
+    const user = await Users.findOne(userId)
+    if(!user){
+        res.status(400)
+        throw new Error('User Not found')
+    }
+
+    res.status(200).json({user})
+})
+
+// Edit User Profile
+
+const EditUserProfile = asyncHandler(async(req, res) => {
+    const {userId} = req.params
+    const { firstName, lastName, role, phone, address, dateOfBirth, gender, isActive } = req.body;
+    const user = await Users.findOne(userId)
+    if(!user){
+        res.status(400)
+        throw new Error('User Not found')
+    }
+
+    if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // if(role && req.user.role !== 'SuperAdmin'){
+    //     return res.status(403).json({
+    //         message: "User Data Saved. Role can only be updated by a SuperAdmin"
+    //     })
+    // }
+
+    user.firstName = firstName || user.firstName
+    user.lastName = lastName || user.lastName
+    user.phone = phone || user.phone
+    user.address = address || user.address
+    user.dateOfBirth = dateOfBirth || user.dateOfBirth
+    user.gender = gender || user.gender
+    user.isActive = isActive || user.isActive
+
+    const UpdatedUser = await user.save()
+    res.status(200).json({
+        message: 'User profile updated successfully',
+        UpdatedUser
+    });
+})
 
 module.exports = {
     GetAllUsers,
-    UpdateAllUsers
+    DeleteUserById,
+    GetUserProfile,
+    EditUserProfile
 }
