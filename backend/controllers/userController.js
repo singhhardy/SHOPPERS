@@ -15,8 +15,8 @@ const GetAllUsers = asyncHandler(async (req, res) => {
 // Delete User
 
 const DeleteUserById = asyncHandler(async (req, res) => {
-    const {userId } = req.params
-    const user = await Users.findOne({userId})
+    const userId = req.params.id
+    const user = await Users.findById({userId})
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -28,8 +28,8 @@ const DeleteUserById = asyncHandler(async (req, res) => {
 })
 
 const GetUserProfile = asyncHandler(async (req, res) => {
-    const {userId} = req.params
-    const user = await Users.findOne(userId)
+    const userId = req.params.id
+    const user = await Users.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -41,9 +41,9 @@ const GetUserProfile = asyncHandler(async (req, res) => {
 // Edit User Profile
 
 const EditUserProfile = asyncHandler(async(req, res) => {
-    const {userId} = req.params
+    const userId = req.params.id
     const { firstName, lastName, role, phone, address, dateOfBirth, gender, isActive } = req.body;
-    const user = await Users.findOne(userId)
+    const user = await Users.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -53,11 +53,13 @@ const EditUserProfile = asyncHandler(async(req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
-    // if(role && req.user.role !== 'SuperAdmin'){
-    //     return res.status(403).json({
-    //         message: "User Data Saved. Role can only be updated by a SuperAdmin"
-    //     })
-    // }
+    let roleWarning = null
+
+    if(role && req.user.role !== 'SuperAdmin'){
+        roleWarning = "Role can only be updated by a SuperAdmin"        
+    } else if(role){
+        user.role = role || user.role
+    }
 
     user.firstName = firstName || user.firstName
     user.lastName = lastName || user.lastName
@@ -65,11 +67,14 @@ const EditUserProfile = asyncHandler(async(req, res) => {
     user.address = address || user.address
     user.dateOfBirth = dateOfBirth || user.dateOfBirth
     user.gender = gender || user.gender
-    user.isActive = isActive || user.isActive
+    if (typeof isActive !== "undefined") {
+        user.isActive = isActive;
+    }
 
     const UpdatedUser = await user.save()
     res.status(200).json({
         message: 'User profile updated successfully',
+        roleWarning,
         UpdatedUser
     });
 })
