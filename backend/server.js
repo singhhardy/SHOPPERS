@@ -8,6 +8,7 @@ const { errorHandler } = require('./middleware/errorMiddleware')
 const productRoutes = require('./routes/productsRoutes')
 const cartRoutes = require('./routes/cartRoutes')
 const userRoutes = require('./routes/userRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 
 connectDb();
 
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/cart', cartRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/order', orderRoutes)
 
 app.use(errorHandler)
 app.listen(port, () => {    

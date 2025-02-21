@@ -26,7 +26,8 @@ const cartSchema = mongoose.Schema(
             ref: 'User'
         },
         items: [cartItemSchema]
-    }
+    },
+    {timestamps: true}
 )
 
 const Cart = mongoose.model('Cart', cartSchema)

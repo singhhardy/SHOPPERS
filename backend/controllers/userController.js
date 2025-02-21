@@ -43,7 +43,7 @@ const GetUserProfile = asyncHandler(async (req, res) => {
 
 const EditUserProfile = asyncHandler(async(req, res) => {
     const userId = req.params.id
-    const { firstName, lastName, role, phone, address, dateOfBirth, gender, isActive } = req.body;
+    const { firstName, lastName, role, phone, addresses, dateOfBirth, gender, isActive } = req.body;
     const user = await Users.findById(userId)
     if(!user){
         res.status(400)
@@ -65,9 +65,13 @@ const EditUserProfile = asyncHandler(async(req, res) => {
     user.firstName = firstName || user.firstName
     user.lastName = lastName || user.lastName
     user.phone = phone || user.phone
-    user.address = address || user.address
     user.dateOfBirth = dateOfBirth || user.dateOfBirth
     user.gender = gender || user.gender
+
+    if(addresses && Array.isArray(addresses)){
+        user.addresses = addresses
+    }
+
     if (typeof isActive !== "undefined") {
         user.isActive = isActive;
     }

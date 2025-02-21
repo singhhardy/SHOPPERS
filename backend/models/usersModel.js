@@ -1,5 +1,16 @@
 const mongoose = require('mongoose')
 
+const addressSchema = new mongoose.Schema(
+    {
+        street: {type: String, },
+        city: {type: String, },
+        state: {type: String, },
+        country: {type: String,},
+        zipCode: {type: String,},
+        isDefault: { type: Boolean, default: false}
+    }, { _id: false}
+)
+
 const UsersSchema = new mongoose.Schema(
     {
         firstName: {
@@ -27,13 +38,7 @@ const UsersSchema = new mongoose.Schema(
             unique: true,
             sparse: true
         },
-        address: {
-            street: {type: String, },
-            city: {type: String, },
-            state: {type: String, },
-            country: {type: String,},
-            zipCode: {type: String,},
-        },
+        addresses: [addressSchema],
         dateOfBirth: {
             type: Date
         },
@@ -58,4 +63,7 @@ const UsersSchema = new mongoose.Schema(
     },
 )
 
-module.exports = mongoose.model('Users', UsersSchema)
+module.exports = {
+    User: mongoose.model('Users', UsersSchema),
+    addressSchema: addressSchema
+}
