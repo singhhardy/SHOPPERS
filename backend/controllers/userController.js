@@ -17,7 +17,7 @@ const GetAllUsers = asyncHandler(async (req, res) => {
 
 const DeleteUserById = asyncHandler(async (req, res) => {
     const userId = req.params.id
-    const user = await Users.findById({userId})
+    const user = await Users.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
