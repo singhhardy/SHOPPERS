@@ -16,6 +16,12 @@ const AddNewProduct = asyncHandler(async(req, res) => {
         throw new Error(`Please Enter All Fields`)
     }
 
+    if (!["SuperAdmin", "admin"].includes(req.user.role)) {
+        return res.status(403).json({
+            message: "Only Admins & SuperAdmins can Add a product"
+        });
+    }
+
     const product = new Product({
         user,
         name,
@@ -49,6 +55,12 @@ const editProduct = asyncHandler(async (req, res) => {
         throw new Error(`Please Enter All Fields`)
     }
 
+    if (!["SuperAdmin", "admin"].includes(req.user.role)) {
+        return res.status(403).json({
+            message: "Only Admins & SuperAdmins can update a product"
+        });
+    }
+
     const product = await Product.findOne({ _id: id})
 
     if(!product){
@@ -75,6 +87,13 @@ const editProduct = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
     const { id } = req.params
     const product = await Product.findOne({_id: id})
+
+    if (!["SuperAdmin", "admin"].includes(req.user.role)) {
+        return res.status(403).json({
+            message: "Only Admins & SuperAdmins can delete a product"
+        });
+    }
+
     if(product){
         await product.deleteOne()
         res.status(200).json({
