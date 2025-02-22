@@ -1,4 +1,4 @@
-const AuthUser = require('../models/usersModel')
+const {User} = require('../models/usersModel')
 const asyncHandler = require('express-async-handler');
 const sendEmail = require('../utils/sendEmail')
 const bcrypt = require('bcryptjs')
@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const RegisterUser = asyncHandler(async (req,res) => {
   const { email, password } = req.body
 
-  const userExists = await AuthUser.findOne({email})
+  const userExists = await User.findOne({email})
 
   if(userExists){
     res.status(400)
@@ -17,7 +17,7 @@ const RegisterUser = asyncHandler(async (req,res) => {
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
-  const user = await AuthUser.create({
+  const user = await User.create({
     email,
     password: hashedPassword
   })
@@ -37,7 +37,7 @@ const RegisterUser = asyncHandler(async (req,res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password, } = req.body
 
-  const user = await AuthUser.findOne({email})
+  const user = await User.findOne({email})
 
   if(user && (await bcrypt.compare(password, user.password))){
     res.status(200).json({

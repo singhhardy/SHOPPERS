@@ -1,11 +1,11 @@
 const asyncHandler = require('express-async-handler')
-const Users = require('../models/usersModel')
+const { User } = require('../models/usersModel')
 const bcrypt = require('bcryptjs')
 
 // Get All Users
 const GetAllUsers = asyncHandler(async (req, res) => {
     try{
-        const users = await Users.find()
+        const users = await User.find()
         res.status(200).json(users);
     } catch(err){
         res.status(500).json({message: "Server error", err});
@@ -17,7 +17,7 @@ const GetAllUsers = asyncHandler(async (req, res) => {
 
 const DeleteUserById = asyncHandler(async (req, res) => {
     const userId = req.params.id
-    const user = await Users.findById(userId)
+    const user = await User.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -30,7 +30,7 @@ const DeleteUserById = asyncHandler(async (req, res) => {
 
 const GetUserProfile = asyncHandler(async (req, res) => {
     const userId = req.params.id
-    const user = await Users.findById(userId)
+    const user = await User.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -44,7 +44,7 @@ const GetUserProfile = asyncHandler(async (req, res) => {
 const EditUserProfile = asyncHandler(async(req, res) => {
     const userId = req.params.id
     const { firstName, lastName, role, phone, addresses, dateOfBirth, gender, isActive } = req.body;
-    const user = await Users.findById(userId)
+    const user = await User.findById(userId)
     if(!user){
         res.status(400)
         throw new Error('User Not found')
@@ -89,7 +89,7 @@ const EditUserProfile = asyncHandler(async(req, res) => {
 const ChangePassword = asyncHandler(async (req, res) => {
     const { CurrPassword, NewPassword } = req.body
     const userId = req.params.id
-    const user = await Users.findById(userId)
+    const user = await User.findById(userId)
 
     if(!user){
         res.status(400).json({
