@@ -8,7 +8,7 @@ const addressSchema = new mongoose.Schema(
         country: {type: String,},
         zipCode: {type: String,},
         isDefault: { type: Boolean, default: false}
-    }, { _id: false}
+    }
 )
 
 const UsersSchema = new mongoose.Schema(

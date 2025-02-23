@@ -88,13 +88,12 @@ const EditUserProfile = asyncHandler(async(req, res) => {
 
 const ChangePassword = asyncHandler(async (req, res) => {
     const { CurrPassword, NewPassword } = req.body
-    const userId = req.params.id
+    const userId = req.user
     const user = await User.findById(userId)
 
     if(!user){
-        res.status(400).json({
-            message: "User Not Found"
-        })
+        res.status(400)
+        throw new Error("User not authenticated");
     }
 
     const isMatch = await bcrypt.compare(CurrPassword, user.password);
@@ -114,11 +113,37 @@ const ChangePassword = asyncHandler(async (req, res) => {
 
 })
 
+// Add New Address
+
+const AddNewAddress = asyncHandler(async (req, res) => {
+    const { address } = req.body;
+    const userId = req.user
+    const user = await User.findById(userId)
+    
+    if (!address || typeof address !== "object") {
+        return res.status(400).json({ message: "Invalid address format" });
+    }
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    user.addresses.push(address); 
+    await user.save();
+
+    console.log("User after adding address:", user);
+
+    res.status(201).json({
+        message: "Address Added Successfully",
+        user,
+    });
+});
 
 module.exports = {
     GetAllUsers,
     DeleteUserById,
     GetUserProfile,
     EditUserProfile,
-    ChangePassword
+    ChangePassword,
+    AddNewAddress
 }

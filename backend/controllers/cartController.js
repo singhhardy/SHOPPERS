@@ -5,7 +5,8 @@ const Product = require('../models/productModel')
 // Add To Cart
 
 const AddToCart = asyncHandler(async (req, res) => {
-    const { productId, quantity, userId} = req.body
+    const userId = req.user
+    const { productId, quantity, } = req.body
     const product = await Product.findById(productId)
     if(!product){
         res.status(400)
@@ -34,7 +35,8 @@ const AddToCart = asyncHandler(async (req, res) => {
 
 // Remove Item From Cart
 const RemoveFromCart = asyncHandler(async (req, res) => {
-    const { productId, userId} = req.body
+    const userId = req.user
+    const { productId} = req.body
     const product = await Product.findById(productId)
     if(!product){
         res.status(400)
@@ -58,7 +60,8 @@ const RemoveFromCart = asyncHandler(async (req, res) => {
 // Update User Cart
 
 const UpdateCart = asyncHandler(async (req, res) => {
-    const { productId, quantity, userId } = req.body
+    const userId = req.user
+    const { productId, quantity } = req.body
     const product = await Product.findById(productId)
     if(!product){
         res.status(400)
@@ -86,7 +89,7 @@ const UpdateCart = asyncHandler(async (req, res) => {
 // Get Cart Items
 
 const GetCartItems = asyncHandler(async (req, res) => {
-    const {userId} = req.body
+    const userId = req.user
     
     let cart = await Cart.findOne({userId})
     if(!cart){
@@ -102,7 +105,7 @@ const GetCartItems = asyncHandler(async (req, res) => {
 
 // Get Cart Items Total
 const GetCartTotal = asyncHandler(async (req, res) => {
-    const { userId } = req.body
+    const { userId } = req.user
     let cart = await Cart.findOne({userId}).populate('items.productId', 'price')
     if(!cart){
         res.status(400)
@@ -116,7 +119,7 @@ const GetCartTotal = asyncHandler(async (req, res) => {
 
 // Clear Cart Items 
 const ClearCart = asyncHandler(async ( req, res) => {
-    const { userId } = req.body
+    const { userId } = req.user
     let cart = await Cart.findOne({userId})
 
     if(!cart){
