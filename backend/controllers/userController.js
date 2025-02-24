@@ -39,10 +39,11 @@ const GetUserProfile = asyncHandler(async (req, res) => {
     res.status(200).json({user})
 })
 
-// Edit User Profile
+// Edit User Profile ( to be fixed )
 
 const EditUserProfile = asyncHandler(async(req, res) => {
     const userId = req.params.id
+    const loggedInUser = req.user
     const { firstName, lastName, role, phone, addresses, dateOfBirth, gender, isActive } = req.body;
     const user = await User.findById(userId)
     if(!user){
@@ -56,7 +57,7 @@ const EditUserProfile = asyncHandler(async(req, res) => {
 
     let roleWarning = null
 
-    if(role && req.user.role !== 'SuperAdmin'){
+    if(role && loggedInUser.role !== 'SuperAdmin'){
         roleWarning = "Role can only be updated by a SuperAdmin"        
     } else if(role){
         user.role = role || user.role

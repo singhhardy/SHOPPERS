@@ -7,7 +7,7 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 router.route('/list').get(protect, GetAllUsers)
 router.route('/:id').delete(protect, roleMiddleware(["admin", "SuperAdmin"]), DeleteUserById)
 router.route('/:id').get(protect, GetUserProfile)
-router.route('/:id').put(protect, roleMiddleware(["admin", "SuperAdmin"]), EditUserProfile)
+router.route('/:id').put(protect, roleMiddleware(["admin", "SuperAdmin", "user"]), EditUserProfile)
 router.route('/change-password/:id').put(protect, ChangePassword)
 router.route('/addresses').post(protect, AddNewAddress)
 

@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Cart = require('../models/cartModel')
 const Product = require('../models/productModel')
+const calculateCartTotal = require('../utils/calcCartTotal')
 
 // Add To Cart
 
@@ -18,14 +19,14 @@ const AddToCart = asyncHandler(async (req, res) => {
     if(!cart){
         cart = new Cart({
             userId,
-            items: [{ productId, quantity}]
+            items: [{ productId, quantity, price: product.price}]
         })
     } else {
         const existingItem = cart.items.find(item => item.productId.toString() === productId)
         if(existingItem){
             existingItem.quantity += 1
         } else{
-            cart.items.push({ productId, quantity})
+            cart.items.push({ productId, quantity, price: product.price})
         }
     }
 
@@ -105,16 +106,13 @@ const GetCartItems = asyncHandler(async (req, res) => {
 
 // Get Cart Items Total
 const GetCartTotal = asyncHandler(async (req, res) => {
-    const { userId } = req.user
-    let cart = await Cart.findOne({userId}).populate('items.productId', 'price')
-    if(!cart){
+    try{
+        const total = await calculateCartTotal(req.user)
+        res.status(200).json({ total })
+    } catch(error){
         res.status(400)
-        throw new Error('Cart Not found')
+        throw new Error(error.message)
     }
-
-    const total = cart.items.reduce((acc, item) => acc + item.quantity * item.productId.price, 0)
-
-    res.status(200).json({total})
 })
 
 // Clear Cart Items 
