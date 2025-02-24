@@ -9,6 +9,7 @@ const productRoutes = require('./routes/productsRoutes')
 const cartRoutes = require('./routes/cartRoutes')
 const userRoutes = require('./routes/userRoutes')
 const orderRoutes = require('./routes/orderRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
 
 connectDb();
 
@@ -24,6 +25,7 @@ app.use('/api/products', productRoutes)
 app.use('/api/cart', cartRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/order', orderRoutes)
+app.use('/api/product/reviews', reviewRoutes)
 
 app.use(errorHandler)
 app.listen(port, () => {    

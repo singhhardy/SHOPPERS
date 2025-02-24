@@ -7,10 +7,6 @@ const reviewsSchema = new mongoose.Schema(
             required: true,
             ref: 'User'
         },
-        name: {
-            type: String,
-            required: true
-        },
         rating: {
             type: String,
             required: true
@@ -19,6 +15,9 @@ const reviewsSchema = new mongoose.Schema(
             type: String,
             required: true
         }
+    },
+    {
+        timestamps: true
     }
 )
 
