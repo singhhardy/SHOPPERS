@@ -7,7 +7,7 @@ const calculateCartTotal = require('../utils/calcCartTotal')
 
 // Get Checkout Data
 
-const OrderDetails = asyncHandler(async(req,res) => {
+const placeOrder = asyncHandler(async(req,res) => {
     const userId = req.user
     const { addressId, paymentMethod } = req.body
     const user = await User.findById(userId)
@@ -17,7 +17,6 @@ const OrderDetails = asyncHandler(async(req,res) => {
         throw new Error('User not found')
     }
 
-    console.log(userId, addressId, paymentMethod)
 
     const cart = await Cart.findOne({ userId })
     if(!cart){
@@ -38,7 +37,8 @@ const OrderDetails = asyncHandler(async(req,res) => {
         items: cart.items,
         shippingInfo: address,
         paymentMethod,
-        totalAmount
+        totalAmount,
+        status: "Pending",
     })
 
    await order.save()
@@ -68,7 +68,43 @@ const GetCustomerOrders = asyncHandler(async (req, res) => {
     res.status(200).json({ orders })
 })
 
+// Users Order Info By Id
+const OrderInfoById = asyncHandler(async (req, res) => {
+    const orderId = req.params.id
+    const order = await Order.findById(orderId)
+
+    if(!order){
+        res.status(400)
+        throw new Error('Order not found')
+    }
+
+    res.status(200).json({order})
+
+})
+
+const OrderStatus = asyncHandler(async ( req, res) => {
+    const orderId = req.params.id
+    const order = await Order.findById(orderId)
+    
+    if(!order){
+        res.status(400)
+        throw new Error('Order not found')
+    }
+
+    const { status } = req.body
+
+    order.status = status
+
+    await order.save()
+    res.status(201).json({
+        message: status ===  "Cancelled" ? "Order Cancelled" : "Order Status Updated",
+        order
+    })
+})
+
 module.exports = {
-    OrderDetails,
-    GetCustomerOrders
+    placeOrder,
+    GetCustomerOrders,
+    OrderInfoById,
+    OrderStatus
 }
