@@ -142,6 +142,62 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
+// Forgot Password 
+const forgotPassword = asyncHandler(async(req,res) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if(!user){
+    res.status(400)
+    throw new Error('User not found')
+  }
+
+  const newOTP = generateOTP();
+  user.otp = newOTP;
+  user.otpExpires = new Date(Date.now() + 10 * 60 * 1000); 
+
+  await user.save();
+
+    await sendEmail({
+      to: email,
+      subject: 'Email Verification - SHOPPER',
+      text: `PASSWORD RESET OTP`,
+      html: `<p>Your OTP code is <strong>${newOTP}</strong>. It is valid for <strong>10 minutes</strong>.</p>`
+  });
+
+  res.status(200).json({ message: "OTP resent successfully!" });
+})
+
+// Reset Password
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+
+  if (user.otp !== otp || user.otpExpires < Date.now()) {
+    res.status(400);
+    throw new Error("Invalid or expired OTP");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(newPassword, salt);
+
+  user.otp = null;
+  user.otpExpires = null;
+
+  await user.save();
+
+  user.otp = null;
+  user.otpExpires = null;
+
+  res.status(200).json({ message: "Password reset successful!" });
+});
+
+// Generate JWT token
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
     expiresIn: '30d'
@@ -152,5 +208,7 @@ module.exports = {
   RegisterUser,
   loginUser,
   verifyOTP,
-  resendOTP
+  resendOTP,
+  forgotPassword,
+  resetPassword
 }
