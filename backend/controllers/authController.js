@@ -4,35 +4,123 @@ const sendEmail = require('../utils/sendEmail')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const RegisterUser = asyncHandler(async (req,res) => {
-  const { email, password } = req.body
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString(); 
+};
 
-  const userExists = await User.findOne({email})
+const RegisterUser = asyncHandler(async (req, res) => {
+  try {
+      const { email, password } = req.body;
 
-  if(userExists){
-    res.status(400)
-    throw new Error('User Already Exists')
+      const userExists = await User.findOne({ email });
+      if (userExists) {
+          return res.status(400).json({ error: 'User already exists' });
+      }
+
+      // Generate OTP
+      const otp = generateOTP();
+      const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes validity
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const user = await User.create({
+          email,
+          password: hashedPassword,
+          otp,
+          otpExpires,
+          isVerified: false 
+      });
+
+      await sendEmail({
+          to: email,
+          subject: 'Email Verification - SHOPPER',
+          text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
+          html: `<p>Your OTP code is <strong>${otp}</strong>. It is valid for <strong>10 minutes</strong>.</p>`
+      });
+
+      res.status(201).json({
+          message: 'OTP sent to your email. Please verify to complete registration.',
+          userId: user._id
+      });
+
+  } catch (error) {
+      console.error('Error in RegisterUser:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
   }
+});
 
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
+// Verify OTP
 
-  const user = await User.create({
-    email,
-    password: hashedPassword
-  })
+const verifyOTP = asyncHandler(async (req, res) => {
+  try {
+      const { email, otp, type } = req.body; 
 
-  if(user){
-    res.status(201).json({
-      _id: user._id,
-      email: user.email,
-      token: generateToken(user._id)
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid User Data')
+      const user = await User.findOne({ email });
+      if (!user) {
+          return res.status(400).json({ error: 'User not found' });
+      }
+
+      if (user.otp !== otp || user.otpExpires < Date.now()) {
+          return res.status(400).json({ error: 'Invalid or expired OTP' });
+      }
+
+      if (type === 'register') {
+          user.isVerified = true;
+      } else if (type === 'reset-password') {
+          return res.status(200).json({ message: 'OTP verified. Proceed with password reset.' });
+      } else if (type === '2fa') {
+          return res.status(200).json({ message: '2FA successful. Proceed with login.' });
+      } else {
+          return res.status(400).json({ error: 'Invalid OTP type' });
+      }
+
+      user.otp = undefined;
+      user.otpExpires = undefined;
+      await user.save();
+
+      res.status(200).json({ message: 'OTP verified successfully!' });
+
+  } catch (error) {
+      console.error('Error in verifyOTP:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
   }
-})
+});
+
+
+
+// Resend OTP
+const resendOTP = asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
+    }
+
+    const newOTP = generateOTP();
+    user.otp = newOTP;
+    user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+    await user.save();
+
+    await sendEmail({
+      to: email,
+      subject: 'Email Verification - SHOPPER',
+      text: `Your new OTP Code`,
+      html: `<p>Your OTP code is <strong>${newOTP}</strong>. It is valid for <strong>10 minutes</strong>.</p>`
+  });
+
+  res.status(200).json({ message: "OTP resent successfully!" });
+  } catch (error) {
+    console.error("Error in resendOTP:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// LOGIN USER 
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password, } = req.body
@@ -62,5 +150,7 @@ const generateToken = (id) => {
 
 module.exports = {
   RegisterUser,
-  loginUser
+  loginUser,
+  verifyOTP,
+  resendOTP
 }

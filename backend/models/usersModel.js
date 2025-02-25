@@ -28,6 +28,12 @@ const UsersSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        otp: {
+            type: String,
+        },
+        otpExpires: {
+            type: String
+        },
         role: {
             type: String,
             enum: ["user", "admin", "SuperAdmin"],
@@ -55,6 +61,10 @@ const UsersSchema = new mongoose.Schema(
         },
         resetPasswordExpires: {
             type: String
+        },
+        isVerified: {
+            type: Boolean,
+            default: false
         },
         createdAt: {
             type: Date,
