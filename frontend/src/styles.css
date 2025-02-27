@@ -25,6 +25,9 @@ html, body{
 }
 
 /* UTILS */
+a{
+    cursor: pointer;
+}
 
 .form-control{
     box-shadow: none !important;

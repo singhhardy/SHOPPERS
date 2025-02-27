@@ -12,6 +12,22 @@ const GetAllUsers = asyncHandler(async (req, res) => {
     }
 })
 
+// Get User profile ~ To fix
+const GetMe = asyncHandler(async(req, res) => {
+    const userId = req.user
+    const user = await User.findById(userId)
+
+    if(!user){
+        res.status(400)
+        throw new Error('User Not Found')
+    }
+
+    res.status(200).json({
+        message: "User Profile",
+        user
+    })
+})
+
 
 // Delete User
 
@@ -146,5 +162,6 @@ module.exports = {
     GetUserProfile,
     EditUserProfile,
     ChangePassword,
-    AddNewAddress
+    AddNewAddress,
+    GetMe
 }

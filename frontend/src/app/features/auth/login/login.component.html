@@ -4,19 +4,26 @@
             <div class="card">
                 <div class="card-body p-5 px-6">
                     <h4 class="primary-text text-center">Login In Here</h4>
-                    <form class="form-group mt-5" >
+                    <form class="form-group mt-5" [formGroup]="loginForm"   (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label class="form-label">Email</label>
-                            <input class="form-control searchbar" placeholder="user@example.com" name="email">
+                            <input formControlName="email" class="form-control searchbar" placeholder="user@example.com" name="email">
+                            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                                <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
+                                <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</small>
+                            </div>
                         </div>
                         <div class="form-group d-flex flex-column mt-4">
                             <label class="form-label">Password</label>
                             <div class="btn-group">
-                                <input class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
+                                <input formControlName="password" class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
                                 <button class="btn primary-btn"><i class="fa fa-eye"></i></button>
                             </div>
+                            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                                <small>Password is required</small>
+                            </div>
                         </div>
-                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" type="submit">Submit</button>
+                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" type="submit" [disabled]="loginForm.invalid">Submit</button>
                     </form>
                 </div>
             </div>
