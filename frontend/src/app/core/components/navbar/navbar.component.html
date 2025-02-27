@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container-fluid container">
+      <a class="navbar-brand fw-bold fs-3" href="#">SHOPPERS </a>
+      <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse">
+        <ul class="navbar-nav w-100 ms-auto mb-2 mb-lg-0">
+            <li class="nav-item w-100">
+                <div class="btn-group w-75 h-100">
+                    <input class="form-control w-100 border-0 rounded-0  rounded-start bg-body searchbar" placeholder="Search...">
+                    <button class="btn primary-btn"><i class="fa fa-search"></i></button>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-2">
+            <a class="nav-link text-nowrap" aria-current="page" href="#"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+          </li>
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" ngbDropdownToggle>
+                <i class="fa-regular fa-user"></i> User <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu drop-menu border-0  shadow-lg" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                <li><a class="dropdown-item primary-text" [routerLink]="'/login'"><i class="fa fa-user text-muted menu-icon"></i> <span class="side-text">Login</span></a></li>
+                <li><a class="dropdown-item secondary-text" href="#"><i class="fa-solid text-muted fa-address-book menu-icon"></i> <span class="side-text">Sign Up</span></a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-list-ul menu-icon text-muted"></i> <span class="side-text">My Orders</span></a></li>
+                <hr class="m-2">
+                <li><a class="dropdown-item" ><i class="fa-solid fa-arrow-right-from-bracket menu-icon text-muted"></i> <span class="side-text">Logout</span> </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
