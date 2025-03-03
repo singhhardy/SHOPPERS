@@ -13,6 +13,7 @@ import { Router } from  '@angular/router'
 })
 export class LoginComponent {
   loginForm: FormGroup
+  showPassword: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router){
     this.loginForm = this.fb.group({
@@ -21,12 +22,17 @@ export class LoginComponent {
     })
   }
 
+  togglePassword(): void{
+    this.showPassword = !this.showPassword
+  }
+  
   onSubmit(){
     if(this.loginForm.valid){
       this.auth.loginUser(this.loginForm.value).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token)
           this.router.navigate(['/'])
+          this.auth.getMe() 
         },
         (error: any) => {
           console.error('Login failed:', error);

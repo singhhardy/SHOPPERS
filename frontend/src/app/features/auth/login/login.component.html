@@ -16,8 +16,10 @@
                         <div class="form-group d-flex flex-column mt-4">
                             <label class="form-label">Password</label>
                             <div class="btn-group">
-                                <input formControlName="password" class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
-                                <button class="btn primary-btn"><i class="fa fa-eye"></i></button>
+                                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
+                                <button class="btn primary-btn" (click)="togglePassword()">
+                                    <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                </button>
                             </div>
                             <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
                                 <small>Password is required</small>

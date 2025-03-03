@@ -10,6 +10,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // LOG IN 
+
   loginUser(user: any): Observable<any[]> {
     return this.http.post<any[]>(`${this.baseUrl}/auth/login`, user)
   }
@@ -27,7 +29,20 @@ export class AuthService {
   }
 
   getMe(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}/users/me`)
+    return this.http.get<any>(`${this.baseUrl}/users/user-profile`)
+  }
+
+  // SIGN UP
+  SignUpUser(userData: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/auth/email-signup`, userData)
+  }
+  
+  VerifyOtp(userData: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/auth/otp-verify`, userData)
+  }
+
+  resendOTP(email: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/auth/resend-otp`, email)
   }
 
 }

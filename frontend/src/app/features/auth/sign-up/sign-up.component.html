@@ -1,0 +1,45 @@
+<div class="container mt-5">
+    <div class="row h-100 align-items-center justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body p-5 px-6">
+                    <h4 class="primary-text text-center">Sign Up Here</h4>
+                    <form class="form-group mt-5" [formGroup]="signUpForm"   (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input formControlName="email" class="form-control searchbar" placeholder="user@example.com" name="email">
+                            <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="text-danger">
+                                <small *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</small>
+                                <small *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</small>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex flex-column mt-4" *ngIf="!showOTP">
+                            <label class="form-label">Password</label>
+                            <div class="btn-group">
+                                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
+                                <button type="button" class="btn primary-btn" (click)="togglePassword()">
+                                    <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                </button>
+                            </div>
+                            <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="text-danger">
+                                <small>Password is required</small>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex flex-column mt-4" *ngIf="showOTP">
+                            <div class="form-group">
+                                <label class="form-label">OTP</label>
+                                <input type="number" class="form-control searchbar" formControlName="otp" placeholder="Enter 6 digit OTP" name="email" required>
+                            </div>
+                        </div>
+                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" *ngIf="!showOTP" type="submit" [disabled]="signUpForm.invalid">Submit</button>
+                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" *ngIf="showOTP"  type="button" (click)="Verify()">Verify OTP</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a class="secondary-text" href="" *ngIf="!showOTP"> Forgot Password ?</a>
+                        <a class="secondary-text" *ngIf="showOTP">  Resend OTP</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

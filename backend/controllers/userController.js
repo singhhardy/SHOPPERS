@@ -12,20 +12,12 @@ const GetAllUsers = asyncHandler(async (req, res) => {
     }
 })
 
-// Get User profile ~ To fix
-const GetMe = asyncHandler(async(req, res) => {
-    const userId = req.user
-    const user = await User.findById(userId)
 
-    if(!user){
-        res.status(400)
-        throw new Error('User Not Found')
-    }
+// Get User Profile
 
-    res.status(200).json({
-        message: "User Profile",
-        user
-    })
+const GetProfile = asyncHandler(async (req, res) => {
+    const user = req.user
+    res.status(200).json({message: "User Profile", user})
 })
 
 
@@ -163,5 +155,5 @@ module.exports = {
     EditUserProfile,
     ChangePassword,
     AddNewAddress,
-    GetMe
+    GetProfile
 }
