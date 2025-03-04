@@ -61,7 +61,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
           return res.status(400).json({ error: 'User not found' });
       }
 
-      if (user.otp !== otp || user.otpExpires < Date.now()) {
+      if (Number(user.otp) !== otp || user.otpExpires < Date.now()) {
           return res.status(400).json({ error: 'Invalid or expired OTP' });
       }
 

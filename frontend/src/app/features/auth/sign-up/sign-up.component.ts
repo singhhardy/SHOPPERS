@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validator, ReactiveFormsModule, Validators } fr
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +18,12 @@ export class SignUpComponent {
   showOTP: boolean = false
   OTP: Number = 0
 
-  constructor(private fb: FormBuilder, private auth: AuthService){
+  constructor(
+    private fb: FormBuilder, 
+    private auth: AuthService, 
+    private router: Router,
+    private toastr: ToastrService
+  ){
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -34,6 +40,7 @@ export class SignUpComponent {
       (response: any) => {
         console.log(response)
         this.showOTP = true
+        this.toastr.success(response.message)
       },
       (error: any) => {
         console.log(error)
@@ -44,7 +51,7 @@ export class SignUpComponent {
   Verify(){
     const userData = {
       email: this.signUpForm.value.email,
-      otp: Number(this.signUpForm.value.otp),
+      otp: this.signUpForm.value.otp,
       type: 'register'
     }
 
@@ -52,9 +59,12 @@ export class SignUpComponent {
     this.auth.VerifyOtp(userData).subscribe(
       (response: any) => {
         console.log(response)
+        this.router.navigate(['/login'])
+        this.toastr.success('OTP Verified Please Login')
       },
       (error: any) => {
         console.log(error)
+        this.toastr.error('Something Went wrong', error)
       }
     )
   }

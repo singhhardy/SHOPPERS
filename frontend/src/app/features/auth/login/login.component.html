@@ -17,7 +17,7 @@
                             <label class="form-label">Password</label>
                             <div class="btn-group">
                                 <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control rounded-0 rounded-start searchbar" placeholder="*******" name="password">
-                                <button class="btn primary-btn" (click)="togglePassword()">
+                                <button class="btn primary-btn" type="button" (click)="togglePassword()">
                                     <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
                                 </button>
                             </div>
