@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validator, ReactiveFormsModule, Validators } fr
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from  '@angular/router'
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -39,8 +40,8 @@ export class LoginComponent {
           this.toastr.success('Logged In Successfully')
         },
         (error: any) => {
-          console.error('Login failed:', error.message  );
-          this.toastr.error(error.message, 'Something went wrong' )
+          const errorMessage = error.error?.message || error.message || 'An unexpected error occurred';
+          this.toastr.error(errorMessage, 'Something went wrong');
         }
       );
     }

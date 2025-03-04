@@ -17,6 +17,7 @@ export class SignUpComponent {
   showPassword: boolean = false;
   showOTP: boolean = false
   OTP: Number = 0
+  isSubmitting: boolean = false
 
   constructor(
     private fb: FormBuilder, 
@@ -36,14 +37,19 @@ export class SignUpComponent {
   }
 
   onSubmit(){
+    this.isSubmitting = true
     this.auth.SignUpUser(this.signUpForm.value).subscribe(
       (response: any) => {
         console.log(response)
         this.showOTP = true
+        this.isSubmitting = false
         this.toastr.success(response.message)
       },
       (error: any) => {
         console.log(error)
+        this.isSubmitting = false
+        const errorMessage = error.error?.message || error.message || 'An unexpected error occurred';
+        this.toastr.error(errorMessage)
       }
     )
   }
@@ -60,11 +66,12 @@ export class SignUpComponent {
       (response: any) => {
         console.log(response)
         this.router.navigate(['/login'])
-        this.toastr.success('OTP Verified Please Login')
+        this.toastr.success('Please Login', response.message)
       },
       (error: any) => {
         console.log(error)
-        this.toastr.error('Something Went wrong', error)
+        const errorMessage = error.error?.message || 'An unexpected error occurred';
+        this.toastr.error(errorMessage)
       }
     )
   }
@@ -72,8 +79,9 @@ export class SignUpComponent {
   resendOTP(){
     const email = this.signUpForm.value.email
 
-    this.auth.resendOTP(email).subscribe(
+    this.auth.resendOTP({email}).subscribe(
       (response: any) => {
+        this.toastr.success(response)
         console.log(response)
       },
       (error: any) => {

@@ -31,12 +31,11 @@
                                 <input type="number" class="form-control searchbar" formControlName="otp" placeholder="Enter 6 digit OTP" name="email" required>
                             </div>
                         </div>
-                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" *ngIf="!showOTP" type="submit" [disabled]="signUpForm.invalid">Submit</button>
+                        <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" *ngIf="!showOTP" type="submit" [disabled]="signUpForm.invalid || isSubmitting">{{ isSubmitting ? 'Submitting...' : 'Submit'}}</button>
                         <button class="btn primary-btn mt-4 w-100 btn-block btn-lg" *ngIf="showOTP"  type="button" (click)="Verify()">Verify OTP</button>
                     </form>
                     <div class="text-center mt-3">
-                        <a class="secondary-text" href="" *ngIf="!showOTP"> Forgot Password ?</a>
-                        <a class="secondary-text" *ngIf="showOTP">  Resend OTP</a>
+                        <a class="secondary-text" (click)="resendOTP()" *ngIf="showOTP">  Resend OTP</a>
                     </div>
                 </div>
             </div>

@@ -45,4 +45,14 @@ export class AuthService {
     return this.http.post<any[]>(`${this.baseUrl}/auth/resend-otp`, email)
   }
 
+  // RECOVERY
+
+  forgotPass(email: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/auth/forgot-pass`, email)
+  }
+
+  resetPass(userData: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/auth/reset-pass`, userData)
+  }
+
 }
