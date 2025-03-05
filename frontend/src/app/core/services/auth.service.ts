@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   baseUrl = environment.baseUrl
+  currentUser: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   // LOG IN 
 
@@ -22,6 +24,7 @@ export class AuthService {
 
   logout(): void{
     localStorage.removeItem('token')
+    this.router.navigate(['/'])
   }
 
   isLoggedIn(): boolean{

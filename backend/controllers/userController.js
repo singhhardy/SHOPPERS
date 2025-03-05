@@ -93,6 +93,39 @@ const EditUserProfile = asyncHandler(async(req, res) => {
     });
 })
 
+const EditProfile = asyncHandler(async (req, res) => {
+    const userId = req.user
+    const user = await User.findById(userId)
+    const { firstName, lastName, phone, dateOfBirth, gender, isActive } = req.body;
+    if(!user){
+        res.status(400)
+        throw new Error('User Not found')
+    }
+
+    if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    let roleWarning = null
+
+    user.firstName = firstName || user.firstName
+    user.lastName = lastName || user.lastName
+    user.phone = phone || user.phone
+    user.dateOfBirth = dateOfBirth || user.dateOfBirth
+    user.gender = gender || user.gender
+
+    if (typeof isActive !== "undefined") {
+        user.isActive = isActive;
+    }
+
+    const UpdatedUser = await user.save()
+    res.status(200).json({
+        message: 'User profile updated successfully',
+        roleWarning,
+        UpdatedUser
+    });
+})
+
 // CHANGE PASSWORD
 
 const ChangePassword = asyncHandler(async (req, res) => {
@@ -153,6 +186,7 @@ module.exports = {
     DeleteUserById,
     GetUserProfile,
     EditUserProfile,
+    EditProfile,
     ChangePassword,
     AddNewAddress,
     GetProfile

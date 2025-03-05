@@ -40,6 +40,14 @@ a{
     color: var(--primary-color) !important;
 }
 
+.nav-link{
+    color: var(--text-color) !important;
+}
+
+.nav-item.active{
+    color: var(--secondary-color) !important
+}
+
 .card{
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
     transform: scale(1.02)
@@ -115,4 +123,10 @@ a{
 }
 .side-text{
     margin-left: 25px;
+}
+
+/* font sizes */
+
+.fs-12{
+    font-size: 12px !important;
 }

@@ -23,13 +23,14 @@ export class NavbarComponent {
 
   signOut() {
     this.auth.logout()
+    this.user = null;
     console.log('Logged out')
   }
   
   GetUser(){
     this.auth.getMe().subscribe(
       (response: any) => {
-        console.log(response)
+        this.user = response.user
       },
       (error:any) => {
         console.log(error)
