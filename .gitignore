@@ -4,6 +4,7 @@
 node_modules
 .env
 /frontend/.angular/
+/frontend/node_modules
 
 # Compiled output
 /dist
