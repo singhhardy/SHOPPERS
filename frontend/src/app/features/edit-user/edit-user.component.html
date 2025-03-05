@@ -1,14 +1,41 @@
-<form class="row mt-3">
+<form class="row g-3 mt-3 align-items-end" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">First Name</label>
-            <input class="form-control " name="firstName" type="text" placeholder="Enter First Name" >
+            <input formControlName="firstName" class="form-control" name="firstName" type="text" placeholder="Enter First Name">
+            <div class="text-danger" *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched">
+                <small *ngIf="profileForm.get('firstName')?.errors?.['required']">First Name is required</small>
+            </div>
         </div>
     </div> 
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">Last Name</label>
-            <input class="form-control " name="lastName" type="text" placeholder="Enter Last Name" >
+            <input formControlName="lastName" class="form-control" name="lastName" type="text" placeholder="Enter Last Name">
+            <div class="text-danger" *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched">
+                <small *ngIf="profileForm.get('lastName')?.errors?.['required']">Last Name is required</small>
+            </div>
         </div>
-    </div> 
+    </div>
+    <div class="col-xl-5">
+        <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input formControlName="phone" class="form-control" name="phone" type="number" placeholder="Enter Phone Number">
+            <div class="text-danger" *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                <small *ngIf="profileForm.get('phone')?.errors?.['required']">Phone Number is required</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="form-group">
+            <label class="form-label">DOB</label>
+            <input formControlName="dob" class="form-control" name="dob" type="date" placeholder="Enter Date of birth">
+            <div class="text-danger" *ngIf="profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched">
+                <small *ngIf="profileForm.get('dob')?.errors?.['required']">DOB is required</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <button type="submit" class="btn w-100 btn-block py-2 secondary-btn" [disabled]="profileForm.invalid">Save</button>
+    </div>
 </form>

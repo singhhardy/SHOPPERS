@@ -42,7 +42,6 @@ const UsersSchema = new mongoose.Schema(
         phone: {
             type: String,
             unique: true,
-            sparse: true
         },
         addresses: [addressSchema],
         dateOfBirth: {

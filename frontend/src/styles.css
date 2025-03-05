@@ -31,6 +31,7 @@ a{
 
 .form-control{
     box-shadow: none !important;
+    height: 50px;
 }
 .form-control:focus{
     border: 1px solid var(--primary-color) !important;
