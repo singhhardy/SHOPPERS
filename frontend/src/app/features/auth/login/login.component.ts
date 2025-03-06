@@ -35,9 +35,19 @@ export class LoginComponent {
       this.auth.loginUser(this.loginForm.value).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token)
-          this.router.navigate(['/'])
-          this.auth.getMe()
-          this.toastr.success('Logged In Successfully')
+          
+
+          this.auth.getMe().subscribe(
+            () => {
+              this.router.navigate(['/'])
+              this.toastr.success('Logged In Successfully')
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+
+
         },
         (error: any) => {
           const errorMessage = error.error?.message || error.message || 'An unexpected error occurred';
