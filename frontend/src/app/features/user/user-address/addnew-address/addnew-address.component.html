@@ -1,0 +1,39 @@
+<div class="col-xl-6 mt-4">
+    <button class="btn btn-outline-primary w-100 btn-block" (click)="toggleForm()">
+        <i class="fa fa-plus"></i> Add New 
+    </button>
+</div>
+
+<form class=" mt-4" *ngIf="showAddressForm" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <div class="row g-2 align-items-end" formGroupName="address">
+        <div class="col-xl-6 form-group">
+            <label class="form-label">Address Name</label>
+            <input formControlName="addressName" class="form-control" placeholder="Home, Work, Other..." name="addressName" >
+        </div>
+        <div class="col-xl-6 form-group">
+            <label class="form-label">Street</label>
+            <input formControlName="street" class="form-control" placeholder="Enter Street, Area, Building No. House no..." name="street" >
+        </div>
+        <div class="col-xl-6 form-group">
+            <label class="form-label">City</label>
+            <input formControlName="city" class="form-control" placeholder="Enter City" name="city" >
+        </div>
+        <div class="col-xl-6 form-group">
+            <label class="form-label">State</label>
+            <input formControlName="state" class="form-control" placeholder="Enter State" name="state" >
+        </div>
+         <div class="col-xl-6 form-group">
+            <label class="form-label">Country</label>
+            <input formControlName="country" class="form-control" placeholder="Enter Country" name="country">
+        </div>
+        <div class="col-xl-6 form-group">
+            <label class="form-label">Zip Code</label>
+            <input formControlName="zipCode" class="form-control" placeholder="Enter Zip Code" name="zipCode">
+        </div>
+        <div class="col-xl-6">
+            <button class="btn btn-secondary btn-block py-2 w-100" type="submit" [disabled]="addressForm.invalid">Save</button>
+        </div>
+    </div>
+</form>
+
+<app-addresses></app-addresses>

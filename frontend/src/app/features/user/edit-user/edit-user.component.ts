@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../core/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-edit-user',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'

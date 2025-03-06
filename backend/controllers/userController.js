@@ -177,6 +177,56 @@ const AddNewAddress = asyncHandler(async (req, res) => {
     });
 });
 
+// Get User Addresses
+
+const GetUserAddresses = asyncHandler(async (req, res) => {
+    const userId = req.user
+    const user = await User.findById(userId)
+
+    if(!user){
+        res.status(400)
+        throw new Error('User Not Found')
+    }
+
+    const addresses = user.addresses
+
+    if(addresses.length === 0){
+        res.json({ message: "No Addresses added Yet"})
+    }
+
+    res.status(200).json({
+        addresses
+    })
+})
+
+//  Delete an address
+const DeleteAddress = asyncHandler(async (req, res) => {
+    const userId = req.user;
+    const { id: addressId } = req.params; 
+
+    const user = await User.findById(userId);
+    if (!user) {
+        res.status(404);
+        throw new Error('User Not Found');
+    }
+
+    const addressIndex = user.addresses.findIndex(addr => addr._id.toString() === addressId);
+
+    if (addressIndex === -1) {
+        res.status(404);
+        throw new Error('Address not found');
+    }
+
+    const deletedAddress = user.addresses.splice(addressIndex, 1);
+
+    await user.save();
+
+    res.status(200).json({
+        message: 'Address deleted successfully',
+        deletedAddress
+    });
+});
+
 module.exports = {
     GetAllUsers,
     DeleteUserById,
@@ -185,5 +235,7 @@ module.exports = {
     EditProfile,
     ChangePassword,
     AddNewAddress,
+    GetUserAddresses,
+    DeleteAddress,
     GetProfile
 }
