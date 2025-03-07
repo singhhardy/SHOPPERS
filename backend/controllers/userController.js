@@ -169,8 +169,6 @@ const AddNewAddress = asyncHandler(async (req, res) => {
     user.addresses.push(address); 
     await user.save();
 
-    console.log("User after adding address:", user);
-
     res.status(201).json({
         message: "Address Added Successfully",
         user,

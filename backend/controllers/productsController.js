@@ -9,7 +9,7 @@ const getAllProducts = asyncHandler(async(req, res) => {
 
 // ADD NEW PRODUCT
 const AddNewProduct = asyncHandler(async(req, res) => {
-    const { user, name, brand, description, price, countInStock } = req.body
+    const { user, name, category, brand, description, price, countInStock } = req.body
     
     if(!user || !name || !brand || !description || !price || !countInStock){
         res.status(400)
@@ -23,8 +23,9 @@ const AddNewProduct = asyncHandler(async(req, res) => {
     }
 
     const product = new Product({
-        user,
+        // user,
         name,
+        category,
         brand,
         description,
         price,
