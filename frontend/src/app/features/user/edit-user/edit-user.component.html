@@ -2,7 +2,7 @@
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">First Name</label>
-            <input formControlName="firstName" class="form-control" name="firstName" type="text" placeholder="Enter First Name">
+            <input formControlName="firstName" class="form-control" name="firstName" type="text" value="{{ (user$ | async)?.firstName }}" placeholder="Enter First Name">
             <div class="text-danger" *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched">
                 <small *ngIf="profileForm.get('firstName')?.errors?.['required']">First Name is required</small>
             </div>
@@ -11,7 +11,7 @@
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">Last Name</label>
-            <input formControlName="lastName" class="form-control" name="lastName" type="text" placeholder="Enter Last Name">
+            <input formControlName="lastName" class="form-control" name="lastName" type="text" value="{{ (user$ | async)?.lastName}}" placeholder="Enter Last Name">
             <div class="text-danger" *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched">
                 <small *ngIf="profileForm.get('lastName')?.errors?.['required']">Last Name is required</small>
             </div>
@@ -20,7 +20,7 @@
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">Phone</label>
-            <input formControlName="phone" class="form-control" name="phone" type="number" placeholder="Enter Phone Number">
+            <input formControlName="phone" class="form-control" name="phone" value="{{ (user$ | async)?.phone }}" type="number" placeholder="Enter Phone Number">
             <div class="text-danger" *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
                 <small *ngIf="profileForm.get('phone')?.errors?.['required']">Phone Number is required</small>
             </div>
@@ -29,13 +29,13 @@
     <div class="col-xl-5">
         <div class="form-group">
             <label class="form-label">DOB</label>
-            <input formControlName="dob" class="form-control" name="dob" type="date" placeholder="Enter Date of birth">
-            <div class="text-danger" *ngIf="profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched">
-                <small *ngIf="profileForm.get('dob')?.errors?.['required']">DOB is required</small>
+            <input formControlName="dateOfBirth" class="form-control" name="dateOfBirth" type="date" value="{{ (user$ | async)?.dateOfBirth }}" placeholder="Enter Date of birth">
+            <div class="text-danger" *ngIf="profileForm.get('dateOfBirth')?.invalid && profileForm.get('dateOfBirth')?.touched">
+                <small *ngIf="profileForm.get('dateOfBirth')?.errors?.['required']">DOB is required</small>
             </div>
         </div>
     </div>
     <div class="col-xl-5">
-        <button type="submit" class="btn w-100 btn-block py-2 secondary-btn" [disabled]="profileForm.invalid">Save</button>
+        <button type="submit" class="btn w-100 btn-block py-2 secondary-btn" >Save</button>
     </div>
 </form>
