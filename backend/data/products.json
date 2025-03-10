@@ -1,122 +1,102 @@
 [
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Nike Air Zoom Pegasus",
-        "category": "Shoes",
         "brand": "Nike",
         "description": "Lightweight running shoes with great cushioning.",
         "price": 120,
         "countInStock": 50,
-        "image": "https://via.placeholder.com/300x300?text=Nike+Shoe",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shoes",
+        "image": "https://via.placeholder.com/300x300?text=Nike+Shoe"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Adidas Ultraboost 22",
-        "category": "Shoes",
         "brand": "Adidas",
         "description": "High-performance running shoes with boost technology.",
         "price": 150,
         "countInStock": 40,
-        "image": "https://via.placeholder.com/300x300?text=Adidas+Shoe",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shoes",
+        "image": "https://via.placeholder.com/300x300?text=Adidas+Shoe"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Puma RS-X",
-        "category": "Shoes",
         "brand": "Puma",
         "description": "Stylish and comfortable lifestyle sneakers.",
         "price": 110,
         "countInStock": 30,
-        "image": "https://via.placeholder.com/300x300?text=Puma+Shoe",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shoes",
+        "image": "https://via.placeholder.com/300x300?text=Puma+Shoe"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "New Balance Fresh Foam 1080",
-        "category": "Shoes",
         "brand": "New Balance",
         "description": "Versatile running shoes for daily training.",
         "price": 140,
         "countInStock": 20,
-        "image": "https://via.placeholder.com/300x300?text=New+Balance+Shoe",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shoes",
+        "image": "https://via.placeholder.com/300x300?text=New+Balance+Shoe"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Under Armour HOVR Phantom 2",
-        "category": "Shoes",
         "brand": "Under Armour",
         "description": "Responsive and comfortable running shoes.",
         "price": 130,
         "countInStock": 25,
-        "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shoe",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shoes",
+        "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shoe"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Nike Dri-FIT Running Shirt",
-        "category": "Shirts",
         "brand": "Nike",
         "description": "Lightweight and breathable running shirt.",
         "price": 40,
         "countInStock": 60,
-        "image": "https://via.placeholder.com/300x300?text=Nike+Shirt",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shirts",
+        "image": "https://via.placeholder.com/300x300?text=Nike+Shirt"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Adidas Essentials T-Shirt",
-        "category": "Shirts",
         "brand": "Adidas",
         "description": "Classic Adidas t-shirt with a soft cotton feel.",
         "price": 35,
         "countInStock": 50,
-        "image": "https://via.placeholder.com/300x300?text=Adidas+Shirt",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shirts",
+        "image": "https://via.placeholder.com/300x300?text=Adidas+Shirt"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Puma Training Tee",
-        "category": "Shirts",
         "brand": "Puma",
         "description": "Moisture-wicking training t-shirt for workouts.",
         "price": 30,
         "countInStock": 40,
-        "image": "https://via.placeholder.com/300x300?text=Puma+Shirt",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shirts",
+        "image": "https://via.placeholder.com/300x300?text=Puma+Shirt"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Under Armour HeatGear Shirt",
-        "category": "Shirts",
         "brand": "Under Armour",
         "description": "Compression fit shirt for high-performance training.",
         "price": 45,
         "countInStock": 35,
-        "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shirt",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shirts",
+        "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shirt"
     },
     {
+        "user": "67b80478166eb7c2eef22d61",
         "name": "Reebok CrossFit T-Shirt",
-        "category": "Shirts",
         "brand": "Reebok",
         "description": "Comfortable and durable t-shirt for intense workouts.",
         "price": 38,
         "countInStock": 45,
-        "image": "https://via.placeholder.com/300x300?text=Reebok+Shirt",
-        "reviews": [],
-        "rating": 0,
-        "numReviews": 0
+        "category": "Shirts",
+        "image": "https://via.placeholder.com/300x300?text=Reebok+Shirt"
     }
 ]

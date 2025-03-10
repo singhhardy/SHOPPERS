@@ -7,9 +7,23 @@ const getAllProducts = asyncHandler(async(req, res) => {
     res.json(products)
 })
 
+const getProduct = asyncHandler(async(req, res) => {
+    const { productId } = req.params
+    const product = await Product.findOne({productId})
+    if(!product){
+        res.status(400)
+        throw new Error('Product not found')
+    }
+
+    res.status(200).json({
+        message: "Product Found",
+        product
+    })
+})
+
 // ADD NEW PRODUCT
 const AddNewProduct = asyncHandler(async(req, res) => {
-    const { user, name, category, brand, description, price, countInStock } = req.body
+    const { user, name, category, brand, description, price, countInStock, image } = req.body
     
     if(!user || !name || !brand || !description || !price || !countInStock){
         res.status(400)
@@ -23,14 +37,14 @@ const AddNewProduct = asyncHandler(async(req, res) => {
     }
 
     const product = new Product({
-        // user,
+        user,
         name,
         category,
         brand,
         description,
         price,
         countInStock,
-        image: '',
+        image,
         reviews: [],
         rating: 0,
         numReviews: 0
@@ -109,5 +123,6 @@ module.exports = {
     getAllProducts,
     AddNewProduct,
     deleteProduct,
-    editProduct
+    editProduct,
+    getProduct
 }

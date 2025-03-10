@@ -27,9 +27,7 @@ export class UserService {
         }
         else if (Array.isArray(data)) {
           addressesArray = data;
-        } else {
-          console.error('Unexpected format for addresses:', data);
-        }
+        } 
         this.updateAddresses(addressesArray);
       },
       error => {
