@@ -19,6 +19,7 @@ export class AddnewAddressComponent {
   showAddressForm = false
   userAddresses: any
   user$: Observable<any>
+  addresses: any[] = [];
 
   addressForm = new FormGroup({
     address: new FormGroup({
@@ -35,9 +36,6 @@ export class AddnewAddressComponent {
     this.user$ = this.auth.user$
   }
 
-  ngOnInit(){
-  }
-
   toggleForm(){
     this.showAddressForm = !this.showAddressForm
   }
@@ -51,6 +49,7 @@ export class AddnewAddressComponent {
         console.log(response)
         this.toastr.success('Address Added Successfully')
         this.showAddressForm = false
+        this.userService.fetchAddresses();
       },
       (error) => {
         console.log(error)

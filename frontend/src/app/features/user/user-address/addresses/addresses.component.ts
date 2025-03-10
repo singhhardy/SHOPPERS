@@ -12,10 +12,16 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './addresses.component.css'
 })
 export class AddressesComponent {
-  user$: Observable<any>
+  addresses: any = []
 
-  constructor(private auth: AuthService, private userService: UserService, private toastr: ToastrService){
-    this.user$ = this.auth.user$
+  constructor(private userService: UserService, private toastr: ToastrService){
+  }
+
+  ngOnInit() {
+    this.userService.addresses$.subscribe((addresses) => {
+      this.addresses = addresses || [];
+    });
+    this.userService.fetchAddresses();
   }
 
   deleteAddress(addressId: string){
@@ -23,6 +29,7 @@ export class AddressesComponent {
     this.userService.DeleteAddress(addressId).subscribe({
       next: () => {
         this.toastr.success('Address Deleted Successfully');
+        this.userService.fetchAddresses();
       },
       error: (error) => {
         console.error("Delete Error:", error);
