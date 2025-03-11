@@ -5,10 +5,10 @@ const Product = require('../models/productModel')
 
 const AddReview = asyncHandler(async(req,res) => {
     const userId = req.user._id
-    const {productId} = req.params
+    const { id } = req.params
     const { comment, rating } = req.body
 
-    const product = await Product.findOne({productId})
+    const product = await Product.findById(id)
     if(!product){
         res.status(400)
         throw new Error('Product not found')
@@ -42,8 +42,11 @@ const AddReview = asyncHandler(async(req,res) => {
 })
 
 const GetAllReviews = asyncHandler(async (req, res) => {
-    const {productId} = req.params
-    const product = await Product.findOne({productId})
+    const {id} = req.params
+    const product = await Product.findById(id).populate({
+        path: "reviews.user",
+        select: "firstName lastName email"
+    })
     if(!product){
         res.status(400)
         throw new Error('Product not found')

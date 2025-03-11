@@ -36,6 +36,7 @@ const DeleteUserById = asyncHandler(async (req, res) => {
     res.status(201).json({message: 'User Deleted Successfully', })
 })
 
+// Get User profile
 const GetUserProfile = asyncHandler(async (req, res) => {
     const userId = req.params.id
     const user = await User.findById(userId)

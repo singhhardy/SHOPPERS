@@ -14,10 +14,26 @@
             </span>
             <br>
             <div class="my-3 text-nowrap">
-                <button class="btn btn-lg me-2 primary-btn">Add To Cart</button>
-                <button class="btn btn-lg border-primary primary-text">Buy Now</button>
+                <button class="btn btn-lg me-2 primary-btn rounded-0">Add To Cart</button>
+                <button class="btn btn-lg border-primary primary-text rounded-0">Buy Now</button>
             </div>
 
+            <div class="mt-5">
+                <div class="d-flex mb-3 align-items-center justify-content-between">
+                    <h4 class="fw-semibold">Reviews & Ratings</h4>
+                    <h6 class="text-primary float-end">
+                        {{
+                        product.numReviews === 0
+                            ? 'No reviews yet'
+                            : product.numReviews + (product.numReviews === 1 ? ' Review' : ' Reviews')
+                        }}   
+                    </h6>
+                </div>
+                <app-add-review></app-add-review>
+            </div>
+            <div class="mt-5">
+                
+            </div>
         </div>
     </div>
 </div>

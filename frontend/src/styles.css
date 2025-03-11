@@ -33,6 +33,10 @@ a{
     border-color: var(--primary-color) !important;
 }
 
+.border-secondary{
+    border-color: var(--secondary-color) !important;
+}
+
 .form-control{
     box-shadow: none !important;
     height: 50px;
@@ -56,6 +60,10 @@ a{
 .card{
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
     transform: scale(1.02)
+}
+
+.h-120{
+    height: 120px !important;
 }
 
 /* BUTTONS */

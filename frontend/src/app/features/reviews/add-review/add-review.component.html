@@ -1,0 +1,18 @@
+<button class="btn border-secondary btn-block w-100 secondary-text" (click)="toggleBox()"><i class="fa fa-plus"></i> Add a review</button>
+
+<div class="form-group my-3" *ngIf="showTextbox">
+    <div class="d-flex align-items-center">
+        <span class="p-2">
+            <i *ngFor="let star of stars; let index = index"
+                class="fa fa-star"
+                [ngClass]="index < rating ? 'text-warning' : 'text-secondary'"
+                (click)="rate(index + 1)"
+                style="cursor: pointer; font-size: 24px;">
+            </i>
+        </span>
+      </div>
+    <textarea class="form-control h-120" [(ngModel)]="ratingText" placeholder="Enter a feedback"></textarea>
+    <button class=" btn primary-btn mt-2 btn-sm" (click)="saveRating()">Save</button>
+</div>
+
+<app-reviews-list></app-reviews-list>
