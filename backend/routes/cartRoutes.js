@@ -4,10 +4,10 @@ const { AddToCart, RemoveFromCart, UpdateCart, GetCartItems, GetCartTotal, Clear
 const { protect } = require('../middleware/authMiddleware')
 
 router.route('/').post(protect, AddToCart)
-router.route('/').delete(protect, RemoveFromCart)
 router.route('/').put(protect, UpdateCart)
 router.route('/').get(protect, GetCartItems)
 router.route('/total').get(protect, GetCartTotal)
 router.route('/clear').delete(protect, ClearCart)
+router.route('/:id').delete(protect, RemoveFromCart)
 
 module.exports = router

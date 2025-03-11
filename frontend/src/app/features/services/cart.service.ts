@@ -19,4 +19,8 @@ export class CartService {
     return this.http.get<any>(`${this.baseUrl}/cart`)
   }
 
+  removeItemFromCart(id: any): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/cart/${id}`)
+  }
+
 }

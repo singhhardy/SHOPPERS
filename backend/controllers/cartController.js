@@ -44,8 +44,8 @@ const AddToCart = asyncHandler(async (req, res) => {
 // Remove Item From Cart
 const RemoveFromCart = asyncHandler(async (req, res) => {
     const userId = req.user
-    const { productId} = req.body
-    const product = await Product.findById(productId)
+    const { id } = req.params
+    const product = await Product.findById(id)
     if(!product){
         res.status(400)
         throw new Error('Product Not Found')
@@ -58,7 +58,7 @@ const RemoveFromCart = asyncHandler(async (req, res) => {
         throw new Error('Cart Not found')
     }
 
-    cart.items = cart.items.filter(item => item.productId.toString() !== productId)
+    cart.items = cart.items.filter(item => item.productId.toString() !== id);
 
     await cart.save()
     

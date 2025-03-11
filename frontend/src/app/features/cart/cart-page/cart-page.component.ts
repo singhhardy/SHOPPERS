@@ -14,12 +14,29 @@ export class CartPageComponent {
   constructor(private cart: CartService){}
 
   ngOnInit(){
+    this.getCartItems()
+  }
+
+  getCartItems(){
     this.cart.getMyCart().subscribe(
       (response) => {
         this.cartItems = response.cart.items
         console.log(this.cartItems)
       },
       (error) => {
+        console.log(error)
+      }
+    )
+  }
+
+  removeItem(id: any){
+    console.log(id)
+    this.cart.removeItemFromCart(id).subscribe(
+      response => {
+        console.log(response)
+        this.getCartItems()
+      },
+      error => {
         console.log(error)
       }
     )

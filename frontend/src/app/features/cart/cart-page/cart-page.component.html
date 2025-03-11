@@ -10,6 +10,7 @@
                             <p class="mb-1">{{ item.productId.description }}</p>
                             <p class="fw-semibold">{{ item.productId.brand }}</p>
                             <h4 class="fw-semibold">$ {{ item.productId.price }}</h4>
+                            <button class="btn border btn-sm" (click)="removeItem( item.productId._id )">Remove</button>
                         </div>
                     </div>
                 </div>
