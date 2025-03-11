@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { AddReviewComponent } from "../../reviews/add-review/add-review.component";
+import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +15,13 @@ import { AddReviewComponent } from "../../reviews/add-review/add-review.componen
 export class ProductDetailsComponent {
   product: any
 
-  constructor(private route: ActivatedRoute, private productService: ProductService){}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private productService: ProductService,
+    private cart: CartService,
+    private toastr: ToastrService
+  ){}
 
   ngOnInit(){
     this.route.paramMap.subscribe(params => {
@@ -33,4 +41,24 @@ export class ProductDetailsComponent {
       }
     );
   }
+
+  addCartProduct(id: any){
+    const addItem = {
+      productId: id,
+      quantity: 1
+    }
+
+    this.cart.AddToCart(addItem).subscribe(
+      (response) => {
+        console.log(response)
+        this.toastr.success("Added to cart Successfully")
+        this.router.navigate(['/cart'])
+      },
+      (error) => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
+  }
+
 }

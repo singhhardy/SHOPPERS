@@ -31,6 +31,13 @@ const AddToCart = asyncHandler(async (req, res) => {
     }
 
     await cart.save()
+
+    await cart.populate({
+        path: 'items.productId',
+        select: 'name description price image brand category'
+    });
+
+
     res.status(201).json({message: 'Item Added To Cart', cart})
 })
 
@@ -92,7 +99,11 @@ const UpdateCart = asyncHandler(async (req, res) => {
 const GetCartItems = asyncHandler(async (req, res) => {
     const userId = req.user
     
-    let cart = await Cart.findOne({userId})
+    let cart = await Cart.findOne({userId}).populate({
+        path: 'items.productId',
+        select: 'name description price image brand category'
+    });
+
     if(!cart){
         res.status(400)
         throw new Error('Cart Not Found')

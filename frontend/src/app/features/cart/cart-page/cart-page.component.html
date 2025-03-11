@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <div class="row" >
+        <div class="col-xl-8" >
+            <div class="card mb-3" *ngFor="let item of cartItems">
+                <div class="card-body">
+                    <div class="d-flex align-items-start justify-content-start">
+                        <img src="{{ item.productId.image }}" class="rounded-2 me-3" width="200px" height="200px">
+                        <div>
+                            <h3>{{ item.productId.name }}</h3>
+                            <p class="mb-1">{{ item.productId.description }}</p>
+                            <p class="fw-semibold">{{ item.productId.brand }}</p>
+                            <h4 class="fw-semibold">$ {{ item.productId.price }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

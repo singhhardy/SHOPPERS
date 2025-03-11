@@ -6,6 +6,7 @@ import { SignUpComponent } from './features/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { ProductDetailsComponent } from './features/products/product-details/product-details.component';
+import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
@@ -16,5 +17,8 @@ export const routes: Routes = [
     {path: 'forgot-password', component: ForgotPasswordComponent},
     
     // PRODUCT DETAILS
-    {path: 'product-details/:id', component: ProductDetailsComponent}
+    {path: 'product-details/:id', component: ProductDetailsComponent},
+
+    // CART
+    {path: 'cart', component: CartPageComponent}
 ];
