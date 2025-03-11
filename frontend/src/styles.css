@@ -143,3 +143,11 @@ a{
 .fs-12{
     font-size: 12px !important;
 }
+
+/* Cart */
+
+.cart-footer{
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+}

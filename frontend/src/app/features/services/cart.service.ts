@@ -23,4 +23,16 @@ export class CartService {
     return this.http.delete<any>(`${this.baseUrl}/cart/${id}`)
   }
 
+  getCartTotal(): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/cart/total`)
+  }
+
+  clearCart(): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/cart/clear`)
+  }
+
+  updateCart(id: string, cartData: any): Observable<any[]>{
+    return this.http.put<any[]>(`${this.baseUrl}/cart/${id}`, cartData)
+  }
+
 }
