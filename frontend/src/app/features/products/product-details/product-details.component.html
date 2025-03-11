@@ -1,16 +1,16 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="product">
     <div class="row">
         <div class="col-xl-6">
-            <img class="img-fluid rounded-2" [src]="product?.image" >
+            <img class="img-fluid rounded-2" [src]="product.image" >
         </div>
         <div class="col-xl-6">
-            <h5 class="mb-1 text-secondary">{{ product?.brand }}</h5>
-            <h2 class="page-title fw-bold ">{{ product?.name }}</h2>
-            <span class="badge secondary-bg mb-2">{{ product?.category }}</span>
-            <h1 class="fw-semibold">$ {{ product?.price }}</h1>
-            <p>{{ product?.description }}</p>
-            <span class="fw-semibold {{ product?.countInStock ? 'text-secondary' : 'text-danger' }}">
-                Stock : {{ product?.countInStock ? product?.countInStock : 'Currently Unavailable' }}
+            <h5 class="mb-1 text-secondary">{{ product.brand }}</h5>
+            <h2 class="page-title fw-bold ">{{ product.name }}</h2>
+            <span class="badge secondary-bg mb-2">{{ product.category }}</span>
+            <h1 class="fw-semibold">$ {{ product.price }}</h1>
+            <p>{{ product.description }}</p>
+            <span class="fw-semibold {{ product.countInStock ? 'text-secondary' : 'text-danger' }}">
+                Stock : {{ product.countInStock ? product.countInStock : 'Currently Unavailable' }}
             </span>
             <br>
             <div class="my-3 text-nowrap">

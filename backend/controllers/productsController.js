@@ -7,9 +7,11 @@ const getAllProducts = asyncHandler(async(req, res) => {
     res.json(products)
 })
 
+// GET PRODUCT BY ID
 const getProduct = asyncHandler(async(req, res) => {
-    const { productId } = req.params
-    const product = await Product.findOne({productId})
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    
     if(!product){
         res.status(400)
         throw new Error('Product not found')

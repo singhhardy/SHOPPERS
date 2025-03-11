@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -16,7 +17,7 @@ export class ProductDetailsComponent {
   ngOnInit(){
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      this.getProductDetails(id); // Pass id directly here
+      this.getProductDetails(id);
     });
   }
   
