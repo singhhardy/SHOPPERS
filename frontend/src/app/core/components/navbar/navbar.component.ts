@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent {
   isNavbarCollapsed = true;
-  user$: Observable<any>; 
+  user$: Observable<any>;
 
   constructor(public auth: AuthService){
     this.user$ = this.auth.user$

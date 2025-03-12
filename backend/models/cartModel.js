@@ -12,10 +12,10 @@ const cartItemSchema = mongoose.Schema(
             required: true,
             min: 1
         },
-        price: {
-            type: Number,
-            required: true,
-        }
+        // price: {
+        //     type: Number,
+        //     required: true,
+        // }
     },
     {
         _id: false

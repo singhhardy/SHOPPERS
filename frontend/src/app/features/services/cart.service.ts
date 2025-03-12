@@ -31,8 +31,8 @@ export class CartService {
     return this.http.delete<any>(`${this.baseUrl}/cart/clear`)
   }
 
-  updateCart(id: string, cartData: any): Observable<any[]>{
-    return this.http.put<any[]>(`${this.baseUrl}/cart/${id}`, cartData)
+  updateCart(cartData: any): Observable<any[]>{
+    return this.http.put<any[]>(`${this.baseUrl}/cart`, cartData)
   }
 
 }

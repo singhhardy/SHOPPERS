@@ -1,35 +1,52 @@
 <div class="container mt-4">
-    <div class="row" >
+    <div class="row">
         <div class="col-xl-8" >
+            <!-- <div class="card p-2">
+                Deliver to
+                <app-addresses></app-addresses>
+            </div> -->
             <div class="card mb-3" *ngFor="let item of cartItems">
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-start">
-                        <img src="{{ item.productId.image }}" class="rounded-2 me-3" width="200px" height="200px">
+                        <a [routerLink]="['/product-details', item.productId._id]">
+                            <img src="{{ item.productId.image }}" class="rounded-2 me-3" width="200px" height="200px">
+                        </a>
                         <div>
                             <h3>{{ item.productId.name }}</h3>
                             <p class="mb-1">{{ item.productId.description }}</p>
                             <p class="fw-semibold">{{ item.productId.brand }}</p>
                             <h4 class="fw-semibold">$ {{ item.productId.price }}</h4>
-                            <button class="btn border btn-sm" (click)="removeItem( item.productId._id )"><i class="fa fa-bin"></i> Remove</button>
+                            <button class="btn border btn-sm" (click)="removeItem( item.productId._id )"><i class="fa fa-bin"></i> Remove</button><br>
+                            <div class="btn-group mt-1">
+                                <button class="btn fa btn-sm fa-minus border" (click)="decQuantity(item.productId._id)"></button>
+                                <input class="border py-1 text-center" value="{{ item.quantity }}" style="width: 50px;">
+                                <button class="btn fa btn-sm fa-plus border" (click)="addQuantity(item.productId._id)"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-4" *ngIf="cartItems.length > 0">
             <div class="card">
                 <div class="card-body">
-                    
+                    <h6 class="text-secondary">Total Items : <span class="fw-semibold text-dark"></span></h6>
+                    <h6 class="text-secondary">Total Amount : <span class="fw-semibold text-dark">$ {{ cartTotal }}</span></h6>
+                    <h6 class="text-success">Free Delivery</h6>
+                </div>
+            </div>
+            <div class="text-nowrap card mt-2">
+                <div class="card-body">
+                    <button class="btn float-end primary-btn rounded-0">Place Order</button>
+                    <button class="btn float-end border-primary primary-text rounded-0 me-2" (click)="ClearCart()"><i class="fa fa-bin"></i> Clear Cart</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-8">
-        <div class="text-nowrap card">
-            <div class="card-body">
-                <button class="btn float-end primary-btn" >Check Out</button>
-                <button class="btn float-end border-primary primary-text me-2" (click)="ClearCart()"><i class="fa fa-bin"></i> Clear Cart</button>
-            </div>
-        </div>
+
+
+    <div class="text-center mt-5" *ngIf="cartItems.length === 0">
+        <div class="card-title">You Cart is empty</div>
+        <button class="btn secondary-btn mt-2 rounded-0" [routerLink]="'/'"> Shop Now!</button>
     </div>
 </div>

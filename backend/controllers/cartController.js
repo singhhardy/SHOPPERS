@@ -87,7 +87,7 @@ const UpdateCart = asyncHandler(async (req, res) => {
     if(cartItem){
         cartItem.quantity = quantity
     } else{
-        cart.item.push({ productId, quantity})
+        cart.items.push({ productId, quantity})
     }
     
     await cart.save();
@@ -128,8 +128,8 @@ const GetCartTotal = asyncHandler(async (req, res) => {
 
 // Clear Cart Items 
 const ClearCart = asyncHandler(async ( req, res) => {
-    const id = req.user
-    let cart = await Cart.findById(id)
+    const userId = req.user
+    let cart = await Cart.findOne({ userId })
 
     if(!cart){
         res.status(400)

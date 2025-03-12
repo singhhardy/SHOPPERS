@@ -3,10 +3,11 @@ import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { response } from 'express';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css'
 })
@@ -20,6 +21,13 @@ export class CartPageComponent {
     this.getCartItems()
     this.CartTotal()
   }
+
+  calculateCartTotal() {
+    this.cartTotal = this.cartItems.reduce((total, item) => {
+      return total + item.productId.price * item.quantity;
+    }, 0);
+  }
+  
 
   getCartItems(){
     this.cart.getMyCart().subscribe(
@@ -65,6 +73,43 @@ export class CartPageComponent {
         this.toastr.error(error.message)
       }
     )
+  }
+
+
+  // Update cart
+  addQuantity(productId: string) {
+    const item = this.cartItems.find(item => item.productId._id === productId);
+    if (item) {
+      item.quantity += 1;
+      this.calculateCartTotal()
+      this.updateQuantity(productId, item.quantity);
+    }
+  }
+
+  decQuantity(productId: string) {
+    const item = this.cartItems.find(item => item.productId._id === productId);
+    if (item && item.quantity > 1) {
+      item.quantity -= 1;
+      this.calculateCartTotal()
+      this.updateQuantity(productId, item.quantity);
+    }
+  }
+
+  updateQuantity(productId: string, quantity: number) {
+    const cartData = { productId, quantity };
+
+    this.cart.updateCart(cartData).subscribe(
+      (response) => {
+        console.log('Cart updated:', response);
+        this.getCartItems()
+        this.cartTotal()
+        this.toastr.success('Cart updated successfully');
+      },
+      (error) => {
+        console.error('Error updating cart:', error);
+        this.toastr.error('Failed to update cart');
+      }
+    );
   }
 
 }
