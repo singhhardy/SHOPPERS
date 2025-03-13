@@ -151,3 +151,7 @@ a{
     bottom: 0;
     padding: 20px;
 }
+
+.product-img{
+    height: 400px;
+}

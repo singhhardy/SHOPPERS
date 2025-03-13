@@ -2,7 +2,7 @@
     <div class="col-xl-4" *ngFor="let product of products">
         <div class="card" >
             <a [routerLink]="['/product-details', product._id]">
-                <img class="card-img-top border" src="{{ product.image }}" alt="Product Image">
+                <img class="card-img-top product-img border" src="{{ product.image }}" alt="Product Image">
             </a>
             <div class="card-body">
                 <a class="card-title mb-0 text-primary" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
