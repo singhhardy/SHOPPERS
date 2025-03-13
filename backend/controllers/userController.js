@@ -226,6 +226,40 @@ const DeleteAddress = asyncHandler(async (req, res) => {
     });
 });
 
+// Update to Default Address
+
+const updateDefaultAddress = asyncHandler(async (req, res) => {
+    const userId = req.user
+    const { addressId } = req.params;
+    const { isDefault } = req.body
+    const user = await User.findById(userId)
+
+    if(!user){
+        res.status(400)
+        throw new Error('User not found')
+    }
+
+    if(isDefault){
+        user.addresses.forEach(address => {
+            address.isDefault = false;
+        })
+    }
+
+    const addressToUpdate = user.addresses.id(addressId)
+    if(!addressToUpdate){
+        return res.status(404).json({ message: "Address not found " })
+    }
+    
+    addressToUpdate.isDefault = isDefault
+
+    await user.save()
+
+    res.status(200).json({
+        message: "Address Set to default",
+        user
+    })
+})
+
 module.exports = {
     GetAllUsers,
     DeleteUserById,
@@ -236,5 +270,6 @@ module.exports = {
     AddNewAddress,
     GetUserAddresses,
     DeleteAddress,
-    GetProfile
+    GetProfile,
+    updateDefaultAddress
 }
