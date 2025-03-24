@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
-import { response } from 'express';
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [CommonModule, RouterModule],
+  imports: [ CommonModule, RouterModule ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css'
 })
@@ -56,6 +55,7 @@ export class CartPageComponent {
     this.cart.getCartTotal().subscribe(
       (response) => {
         this.cartTotal = response.total
+        console.log(this.cartTotal)
       },
       (error) => {
         console.log(error)
@@ -102,8 +102,8 @@ export class CartPageComponent {
       (response) => {
         console.log('Cart updated:', response);
         this.getCartItems()
-        this.cartTotal()
-        this.toastr.success('Cart updated successfully');
+        this.cartTotal
+        this.toastr.success('Item updated successfully');
       },
       (error) => {
         console.error('Error updating cart:', error);

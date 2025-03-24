@@ -58,7 +58,7 @@ const placeOrder = asyncHandler(async(req,res) => {
 
     await sendEmail({
         to: user.email,
-        subject: 'ORDER PLACED - SHOPPER',
+        subject: 'ORDER PLACED - SHOPPERS',
         text: `Your order has been placed successfully.`,
         html: `
             <div>

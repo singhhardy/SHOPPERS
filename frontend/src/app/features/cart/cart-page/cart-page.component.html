@@ -30,14 +30,14 @@
         <div class="col-xl-4" *ngIf="cartItems.length > 0">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="text-secondary">Total Items : <span class="fw-semibold text-dark"></span></h6>
+                    <h6 class="text-secondary">Total Items : <span class="fw-semibold text-dark"> {{ cartItems.length }} </span></h6>
                     <h6 class="text-secondary">Total Amount : <span class="fw-semibold text-dark">$ {{ cartTotal }}</span></h6>
                     <h6 class="text-success">Free Delivery</h6>
                 </div>
             </div>
             <div class="text-nowrap card mt-2">
                 <div class="card-body">
-                    <button class="btn float-end primary-btn rounded-0">Place Order</button>
+                    <button class="btn float-end primary-btn rounded-0" [routerLink]="'/place-order'">Place Order</button>
                     <button class="btn float-end border-primary primary-text rounded-0 me-2" (click)="ClearCart()"><i class="fa fa-bin"></i> Clear Cart</button>
                 </div>
             </div>
