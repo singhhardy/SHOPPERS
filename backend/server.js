@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 const port = process.env.PORT || 8000
 const connectDb = require('./config/db');
 const authRoutes = require('./routes/authRoutes')
-const cors = require('cors')
 const { errorHandler } = require('./middleware/errorMiddleware')
 const productRoutes = require('./routes/productsRoutes')
 const cartRoutes = require('./routes/cartRoutes')
@@ -11,12 +10,42 @@ const userRoutes = require('./routes/userRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const reviewRoutes = require('./routes/reviewRoutes')
 
+const app = express();
+
+// SECURITY
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
+const xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
+
+app.use(helmet());
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,  
+    message: 'Too many requests from this IP, please try again later.'
+});
+app.use(limiter);
+
+const corsOptions = {
+    origin: ['http://localhost:4200', ''],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
+
+// ---------------------------
+
 connectDb();
 
 dotenv.config();
 
-const app = express();
-app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 

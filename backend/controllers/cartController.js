@@ -9,9 +9,18 @@ const AddToCart = asyncHandler(async (req, res) => {
     const userId = req.user
     const { productId, quantity, } = req.body
     const product = await Product.findById(productId)
+
+    if (quantity <= 0) {
+        return res.status(400).json({ error: 'Invalid quantity' });
+    }
+
     if(!product){
         res.status(400)
         throw new Error('Product Not Found')
+    }
+
+    if (product.stock < quantity) {
+        return res.status(400).json({ error: 'Not enough stock available' });
     }
 
     let cart = await Cart.findOne({ userId })
