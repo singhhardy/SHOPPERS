@@ -7,7 +7,7 @@
             <h5 class="mb-1 text-secondary">{{ product.brand }}</h5>
             <h2 class="page-title fw-bold ">{{ product.name }}</h2>
             <span class="badge secondary-bg mb-2">{{ product.category }}</span>
-            <h1 class="fw-semibold">$ {{ product.price }}</h1>
+             <div class="d-flex align-items-center fs-4"><i class="fa-solid fa-indian-rupee-sign me-2"></i> <h3 class="fw-semibold mb-0"> {{ product.price }}</h3></div> 
             <p>{{ product.description }}</p>
             <span class="fw-semibold {{ product.countInStock ? 'text-secondary' : 'text-danger' }}">
                 Stock : {{ product.countInStock ? product.countInStock : 'Currently Unavailable' }}

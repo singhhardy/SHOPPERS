@@ -32,7 +32,7 @@ export class CartPageComponent {
     this.cart.getMyCart().subscribe(
       (response) => {
         this.cartItems = response.cart.items
-        console.log(this.cartItems)
+        this.cart.updateCartItemCount(this.cartItems.length);
       },
       (error) => {
         console.log(error)

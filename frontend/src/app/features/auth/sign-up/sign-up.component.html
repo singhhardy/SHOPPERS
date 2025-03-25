@@ -4,6 +4,7 @@
             <div class="card">
                 <div class="card-body p-5 px-6">
                     <h4 class="primary-text text-center">Sign Up Here</h4>
+                    <p class="text-secondary text-center">Already a user? <a class="secondary-text text-decoration-none fw-semibold" [routerLink]="'/login'">Login here.</a></p>
                     <form class="form-group mt-5" [formGroup]="signUpForm"   (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label class="form-label">Email</label>

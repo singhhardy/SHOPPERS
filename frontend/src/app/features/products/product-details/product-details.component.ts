@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AddReviewComponent } from "../../reviews/add-review/add-review.component";
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +21,8 @@ export class ProductDetailsComponent {
     private router: Router,
     private productService: ProductService,
     private cart: CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
   ){}
 
   ngOnInit(){
@@ -43,6 +45,13 @@ export class ProductDetailsComponent {
   }
 
   addCartProduct(id: any){
+
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate(['/login']);
+      this.toastr.warning('You need to Login first!')
+      return;
+    }
+
     const addItem = {
       productId: id,
       quantity: 1

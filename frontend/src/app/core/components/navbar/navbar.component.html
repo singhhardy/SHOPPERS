@@ -16,12 +16,12 @@
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item me-2">
-            <a class="nav-link text-nowrap" aria-current="page" [routerLink]="'/cart'"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+            <a class="nav-link text-nowrap" aria-current="page" [routerLink]="'/cart'"><i class="fa-solid fa-cart-shopping"></i> Cart <span *ngIf="cartItemsCount > 0" class="p-2 py-0 rounded-2 primary-bg text-light">{{ cartItemsCount }}</span></a>
           </li>
           <li class="nav-item dropdown" ngbDropdown>
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" ngbDropdownToggle>
               <i class="fa-regular fa-user"></i> 
-              {{ (user$ | async)?.firstName || (user$ | async)?.email || 'User' }} 
+              {{ (user$ | async)?.firstName || (user$ | async)?.email || 'User' }}  
               <i class="fa-solid fa-angle-down"></i>            </a>
             <ul class="dropdown-menu border-0  shadow-lg" aria-labelledby="navbarDropdown" ngbDropdownMenu>
                 <li *ngIf="!auth.isLoggedIn()"><a class="dropdown-item primary-text" [routerLink]="'/login'"><i class="fa fa-user text-muted menu-icon"></i> <span class="side-text">Login</span></a></li>

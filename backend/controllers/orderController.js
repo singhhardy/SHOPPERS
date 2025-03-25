@@ -53,7 +53,7 @@ const placeOrder = asyncHandler(async(req,res) => {
         `<div style="border: 1px solid #fff; border-radius: 8px;">
             <img src="${product.image}" width="80px" style="border-radius:8px;">
             <p><strong>Product:</strong> ${product.name}</p>
-            <p><strong>Price:</strong> $${product.price}</p>
+            <p><strong>Price:</strong> Rs. ${product.price}</p>
         </div>`
         ).join('');
 
@@ -75,7 +75,7 @@ const placeOrder = asyncHandler(async(req,res) => {
                 <div>
                     <h4>Your Orders</h4>
                     <div>${productDetails}</div>
-                    <p style="text-align:end">Total Amount: $${totalAmount}</p>
+                    <p style="text-align:end">Total Amount: <b>Rs.${totalAmount}</b></p>
                 </div>
             </div>
         `
@@ -137,9 +137,23 @@ const OrderStatus = asyncHandler(async ( req, res) => {
     })
 })
 
+const GetMyOrders = asyncHandler(async (req, res) => {
+    const userId = req.user
+
+    const order = await Order.find({userId})
+
+    if(!order){
+        res.status(400)
+        throw new Error('No Orders found')
+    }
+
+    res.status(200).json(order)
+})
+
 module.exports = {
     placeOrder,
     GetCustomerOrders,
     OrderInfoById,
-    OrderStatus
+    OrderStatus,
+    GetMyOrders
 }
