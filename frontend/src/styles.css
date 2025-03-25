@@ -155,3 +155,9 @@ a{
 .product-img{
     height: 400px;
 }
+
+.status-circle{
+    width: 5px !important; 
+    height: 5px !important; 
+    padding: 5px;
+}

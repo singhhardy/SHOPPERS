@@ -8,6 +8,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ProductDetailsComponent } from './features/products/product-details/product-details.component';
 import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
 import { PlaceOrderComponent } from './features/order/place-order/place-order.component';
+import { OrderListComponent } from './features/order/order-list/order-list.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
@@ -24,5 +25,6 @@ export const routes: Routes = [
     {path: 'cart', component: CartPageComponent},
 
     // Order
-    {path: 'place-order', component: PlaceOrderComponent}
+    {path: 'place-order', component: PlaceOrderComponent},
+    {path: 'order-list', component: OrderListComponent}
 ];
