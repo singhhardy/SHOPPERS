@@ -6,8 +6,6 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthService } from '../core/services/auth.service';
 import { authInterceptor } from '../core/interceptors/auth.interceptor';
 import { provideToastr } from 'ngx-toastr'
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,11 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     AuthService,
     provideAnimations(),
-    provideToastr(),
-    providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    })
+    provideToastr()
   ]
 };

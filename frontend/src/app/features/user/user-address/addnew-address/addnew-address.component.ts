@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addnew-address',
-  imports: [CommonModule, ReactiveFormsModule, AddressesComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './addnew-address.component.html',
   styleUrl: './addnew-address.component.css'
