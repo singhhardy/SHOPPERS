@@ -46,7 +46,6 @@ const corsOptions = {
     credentials: true,
     optionsSuccessStatus: 204
   };
-app.use(cors(corsOptions));
   
 app.use(cors(corsOptions));
 app.use(mongoSanitize());

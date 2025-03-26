@@ -6,7 +6,7 @@
                 <i *ngFor="let star of [1,2,3,4,5]; let i = index"
                    class="fa fa-star"
                    [ngClass]="i < +review.rating ? 'text-warning' : 'text-secondary'"
-                   style="font-size: 24px;">
+                   style="font-size: 18px;">
                 </i>
             </span>
             <p class="mt-2 mb-0 ">{{ review.comment }}</p>

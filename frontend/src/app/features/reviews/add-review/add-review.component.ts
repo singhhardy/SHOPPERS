@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReviewsService } from '../../services/reviews.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +13,9 @@ import { ReviewsListComponent } from "../reviews-list/reviews-list.component";
   styleUrl: './add-review.component.css'
 })
 export class AddReviewComponent {
+  @ViewChild(ReviewsListComponent) reviewsList!: ReviewsListComponent;
+  @Output() reviewAdded = new EventEmitter<number>();
+
   showTextbox: boolean = false
   stars = [1, 2, 3, 4, 5];
   rating = 0;
@@ -20,6 +23,13 @@ export class AddReviewComponent {
   id: string | null = null;
   
   constructor(private reviews: ReviewsService, private route: ActivatedRoute, private toastr: ToastrService){}
+
+
+  ngAfterViewInit() {
+    if (this.reviewsList) {
+      this.reviewsList.getReviews();
+    }
+  }
 
   ngOnInit(){
     this.route.paramMap.subscribe(params => {
@@ -49,6 +59,10 @@ export class AddReviewComponent {
     this.reviews.AddReview(this.id, ratingData).subscribe(
       response => {
         this.toastr.success(response.message)
+        this.reviewAdded.emit(response.reviewCount); 
+        if (this.reviewsList) {
+          this.reviewsList.getReviews();
+        }
         this.ratingText = ''
         this.showTextbox = false
       },

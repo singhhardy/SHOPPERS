@@ -20,7 +20,7 @@
 
             <div class="mt-5">
                 <div class="d-flex mb-3 align-items-center justify-content-between">
-                    <h4 class="fw-semibold">Reviews & Ratings</h4>
+                    <h4 class="fw-semibold"><span class="text-success border rounded fs-16 border-success p-1" *ngIf="product.rating > 0">{{product.rating}} <i class="fa fa-star fs-12"></i></span> Reviews & Ratings</h4>
                     <h6 class="text-primary float-end">
                         {{
                         product.numReviews === 0
@@ -29,7 +29,7 @@
                         }}   
                     </h6>
                 </div>
-                <app-add-review></app-add-review>
+                <app-add-review  [id]="product._id" (reviewAdded)="updateReviewCount($event)"></app-add-review>
             </div>
             <div class="mt-5">
                 

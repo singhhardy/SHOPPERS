@@ -32,6 +32,10 @@ export class ProductDetailsComponent {
     });
   }
   
+  updateReviewCount(newCount: number) {
+    this.product.numReviews = newCount;
+  }
+
   getProductDetails(id: any){
     this.productService.getProductById(id).subscribe(
       (response) => {

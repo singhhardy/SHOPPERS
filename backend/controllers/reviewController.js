@@ -30,14 +30,15 @@ const AddReview = asyncHandler(async(req,res) => {
     product.reviews.push(review)
     product.numReviews = product.reviews.length
     
-    const totalRating = product.reviews.reduce((sum, r) => sum + r.rating, 0);
-    product.rating = product.numReviews > 0 ? totalRating / product.numReviews : 0;
-
+    const totalRating = product.reviews.reduce((sum, r) => sum + Number(r.rating), 0); 
+    product.rating = totalRating / product.numReviews; 
+    
     await product.save()
 
     res.status(201).json({
         message: 'Review Added Successfully',
-        review
+        review,
+        reviewCount: product.numReviews
     })
 })
 
