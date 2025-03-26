@@ -6,87 +6,165 @@ const calculateCartTotal = require('../utils/calcCartTotal')
 const Product = require('../models/productModel')
 const sendEmail = require('../utils/sendEmail')
 
-// Get Checkout Data
+const Razorpay = require('razorpay')
+const crypto = require('crypto')
 
-const placeOrder = asyncHandler(async(req,res) => {
-    const userId = req.user
-    const { addressId, paymentMethod } = req.body
-    const user = await User.findById(userId)
+// Razorpay
 
-    if(!user){
-        res.status(400)
-        throw new Error('User not found')
-    }
-
-    const cart = await Cart.findOne({ userId })
-    if(!cart || cart.items.length === 0){
-        res.status(400)
-        throw new Error('Cart is empty')
-    }
-
-    const productId = cart.items.map(item => item.productId)
-    const products = await Product.find({ _id: { $in: productId } });
-
-    const address = user.addresses.id(addressId);
-    if(!address){
-        res.status(400)
-        throw new Error('Invalid Address')
-    }
-
-    const totalAmount = await calculateCartTotal(userId)
-
-    const order = new Order({
-        userId,
-        items: cart.items,
-        shippingInfo: address,
-        paymentMethod,
-        totalAmount,
-        status: "Pending",
-    })
-
-   await order.save()
-
-   cart.items = []
-   await cart.save()
-
-    const productDetails = products.map(product => 
-        `<div style="border: 1px solid #fff; border-radius: 8px;">
-            <img src="${product.image}" width="80px" style="border-radius:8px;">
-            <p><strong>Product:</strong> ${product.name}</p>
-            <p><strong>Price:</strong> Rs. ${product.price}</p>
-        </div>`
-        ).join('');
-
-    await sendEmail({
-        to: user.email,
-        subject: 'ORDER PLACED - SHOPPERS',
-        text: `Your order has been placed successfully.`,
-        html: `
-            <div>
-                <h1>Thank you for Shopping with us!</h1>
-                <p>Thank you for ordering from <b>SHOPPERS</b>.
-                Your order will be delivered within 5 to 7 days to your address.
-                We will keep you updated here.</p>
-                <div>
-                    <h4>Address :</h4>
-                    <p>${order.shippingInfo.street}, ${order.shippingInfo.city}, 
-                    ${order.shippingInfo.state}, ${order.shippingInfo.country}, ${order.shippingInfo.zipCode}</p>
-                </div>
-                <div>
-                    <h4>Your Orders</h4>
-                    <div>${productDetails}</div>
-                    <p style="text-align:end">Total Amount: <b>Rs.${totalAmount}</b></p>
-                </div>
-            </div>
-        `
-    });
-
-   res.status(201).json({
-        message: "Order placed Successfully",
-        order
-   })
-
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
 })
+
+// Get Checkout Data
+const clearCart = async (userId) => {
+    const cart = await Cart.findOne({ userId });
+    if (cart) {
+      cart.items = [];
+      await cart.save();
+      console.log(`🛒 Cart cleared for user: ${userId}`);
+    }
+  };
+  
+  
+  // 👉 Helper function: Send order confirmation email
+  const sendOrderEmail = async (user, order, products) => {
+    const productDetails = products.map(product =>
+      `<div style="border: 1px solid #fff; border-radius: 8px;">
+        <img src="${product.image}" width="80px" style="border-radius:8px;">
+        <p><strong>Product:</strong> ${product.name}</p>
+        <p><strong>Price:</strong> Rs. ${product.price}</p>
+      </div>`
+    ).join('');
+  
+    await sendEmail({
+      to: user.email,
+      subject: 'ORDER CONFIRMED - SHOPPERS',
+      text: `Your order has been confirmed successfully.`,
+      html: `
+        <div>
+          <h1>Thank you for Shopping with us!</h1>
+          <p>Your payment was successful, and your order is now confirmed.</p>
+          <div>
+            <h4>Shipping Address:</h4>
+            <p>${order.shippingInfo.street}, ${order.shippingInfo.city}, 
+            ${order.shippingInfo.state}, ${order.shippingInfo.country}, ${order.shippingInfo.zipCode}</p>
+          </div>
+          <div>
+            <h4>Your Order Details</h4>
+            <div>${productDetails}</div>
+            <p style="text-align:end">Total Amount: <b>Rs.${order.totalAmount}</b></p>
+          </div>
+        </div>`
+    });
+  
+    console.log(`📧 Email sent to ${user.email}`);
+  };
+  
+  
+  // 👉 Place Order
+  const placeOrder = asyncHandler(async (req, res) => {
+    const userId = req.user;
+    const { addressId, paymentMethod } = req.body;
+  
+    const user = await User.findById(userId);
+    if (!user) throw new Error('User not found');
+  
+    const cart = await Cart.findOne({ userId });
+    if (!cart || cart.items.length === 0) throw new Error('Cart is empty');
+  
+    const products = await Product.find({ _id: { $in: cart.items.map(item => item.productId) } });
+  
+    const address = user.addresses.id(addressId);
+    if (!address) throw new Error('Invalid Address');
+  
+    const totalAmount = await calculateCartTotal(userId);
+  
+    let orderData = {
+      userId,
+      items: cart.items,
+      shippingInfo: address,
+      paymentMethod,
+      totalAmount,
+      status: paymentMethod === "Razorpay" ? "Pending" : "Confirmed"
+    };
+  
+    if (paymentMethod === "Razorpay") {
+      const razorpayOrder = await razorpay.orders.create({
+        amount: totalAmount * 100,
+        currency: "INR",
+        receipt: `order_${Date.now()}`,
+        payment_capture: 1
+      });
+  
+      orderData.razorpayOrderId = razorpayOrder.id;
+      const order = await Order.create(orderData);
+  
+      res.json({
+        success: true,
+        razorpayOrderId: razorpayOrder.id,
+        totalAmount,
+        key: process.env.RAZORPAY_KEY_ID,
+        internalOrderId: order._id.toString()
+      });
+      return;
+    }
+  
+    // For COD orders, create order immediately.
+    const order = await Order.create(orderData);
+  
+    // Clear cart and send email
+    await clearCart(userId);
+    await sendOrderEmail(user, order, products);
+  
+    res.status(201).json({
+      message: "Order placed Successfully",
+      order
+    });
+  });
+  
+  
+  // 👉 Verify Payment
+  const verifyPayment = asyncHandler(async (req, res) => {
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+      internalOrderId
+    } = req.body;
+  
+    const secret = process.env.RAZORPAY_KEY_SECRET;
+    const hmac = crypto.createHmac("sha256", secret);
+    hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const generatedSignature = hmac.digest("hex");
+  
+    if (generatedSignature !== razorpay_signature) {
+      console.error("❌ Payment Verification Failed!");
+      res.status(400).json({ success: false, message: "Payment verification failed" });
+      return;
+    }
+  
+    console.log("✅ Payment Verified Successfully!");
+  
+    const order = await Order.findById(internalOrderId).populate('userId');
+    if (!order) throw new Error("Order not found");
+  
+    order.status = "Confirmed";
+    order.paymentStatus = "Paid";
+    await order.save();
+  
+    await clearCart(order.userId);
+    const products = await Product.find({ _id: { $in: order.items.map(item => item.productId) } });
+    await sendOrderEmail(order.userId, order, products);
+  
+    res.json({
+      success: true,
+      message: "Payment verified, order confirmed, cart cleared, and email sent"
+    });
+  });
+  
+// query to find orders now.
+// const order = await Order.findOne({ _id: internalOrderId, razorpayOrderId: razorpay_order_id });
 
 
 // Get Customer Orders 
@@ -155,5 +233,6 @@ module.exports = {
     GetCustomerOrders,
     OrderInfoById,
     OrderStatus,
-    GetMyOrders
+    GetMyOrders,
+    verifyPayment
 }

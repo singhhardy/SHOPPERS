@@ -85,18 +85,22 @@
             </div>
           </div>
           <div class="card-body" *ngIf="currentStep === 3">
-            <p class="card-text">
-              Enter your payment information here.
-            </p>
+            <label class="card mb-2 p-2">
+              <div class="form-group me-3">
+                <input type="radio" name="paymentMethod" value="Razorpay" [(ngModel)]="paymentMethod"> RazorPay
+              </div>
+            </label>
+            <label class="card mb-3 p-2">
+              <div class="form-group me-3">
+                <input type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod"> COD
+              </div>
+            </label>
             <div class="d-flex justify-content-between">
               <button class="btn btn-secondary" (click)="currentStep = 1">Previous</button>
               <button class="btn primary-btn" (click)="confirmOrder()">Confirm Order</button>
             </div>
           </div>
         </div>
-  
-       
-  
       </div>
     </div>
   </div>

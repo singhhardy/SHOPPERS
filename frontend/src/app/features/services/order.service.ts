@@ -19,4 +19,8 @@ export class OrderService {
     return this.http.get<any[]>(`${this.baseUrl}/order/my-order`)
   }
 
+  paymentVerification(paymentResponse: any): Observable<any[]>{
+    return this.http.post<any[]>(`${this.baseUrl}/order/verify-payment`, paymentResponse)
+  }
+  
 }

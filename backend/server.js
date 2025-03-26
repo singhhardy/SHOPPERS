@@ -20,7 +20,18 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 
-app.use(helmet());
+// app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", "https://checkout.razorpay.com"],
+        scriptSrc: ["'self'", "https://checkout.razorpay.com", "'unsafe-inline'", "'unsafe-eval'"],
+        frameSrc: ["'self'", "https://checkout.razorpay.com"],
+        connectSrc: ["'self'", "https://api.razorpay.com", "https://checkout.razorpay.com"],
+        imgSrc: ["'self'", "data:", "https://*.razorpay.com"],
+      }
+    }
+}));
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -30,11 +41,13 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const corsOptions = {
-    origin: ['http://localhost:4200', ''],
+    origin: ['http://localhost:4200', 'https://checkout.razorpay.com', 'https://api.razorpay.com'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
-};
+  };
+app.use(cors(corsOptions));
+  
 app.use(cors(corsOptions));
 app.use(mongoSanitize());
 app.use(xss());
