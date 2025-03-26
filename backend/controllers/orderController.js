@@ -43,6 +43,7 @@ const clearCart = async (userId) => {
       text: `Your order has been confirmed successfully.`,
       html: `
         <div>
+          <h1 style="color: #FF6F61;">SHOPPERS!</h1>
           <h1>Thank you for Shopping with us!</h1>
           <p>Your payment was successful, and your order is now confirmed.</p>
           <div>
@@ -58,7 +59,7 @@ const clearCart = async (userId) => {
         </div>`
     });
   
-    console.log(`📧 Email sent to ${user.email}`);
+    console.log(`Email sent to ${user.email}`);
   };
   
   
