@@ -1,87 +1,87 @@
 <div class="container my-5">
-    <div class="row">
-      <div class="col-xl-3">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title fw-semibold mb-0">Filters <i class="fa fa-filter"></i></div>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <label class="form-group mb-2">
-                <input type="checkbox" name="confirmed" value="confirmed">
-                Confirmed
-              </label>
-              <label class="form-group mb-2">
-                <input type="checkbox" name="cancelled" value="cancelled">
-                Cancelled
-              </label>
-              <label class="form-group mb-2">
-                <input type="checkbox" name="Pending" value="pending">
-                Pending
-              </label>
-              <label class="form-group mb-2">
-                <input type="checkbox" name="delivered" value="delivered">
-                Delivered
-              </label>
-            </div>
+  <div class="row">
+    <div class="col-xl-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title fw-semibold mb-0">Filters <i class="fa fa-filter"></i></div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <label class="form-group mb-2">
+            <input type="checkbox" [(ngModel)]="filters.confirmed" (change)="applyFilters()"> Confirmed
+          </label>
+          <label class="form-group mb-2">
+            <input type="checkbox" [(ngModel)]="filters.cancelled" (change)="applyFilters()"> Cancelled
+          </label>
+          <label class="form-group mb-2">
+            <input type="checkbox" [(ngModel)]="filters.pending" (change)="applyFilters()"> Pending
+          </label>
+          <label class="form-group mb-2">
+            <input type="checkbox" [(ngModel)]="filters.delivered" (change)="applyFilters()"> Delivered
+          </label>
         </div>
       </div>
-      <div class="col-xl-9">
-        <div class="card mb-3" *ngFor="let order of orders">
-          <div class="card-body py-2 d-flex alig  n-items-center justify-content-between">
-            <img 
-              class="img-fluid rounded-2" 
-              width="80px" 
-              [src]="order.items[0]?.productData?.product?.image || 'assets/placeholder.jpg'" 
-              alt="Order Image">
-            
-            <div>
-              <h6>{{ order.shippingInfo?.addressName }}</h6>
-              <p class="fs-12">Price: <b>Rs. {{ order.totalAmount }}</b></p>
-            </div>
-            
-            <div class="me-5">
-              <h6 class="d-flex align-items-center">
-                <span 
+    </div>
+  
+    <div class="col-xl-9">
+      <div class="card mb-3" *ngFor="let order of filteredOrders">
+        <div class="card-body py-2 d-flex align-items-center justify-content-between">
+          
+          <img 
+            class="img-fluid rounded-2" 
+            width="80px" 
+            [src]="order.items[0]?.productData?.product?.image || 'assets/placeholder.jpg'" 
+            alt="Order Image">
+          
+          <div>
+            <h6>{{ order.shippingInfo?.addressName }}</h6>
+            <p class="fs-12">Price: <b>Rs. {{ order.totalAmount }}</b></p>
+          </div>
+          
+          <div class="me-5">
+            <h6 class="d-flex align-items-center">
+              <span 
                 class="rounded-pill me-2 d-flex status-circle"
                 [ngClass]="{
                   'bg-warning': order.status === 'Pending',
                   'bg-primary': order.status === 'Shipped',
                   'bg-success': order.status === 'Delivered',
                   'bg-danger': order.status === 'Cancelled',
-                  'bg-info' : order.status === 'Confirmed'
+                  'bg-info': order.status === 'Confirmed'
                 }">
               </span>
-                {{ order.status }} on {{ order.createdAt | date:'mediumDate' }}
-              </h6>
-              <p class="fs-12">Payment: {{ order.paymentMethod }}</p>
-            </div>
-          </div>
-          
-          <div class="card-footer">
-            <h6>Items :</h6>
-            <ul>
-              <li *ngFor="let item of order.items">
-                <div *ngIf="item.productData; else loading">
-                  <img 
-                    class="img-thumbnail me-2" 
-                    width="50px" 
-                    [src]="item.productData.product.image || 'assets/placeholder.jpg'" 
-                    alt="Product Image">
-                  <b>{{ item.productData.product.name }}</b>  Quantity: <b>{{ item.quantity }}</b>  Price: Rs. <b>{{ item.productData.product.price }}</b>
-                </div>
-                <ng-template #loading>
-                  Loading product details...
-                </ng-template>
-              </li>
-            </ul>
+              {{ order.status }} on {{ order.createdAt | date:'mediumDate' }}
+            </h6>
+            <p class="fs-12">Payment: {{ order.paymentMethod }}</p>
           </div>
         </div>
-        <div class="card" *ngIf="orders.length === 0">
-          <div class="card-body">
-              <div class="text-center fw-semibold" >No Orders Yet</div>
-          </div>
+  
+        <div class="card-footer">
+          <h6>Items:</h6>
+          <ul>
+            <li *ngFor="let item of order.items">
+              <div *ngIf="item.productData; else loading">
+                <img 
+                  class="img-thumbnail me-2" 
+                  width="50px" 
+                  [src]="item.productData.product.image || 'assets/placeholder.jpg'" 
+                  alt="Product Image">
+                <b>{{ item.productData.product.name }}</b>  
+                Quantity: <b>{{ item.quantity }}</b>  
+                Price: Rs. <b>{{ item.productData.product.price }}</b>
+              </div>
+              <ng-template #loading>
+                Loading product details...
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" *ngIf="filteredOrders.length === 0">
+        <div class="card-body">
+          <div class="text-center fw-semibold">No Orders</div>
         </div>
       </div>
     </div>
   </div>
+</div>
   

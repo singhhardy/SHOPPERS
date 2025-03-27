@@ -2,15 +2,24 @@ import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order-list',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
 export class OrderListComponent {
   orders: any[] = []
+  filteredOrders: any[] = [];
+
+  filters = {
+    confirmed: false,
+    cancelled: false,
+    pending: false,
+    delivered: false
+  };
 
   constructor(private orderService: OrderService, private productService: ProductService){}
 
@@ -29,6 +38,7 @@ export class OrderListComponent {
             this.productService.getProductById(item.productId).subscribe(
               productData => {
                 item.productData = productData;
+                this.applyFilters(); 
               },
               error => {
                 console.error('Error fetching product details', error);
@@ -42,4 +52,17 @@ export class OrderListComponent {
       }
     );
   }
+
+  applyFilters(): void {
+    const activeFilters = Object.keys(this.filters).filter(key => (this.filters as any)[key]);
+  
+    if (activeFilters.length === 0) {
+      this.filteredOrders = [...this.orders];
+    } else {
+      this.filteredOrders = this.orders.filter(order => 
+        activeFilters.includes(order.status.toLowerCase())
+      );
+    }
+  }
+  
 }
