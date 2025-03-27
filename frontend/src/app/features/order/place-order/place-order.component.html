@@ -50,6 +50,9 @@
           </div>
           <div class="card-body" *ngIf="currentStep === 2">
               <div class="row">
+                <div class="text-nowrap py-4" *ngIf="cartItems.length === 0">Your Cart is empty!! 
+                  <button class="btn btn-primary btn-sm" [routerLink]="'/'">Shop Now</button>
+                </div> 
                 <div class="col-xl-12"  *ngFor="let item of cartItems">
                   <div class="card mb-3">
                     <div class="card-body">
@@ -68,7 +71,7 @@
                 </div>
               </div>
             <div class="d-flex justify-content-between">
-              <button class="btn btn-secondary" (click)="currentStep = 2">Previous</button>
+              <button class="btn btn-secondary" (click)="currentStep = 1">Back</button>
               <button class="btn btn-primary" (click)="currentStep = 3">Next</button>
             </div>
           </div>
@@ -85,19 +88,23 @@
             </div>
           </div>
           <div class="card-body" *ngIf="currentStep === 3">
-            <label class="card mb-2 p-2">
-              <div class="form-group me-3">
-                <input type="radio" name="paymentMethod" value="Razorpay" [(ngModel)]="paymentMethod"> RazorPay
-              </div>
-            </label>
-            <label class="card mb-3 p-2">
-              <div class="form-group me-3">
-                <input type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod"> COD
-              </div>
-            </label>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-secondary" (click)="currentStep = 1">Previous</button>
-              <button class="btn primary-btn" (click)="confirmOrder()">Confirm Order</button>
+            <div class="col-xl-5">
+              <label class="card mb-2 p-2">
+                <div class="form-group d-flex align-items-center me-3">
+                  <input type="radio" name="paymentMethod" value="Razorpay" [(ngModel)]="paymentMethod">
+                  <div class="d-flex align-items-center"><img src="assets/razorpay.png" width="30px"> <span>RazorPay </span></div>
+                </div>
+              </label>
+              <i class="fs-sm">UPI, Credit Cart, Debit Cart, EMI's, etc.</i>
+              <label class="card my-3 p-2">
+                <div class="form-group me-3">
+                  <input type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod"><i class="fa-solid ms-2 fa-truck-fast text-primary"></i> COD
+                </div>
+              </label>
+            </div>
+            <div class="text-nowrap">
+              <button class="btn me-2 btn-outline-secondary" (click)="currentStep = 2">Back</button>
+              <button class="btn primary-btn" (click)="confirmOrder()" [disabled]="isLoading"> {{ isLoading ? 'Processing...' : 'Confirm Order' }}</button>
             </div>
           </div>
         </div>

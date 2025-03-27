@@ -14,13 +14,13 @@
             </span>
             <br>
             <div class="my-3 text-nowrap">
-                <button class="btn btn-lg me-2 primary-btn rounded-0" (click)="addCartProduct(product._id)">Add To Cart</button>
-                <button class="btn btn-lg border-primary primary-text rounded-0">Buy Now</button>
+                <button class="btn btn-lg me-2 btn-block w-100 primary-btn " (click)="addCartProduct(product._id)"><i class="fa fa-cart-shopping"></i> Add To Bag</button>
+                <!-- <button class="btn btn-lg border-primary primary-text rounded-0">Buy Now</button> -->
             </div>
 
             <div class="mt-5">
                 <div class="d-flex mb-3 align-items-center justify-content-between">
-                    <h4 class="fw-semibold"><span class="text-success border rounded fs-16 border-success p-1" *ngIf="product.rating > 0">{{product.rating}} <i class="fa fa-star fs-12"></i></span> Reviews & Ratings</h4>
+                    <div class="fw-semibold"><span class="text-success border rounded fs-20 border-success p-0 px-1 me-2" *ngIf="product.rating > 0">{{product.rating}} <i class="fa fs-18 fa-star"></i> </span> <span class="fs-20">Reviews & Ratings</span></div>
                     <h6 class="text-primary float-end">
                         {{
                         product.numReviews === 0

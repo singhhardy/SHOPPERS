@@ -22,13 +22,12 @@ const clearCart = async (userId) => {
     if (cart) {
       cart.items = [];
       await cart.save();
-      console.log(`🛒 Cart cleared for user: ${userId}`);
+      console.log(`Cart cleared for user: ${userId}`);
     }
   };
   
   
-  // 👉 Helper function: Send order confirmation email
-  const sendOrderEmail = async (user, order, products) => {
+const sendOrderEmail = async (user, order, products) => {
     const productDetails = products.map(product =>
       `<div style="border: 1px solid #fff; border-radius: 8px;">
         <img src="${product.image}" width="80px" style="border-radius:8px;">
@@ -45,14 +44,14 @@ const clearCart = async (userId) => {
         <div>
           <h1 style="color: #FF6F61;">SHOPPERS!</h1>
           <h1>Thank you for Shopping with us!</h1>
-          <p>Your payment was successful, and your order is now confirmed.</p>
+          <p>Your order is now confirmed.</p>
           <div>
             <h4>Shipping Address:</h4>
             <p>${order.shippingInfo.street}, ${order.shippingInfo.city}, 
             ${order.shippingInfo.state}, ${order.shippingInfo.country}, ${order.shippingInfo.zipCode}</p>
           </div>
           <div>
-            <h4>Your Order Details</h4>
+            <h4>Order Details :</h4>
             <div>${productDetails}</div>
             <p style="text-align:end">Total Amount: <b>Rs.${order.totalAmount}</b></p>
           </div>
@@ -70,6 +69,10 @@ const clearCart = async (userId) => {
   
     const user = await User.findById(userId);
     if (!user) throw new Error('User not found');
+
+    if(!paymentMethod){
+      throw new Error('Select a Payment Method Please...')
+    }
   
     const cart = await Cart.findOne({ userId });
     if (!cart || cart.items.length === 0) throw new Error('Cart is empty');

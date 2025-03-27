@@ -3,16 +3,31 @@
       <div class="col-xl-3">
         <div class="card">
             <div class="card-header">
-                <div class="card-title mb-0">Filters <i class="fa fa-filter"></i></div>
+                <div class="card-title fw-semibold mb-0">Filters <i class="fa fa-filter"></i></div>
             </div>
-            <div class="card-body">
-
+            <div class="card-body d-flex flex-column">
+              <label class="form-group mb-2">
+                <input type="checkbox" name="confirmed" value="confirmed">
+                Confirmed
+              </label>
+              <label class="form-group mb-2">
+                <input type="checkbox" name="cancelled" value="cancelled">
+                Cancelled
+              </label>
+              <label class="form-group mb-2">
+                <input type="checkbox" name="Pending" value="pending">
+                Pending
+              </label>
+              <label class="form-group mb-2">
+                <input type="checkbox" name="delivered" value="delivered">
+                Delivered
+              </label>
             </div>
         </div>
       </div>
       <div class="col-xl-9">
         <div class="card mb-3" *ngFor="let order of orders">
-          <div class="card-body py-2 d-flex align-items-center justify-content-between">
+          <div class="card-body py-2 d-flex alig  n-items-center justify-content-between">
             <img 
               class="img-fluid rounded-2" 
               width="80px" 
@@ -32,7 +47,8 @@
                   'bg-warning': order.status === 'Pending',
                   'bg-primary': order.status === 'Shipped',
                   'bg-success': order.status === 'Delivered',
-                  'bg-danger': order.status === 'Cancelled'
+                  'bg-danger': order.status === 'Cancelled',
+                  'bg-info' : order.status === 'Confirmed'
                 }">
               </span>
                 {{ order.status }} on {{ order.createdAt | date:'mediumDate' }}
@@ -58,6 +74,11 @@
                 </ng-template>
               </li>
             </ul>
+          </div>
+        </div>
+        <div class="card" *ngIf="orders.length === 0">
+          <div class="card-body">
+              <div class="text-center fw-semibold" >No Orders Yet</div>
           </div>
         </div>
       </div>

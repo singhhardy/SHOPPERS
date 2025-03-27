@@ -9,6 +9,7 @@ import { ProductDetailsComponent } from './features/products/product-details/pro
 import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
 import { PlaceOrderComponent } from './features/order/place-order/place-order.component';
 import { OrderListComponent } from './features/order/order-list/order-list.component';
+import { ThankyouOrderComponent } from './features/order/thankyou-order/thankyou-order.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
@@ -26,5 +27,6 @@ export const routes: Routes = [
 
     // Order
     {path: 'place-order', component: PlaceOrderComponent},
-    {path: 'order-list', component: OrderListComponent}
+    {path: 'order-list', component: OrderListComponent},
+    {path: 'order-confirmed', component: ThankyouOrderComponent}
 ];
