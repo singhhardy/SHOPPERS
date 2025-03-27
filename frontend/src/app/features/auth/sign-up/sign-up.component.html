@@ -14,6 +14,14 @@
                                 <small *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</small>
                             </div>
                         </div>
+                        <div class="form-group mt-4">
+                            <label class="form-label">phone</label>
+                            <input formControlName="phone" class="form-control searchbar" placeholder="+91 1234567890" name="phone">
+                            <div *ngIf="signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched" class="text-danger">
+                                <small *ngIf="signUpForm.get('phone')?.errors?.['required']">Phone No. is required.</small>
+                                <small *ngIf="signUpForm.get('phone')?.errors?.['email']">Invalid Phone No. format.</small>
+                            </div>
+                        </div>
                         <div class="form-group d-flex flex-column mt-4" *ngIf="!showOTP">
                             <label class="form-label">Password</label>
                             <div class="btn-group">

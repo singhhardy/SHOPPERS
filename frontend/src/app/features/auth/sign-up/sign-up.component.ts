@@ -28,6 +28,7 @@ export class SignUpComponent {
   ){
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
       password: ['', [Validators.required]],
       otp: ['']
     })
@@ -39,6 +40,7 @@ export class SignUpComponent {
 
   onSubmit(){
     this.isSubmitting = true
+    console.log(this.signUpForm.value)
     this.auth.SignUpUser(this.signUpForm.value).subscribe(
       (response: any) => {
         console.log(response)

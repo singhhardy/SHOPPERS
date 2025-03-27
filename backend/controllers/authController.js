@@ -10,9 +10,9 @@ const generateOTP = () => {
 
 const RegisterUser = asyncHandler(async (req, res) => {
   try {
-      const { email, password } = req.body;
+      const { email, phone, password } = req.body;
 
-      const userExists = await User.findOne({ email });
+      const userExists = await User.findOne({ email, phone });
       if (userExists) {
           return res.status(400).json({ error: 'User already exists' });
       }
@@ -26,6 +26,7 @@ const RegisterUser = asyncHandler(async (req, res) => {
 
       const user = await User.create({
           email,
+          phone,
           password: hashedPassword,
           otp,
           otpExpires,
