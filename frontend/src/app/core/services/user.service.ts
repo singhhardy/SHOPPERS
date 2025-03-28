@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserService {
   private baseUrl = environment.baseUrl
-   private addressesSubject = new BehaviorSubject<any[]>([]);
+  private addressesSubject = new BehaviorSubject<any[]>([]);
   addresses$ = this.addressesSubject.asObservable();
 
   constructor(private http: HttpClient) { }

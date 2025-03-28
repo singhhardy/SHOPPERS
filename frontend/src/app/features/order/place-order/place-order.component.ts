@@ -87,8 +87,6 @@ async confirmOrder(): Promise<void> {
           if (response.success) {
             if (this.paymentMethod === "Razorpay") {
               const internalOrderId = response.internalOrderId;
-              console.log("Received internalOrderId:", internalOrderId);
-  
               const options = {
                 key: response.key,
                 amount: response.totalAmount * 100,   
@@ -105,7 +103,7 @@ async confirmOrder(): Promise<void> {
                   });
                 },
                 prefill: {
-                  name: user.firstname + user.lastName || "Test User",  
+                  name:  `${user.firstname ?? ""} ${user.lastName ?? ""}`.trim() || "Test User",  
                   email: user.email || "test@example.com",
                   contact: user.phone || "9999999999"
                 },

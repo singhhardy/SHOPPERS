@@ -24,6 +24,17 @@ html, body{
     height: 45px    ;
 }
 
+.main-content{
+    margin-top: 70px;
+    padding-top: 1px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+.showcase-text{
+    font-size: 70px;
+}
+
 /* UTILS */
 a{
     cursor: pointer;
