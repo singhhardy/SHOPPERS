@@ -1,4 +1,4 @@
 export const environment = {
-    baseUrl: 'http://localhost:8000/api',
+    baseUrl: 'https://shoppers-eight.vercel.app',
     development: true
 }

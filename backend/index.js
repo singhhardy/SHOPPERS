@@ -68,6 +68,10 @@ app.use('/api/users', userRoutes)
 app.use('/api/order', orderRoutes)
 app.use('/api/product/reviews', reviewRoutes)
 
+app.use('/', (req, res) => {
+  res.send('Welcome to SHOPPERS')
+})
+
 app.use(errorHandler)
 app.listen(port, () => {    
     console.log(`Server running in ${process.env.NODE_ENV} on port ${port} `)
