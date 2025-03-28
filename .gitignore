@@ -6,6 +6,7 @@ node_modules
 /frontend/.angular/
 /frontend/node_modules
 /frontend/.vscode
+/frontend/dist
 
 # Compiled output
 /dist

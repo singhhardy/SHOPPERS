@@ -1,17 +1,16 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "build" }
-      }
-    ],
-    "routes": [
-      {
-        "src": "^/(?!.*\\.[a-zA-Z0-9]+$).*$",
-        "dest": "/index.html"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "frontend/dist/frontend" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/(.*)$",
+      "dest": "/index.html"
+    }
+  ]
+}
