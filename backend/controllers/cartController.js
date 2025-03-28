@@ -19,7 +19,7 @@ const AddToCart = asyncHandler(async (req, res) => {
         throw new Error('Product Not Found')
     }
 
-    if (product.stock < quantity) {
+    if (product.countInStock < quantity) {
         return res.status(400).json({ error: 'Not enough stock available' });
     }
 
@@ -33,6 +33,9 @@ const AddToCart = asyncHandler(async (req, res) => {
     } else {
         const existingItem = cart.items.find(item => item.productId.toString() === productId)
         if(existingItem){
+            if(existingItem.quantity + 1 > product.countInStock){
+                return res.status(400).json({ error: "Not enough stock available"})
+            }
             existingItem.quantity += 1
         } else{
             cart.items.push({ productId, quantity, price: product.price})
@@ -43,7 +46,7 @@ const AddToCart = asyncHandler(async (req, res) => {
 
     await cart.populate({
         path: 'items.productId',
-        select: 'name description price image brand category'
+        select: 'name description price image brand category countInStock'
     });
 
 
@@ -77,31 +80,41 @@ const RemoveFromCart = asyncHandler(async (req, res) => {
 // Update User Cart
 
 const UpdateCart = asyncHandler(async (req, res) => {
-    const userId = req.user
-    const { productId, quantity } = req.body
-    const product = await Product.findById(productId)
-    if(!product){
-        res.status(400)
-        throw new Error('Product Not Found')
-    }
-    let cart = await Cart.findOne({userId})
-
-    if(!cart){
-        res.status(400)
-        throw new Error('Cart not found')
-    }
-
-    const cartItem = cart.items.find(item => item.productId.toString() === productId)
-
-    if(cartItem){
-        cartItem.quantity = quantity
-    } else{
-        cart.items.push({ productId, quantity})
-    }
+    const userId = req.user;
+    const { productId, quantity } = req.body;
     
+    const product = await Product.findById(productId);
+    if (!product) {
+        res.status(400);
+        throw new Error('Product Not Found');
+    }
+
+    if (quantity <= 0) {
+        return res.status(400).json({ error: 'Invalid quantity' });
+    }
+
+    if (product.countInStock < quantity) {
+        return res.status(400).json({ error: 'Not enough stock available' });
+    }
+
+    let cart = await Cart.findOne({ userId });
+    if (!cart) {
+        res.status(400);
+        throw new Error('Cart not found');
+    }
+
+    const cartItem = cart.items.find(item => item.productId.toString() === productId);
+
+    if (cartItem) {
+        cartItem.quantity = quantity;
+    } else {
+        cart.items.push({ productId, quantity, price: product.price });
+    }
+
     await cart.save();
-    res.status(201).json({message: "Cart Updated Successfully", cart})
-})
+    
+    res.status(200).json({ message: "Cart Updated Successfully", cart });
+});
 
 // Get Cart Items
 

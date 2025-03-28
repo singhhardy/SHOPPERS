@@ -80,9 +80,14 @@ export class CartPageComponent {
   addQuantity(productId: string) {
     const item = this.cartItems.find(item => item.productId._id === productId);
     if (item) {
-      item.quantity += 1;
-      this.calculateCartTotal()
-      this.updateQuantity(productId, item.quantity);
+      if (item.quantity >= item.productId.countInStock) {
+        this.toastr.warning('Not enough stock available');
+        return;
+      }
+      const newQuantity = item.quantity + 1;
+      item.quantity = newQuantity;
+      this.calculateCartTotal();
+      this.updateQuantity(productId, newQuantity);
     }
   }
 
@@ -103,11 +108,16 @@ export class CartPageComponent {
         console.log('Cart updated:', response);
         this.getCartItems()
         this.cartTotal
-        this.toastr.success('Item updated successfully');
+        // this.toastr.success('Item updated successfully');
       },
       (error) => {
         console.error('Error updating cart:', error);
-        this.toastr.error('Failed to update cart');
+        this.toastr.error(error.error.error);
+        const item = this.cartItems.find(item => item.productId._id === productId);
+        if (item) {
+          item.quantity = quantity - 1;
+          this.calculateCartTotal();
+        }
       }
     );
   }
