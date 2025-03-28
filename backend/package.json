@@ -2,10 +2,13 @@
   "name": "shopapp",
   "version": "1.0.0",
   "description": "E-commerce App",
-  "main": "server.js",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
     "frontend": "cd frontend && ng serve --port 4200",
     "dev": "concurrently \"npm run frontend\" \"npm run server\""
   },
