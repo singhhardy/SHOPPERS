@@ -41,13 +41,15 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const corsOptions = {
-    origin: ['http://localhost:4200', 'https://checkout.razorpay.com', 'https://api.razorpay.com'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204
-  };
-  
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
