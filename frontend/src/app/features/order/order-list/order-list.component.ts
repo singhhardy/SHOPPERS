@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
-  imports: [CommonModule, FormsModule, NgxSkeletonLoaderModule],
+  imports: [CommonModule, FormsModule, NgxSkeletonLoaderModule, RouterModule],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })

@@ -10,23 +10,25 @@ import { CartPageComponent } from './features/cart/cart-page/cart-page.component
 import { PlaceOrderComponent } from './features/order/place-order/place-order.component';
 import { OrderListComponent } from './features/order/order-list/order-list.component';
 import { ThankyouOrderComponent } from './features/order/thankyou-order/thankyou-order.component';
+import { OrderDetailsComponent } from './features/order/order-details/order-details.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
     {path: '', component: DashboardComponent},
     {path: 'login', component: LoginComponent},
     {path: 'sign-up', component: SignUpComponent},
-    {path: 'profile', component: ProfileComponent},
+    {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
     {path: 'forgot-password', component: ForgotPasswordComponent},
     
     // PRODUCT DETAILS
     {path: 'product-details/:id', component: ProductDetailsComponent},
 
     // CART
-    {path: 'cart', component: CartPageComponent},
+    {path: 'cart', component: CartPageComponent,  canActivate: [authGuard]},
 
     // Order
-    {path: 'place-order', component: PlaceOrderComponent},
-    {path: 'order-list', component: OrderListComponent},
-    {path: 'order-confirmed', component: ThankyouOrderComponent}
+    {path: 'place-order', component: PlaceOrderComponent, canActivate: [authGuard]},
+    {path: 'order-list', component: OrderListComponent, canActivate: [authGuard]},
+    {path: 'order-confirmed', component: ThankyouOrderComponent, canActivate: [authGuard]},
+    {path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [authGuard]}
 ];

@@ -23,4 +23,8 @@ export class OrderService {
     return this.http.post<any[]>(`${this.baseUrl}/order/verify-payment`, paymentResponse)
   }
   
+  OrderById(orderId: string): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/order/${orderId}`)
+  }
+
 }

@@ -24,36 +24,38 @@
   
     <div class="col-xl-9" *ngIf="!isLoading && filteredOrders.length > 0">
       <div class="card mb-3" *ngFor="let order of filteredOrders">
-        <div class="card-body py-2 d-flex align-items-center justify-content-between">
+        <a [routerLink]="`/order-details/${order._id}`" class="text-decoration-none">
+          <div class="card-body text-dark py-2 d-flex align-items-center justify-content-between">
           
-          <img 
-            class="img-fluid rounded-2" 
-            width="80px" 
-            [src]="order.items[0]?.productData?.product?.image || 'assets/placeholder.jpg'" 
-            alt="Order Image">
-          
-          <div>
-            <h6>{{ order.shippingInfo?.addressName }}</h6>
-            <p class="fs-12">Price: <b>Rs. {{ order.totalAmount }}</b></p>
+            <img 
+              class="img-fluid rounded-2" 
+              width="80px" 
+              [src]="order.items[0]?.productData?.product?.image" 
+              alt="Order Image">
+            
+            <div>
+              <h6>{{ order.shippingInfo?.addressName }}</h6>
+              <p class="fs-12">Price: <b>Rs. {{ order.totalAmount }}</b></p>
+            </div>
+            
+            <div class="me-5">
+              <h6 class="d-flex align-items-center">
+                <span 
+                  class="rounded-pill me-2 d-flex status-circle"
+                  [ngClass]="{
+                    'bg-warning': order.status === 'Pending',
+                    'bg-primary': order.status === 'Shipped',
+                    'bg-success': order.status === 'Delivered',
+                    'bg-danger': order.status === 'Cancelled',
+                    'bg-info': order.status === 'Confirmed'
+                  }">
+                </span>
+                {{ order.status }} on {{ order.createdAt | date:'mediumDate' }}
+              </h6>
+              <p class="fs-12">Payment: {{ order.paymentMethod }}</p>
+            </div>
           </div>
-          
-          <div class="me-5">
-            <h6 class="d-flex align-items-center">
-              <span 
-                class="rounded-pill me-2 d-flex status-circle"
-                [ngClass]="{
-                  'bg-warning': order.status === 'Pending',
-                  'bg-primary': order.status === 'Shipped',
-                  'bg-success': order.status === 'Delivered',
-                  'bg-danger': order.status === 'Cancelled',
-                  'bg-info': order.status === 'Confirmed'
-                }">
-              </span>
-              {{ order.status }} on {{ order.createdAt | date:'mediumDate' }}
-            </h6>
-            <p class="fs-12">Payment: {{ order.paymentMethod }}</p>
-          </div>
-        </div>
+        </a>
   
         <div class="card-footer">
           <h6>Items:</h6>
@@ -63,7 +65,7 @@
                 <img 
                   class="img-thumbnail me-2" 
                   width="50px" 
-                  [src]="item.productData.product.image || 'assets/placeholder.jpg'" 
+                  [src]="item.productData.product.image" 
                   alt="Product Image">
                 <b>{{ item.productData.product.name }}</b>  
                 Quantity: <b>{{ item.quantity }}</b>  

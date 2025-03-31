@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body" *ngFor="let product of fetchedProducts">
+                    <div class="card p-2">
+                        <h4 class="card-title">{{ product.name }} </h4>
+                        <div class="d-flex">
+                            <img src="{{ product.image }}" class="rounded-2 me-4" alt="Product Image" style="width:100px;" >
+                            <div>
+                                <h5><i class="fa fa-indian-rupee"></i> {{ product.price }}</h5>
+                                <p class="mb-0">{{ product.brand }}</p>
+                                <span class="badge bg-primary fs-12">{{ product.category }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <app-timeline 
+                        [steps]="['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled']"
+                        [currentStep]="order.status">
+                    </app-timeline>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header py-3">
+                    <h6 class="text-secondary mb-0">Shipping Address : </h6>
+                </div>
+                <div class="card-body">
+                    <span class="fw-semibold">{{ order.shippingInfo?.addressName }}</span>
+                    <p>{{ order.shippingInfo?.street }}, {{ order.shippingInfo?.city }},
+                        {{ order.shippingInfo?.state }}, {{ order.shippingInfo?.country }} -
+                        {{ order.shippingInfo?.zipCode }}
+                    </p>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <p class="mb-1">Total items : <span class="fw-semibold"> {{ fetchedProducts.length }}</span></p>
+                    <p class="mb-1">Total Price : <span class="fw-semibold"><i class="fa fa-indian-rupee"></i> {{ order.totalAmount }}</span></p>
+                    <span class="text-success fw-semibold">Free Delivery</span> <br>
+                    <button class="btn secondary-btn btn-sm mt-3"><i class="fa fa-download"></i> Download Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

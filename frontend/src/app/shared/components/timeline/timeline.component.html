@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="timeline-container">
+        <div *ngFor="let step of steps; let i = index" class="timeline-step"
+             [class.completed]="isCompleted(step)">
+             
+          <div class="connector" *ngIf="i < steps.length"></div>
+      
+          <div class="step-icon">
+            <span *ngIf="isCompleted(step)"><i class="fa fa-check"></i></span>
+            <span *ngIf="!isCompleted(step)">⚪</span>
+          </div>
+          
+          <div class="step-label">{{ step }}</div>
+        </div>
+    </div>    
+</div>
