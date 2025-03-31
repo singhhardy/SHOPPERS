@@ -17,6 +17,10 @@ export class OrderListComponent {
   filteredOrders: any[] = [];
   isLoading: boolean = true
 
+  currentPage = 1;
+  totalPages = 0;
+  pageSize = 5;
+
   filters = {
     confirmed: false,
     cancelled: false,
@@ -32,30 +36,41 @@ export class OrderListComponent {
   }
 
   getMyOrders(): void {
-    this.orderService.myOrders().subscribe(
+    this.isLoading = true;
+    this.orderService.myOrders(this.currentPage, this.pageSize).subscribe(
       response => {
-        this.orders = response;
-
-        this.orders.forEach(order => {
-          order.items.forEach((item: { productId: any; productData: any; }) => {
-            this.productService.getProductById(item.productId).subscribe(
-              productData => {
-                item.productData = productData;
-                this.applyFilters(); 
-                this.isLoading = false
-              },
-              error => {
-                console.error('Error fetching product details', error);
-              }
-            );
+        this.orders = response.orders;
+        this.totalPages = response.pages; 
+        if (Array.isArray(this.orders)) {
+          let productFetches: any[] = [];
+  
+          this.orders.forEach(order => {
+            order.items.forEach((item: {
+              productData: any; productId: any; }) => {
+              const fetch = this.productService.getProductById(item.productId).toPromise().then(
+                productData => item.productData = productData,
+                error => console.error('Error fetching product details', error)
+              );
+              productFetches.push(fetch);
+            });
           });
-        });
+  
+          Promise.all(productFetches).then(() => {
+            this.applyFilters();
+            this.isLoading = false;
+          });
+        } else {
+          console.error('Orders is not an array', this.orders);
+          this.isLoading = false;
+        }
       },
       error => {
         console.error('Error fetching orders', error);
+        this.isLoading = false;
       }
     );
   }
+  
 
   applyFilters(): void {
     const activeFilters = Object.keys(this.filters).filter(key => (this.filters as any)[key]);
@@ -68,5 +83,13 @@ export class OrderListComponent {
       );
     }
   }
+
+  changePage(page: number): void {
+    if (page > 0 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getMyOrders();
+    }
+  }
+
   
 }

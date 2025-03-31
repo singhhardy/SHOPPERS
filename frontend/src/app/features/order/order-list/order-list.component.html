@@ -80,15 +80,17 @@
         </div>
       </div>
 
-      <pagination-controls
-        (pageChange)="onPageChange($event)"
-        [totalItems]="totalOrders"
-        [itemsPerPage]="itemsPerPage"
-        [maxSize]="5"
-        [responsive]="true"
-        previousLabel="Prev"
-        nextLabel="Next">
-      </pagination-controls>
+      <div *ngIf="!isLoading">
+        <div *ngFor="let order of filteredOrders">
+        </div>
+      
+        <div class="pagination-controls">
+          <button class="btn btn-sm btn-primary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+          <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button class="btn btn-sm btn-primary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+      </div>
+      
 
       <div class="card" *ngIf="!isLoading && filteredOrders.length === 0">
         <div class="card-body">

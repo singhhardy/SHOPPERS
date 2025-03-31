@@ -15,8 +15,8 @@ export class OrderService {
     return this.http.post<any[]>(`${this.baseUrl}/order`, OrderData)
   }
 
-  myOrders(): Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseUrl}/order/my-order`)
+  myOrders(page: number = 1, limit: number = 10): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/order/my-order?page=${page}&limit=${limit}`);
   }
 
   paymentVerification(paymentResponse: any): Observable<any[]>{

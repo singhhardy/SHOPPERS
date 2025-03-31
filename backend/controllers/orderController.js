@@ -220,30 +220,27 @@ const OrderStatus = asyncHandler(async ( req, res) => {
 })
 
 const GetMyOrders = asyncHandler(async (req, res) => {
-    const userId = req.user
-    const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 5
-    const skip = (page - 1) * limit
+  const userId = req.user;
 
-    const totalOrders = await Order.countDocuments({ userId })
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
 
-    const orders = await Order.find({userId})
+  const total = await Order.countDocuments({ userId });
+
+  const orders = await Order.find({ userId })
     .skip(skip)
     .limit(limit)
-    .populate('items.productId');
+    .sort({ createdAt: -1 }); 
 
-    if(!order.length){
-        res.status(400)
-        throw new Error('No Orders found')
-    }
-
-    res.status(200).json({
+  res.status(200).json({
       orders,
-      currentPage: page,
-      totalPages: Math.ceil(totalOrders / limit),
-      totalOrders
-    })
-})
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+  });
+});
+
 
 module.exports = {
     placeOrder,
