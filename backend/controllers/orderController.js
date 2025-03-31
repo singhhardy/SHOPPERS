@@ -221,15 +221,28 @@ const OrderStatus = asyncHandler(async ( req, res) => {
 
 const GetMyOrders = asyncHandler(async (req, res) => {
     const userId = req.user
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 5
+    const skip = (page - 1) * limit
 
-    const order = await Order.find({userId})
+    const totalOrders = await Order.countDocuments({ userId })
 
-    if(!order){
+    const orders = await Order.find({userId})
+    .skip(skip)
+    .limit(limit)
+    .populate('items.productId');
+
+    if(!order.length){
         res.status(400)
         throw new Error('No Orders found')
     }
 
-    res.status(200).json(order)
+    res.status(200).json({
+      orders,
+      currentPage: page,
+      totalPages: Math.ceil(totalOrders / limit),
+      totalOrders
+    })
 })
 
 module.exports = {

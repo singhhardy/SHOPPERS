@@ -20,6 +20,7 @@
           </label>
         </div>
       </div>
+
     </div>
   
     <div class="col-xl-9" *ngIf="!isLoading && filteredOrders.length > 0">
@@ -78,6 +79,17 @@
           </ul>
         </div>
       </div>
+
+      <pagination-controls
+        (pageChange)="onPageChange($event)"
+        [totalItems]="totalOrders"
+        [itemsPerPage]="itemsPerPage"
+        [maxSize]="5"
+        [responsive]="true"
+        previousLabel="Prev"
+        nextLabel="Next">
+      </pagination-controls>
+
       <div class="card" *ngIf="!isLoading && filteredOrders.length === 0">
         <div class="card-body">
           <div class="text-center fw-semibold">No Orders</div>
