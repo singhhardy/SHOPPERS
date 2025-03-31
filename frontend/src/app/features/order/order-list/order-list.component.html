@@ -22,7 +22,7 @@
       </div>
     </div>
   
-    <div class="col-xl-9">
+    <div class="col-xl-9" *ngIf="!isLoading && filteredOrders.length > 0">
       <div class="card mb-3" *ngFor="let order of filteredOrders">
         <div class="card-body py-2 d-flex align-items-center justify-content-between">
           
@@ -76,9 +76,42 @@
           </ul>
         </div>
       </div>
-      <div class="card" *ngIf="filteredOrders.length === 0">
+      <div class="card" *ngIf="!isLoading && filteredOrders.length === 0">
         <div class="card-body">
           <div class="text-center fw-semibold">No Orders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-9" *ngIf="isLoading">
+      <div *ngFor="let i of [1, 2]" class="card mb-3">
+        <div class="card-body py-2 d-flex align-items-center justify-content-between">
+          <ngx-skeleton-loader [theme]="{ width: '80px', height: '80px', 'border-radius': '8px' }"></ngx-skeleton-loader>
+          
+          <div class="flex-grow-1 ms-3">
+            <ngx-skeleton-loader count="1" [theme]="{ width: '150px', height: '16px', 'margin-bottom': '8px' }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="1" [theme]="{ width: '120px', height: '14px' }"></ngx-skeleton-loader>
+          </div>
+
+          <div class="me-5 text-end">
+            <ngx-skeleton-loader count="1" [theme]="{ width: '180px', height: '16px', 'margin-bottom': '6px' }"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="1" [theme]="{ width: '100px', height: '14px' }"></ngx-skeleton-loader>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <h6><ngx-skeleton-loader [theme]="{ width: '80px', height: '16px' }"></ngx-skeleton-loader></h6>
+          <ul>
+            <li *ngFor="let j of [1,2]">
+              <div class="d-flex align-items-center mb-2">
+                <ngx-skeleton-loader [theme]="{ width: '50px', height: '50px', 'margin-right': '10px' }"></ngx-skeleton-loader>
+                <div>
+                  <ngx-skeleton-loader [theme]="{ width: '200px', height: '14px', 'margin-bottom': '6px' }"></ngx-skeleton-loader>
+                  <ngx-skeleton-loader [theme]="{ width: '150px', height: '12px' }"></ngx-skeleton-loader>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

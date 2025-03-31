@@ -6,10 +6,11 @@ import { AddReviewComponent } from "../../reviews/add-review/add-review.componen
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../core/services/auth.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, AddReviewComponent],
+  imports: [CommonModule, AddReviewComponent, NgxSkeletonLoaderModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -69,7 +70,7 @@ export class ProductDetailsComponent {
       },
       (error) => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.toastr.error(error.error.error)
       }
     )
   }

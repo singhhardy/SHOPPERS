@@ -3,16 +3,18 @@ import { OrderService } from '../../services/order.service';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-order-list',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxSkeletonLoaderModule],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
 export class OrderListComponent {
   orders: any[] = []
   filteredOrders: any[] = [];
+  isLoading: boolean = true
 
   filters = {
     confirmed: false,
@@ -39,6 +41,7 @@ export class OrderListComponent {
               productData => {
                 item.productData = productData;
                 this.applyFilters(); 
+                this.isLoading = false
               },
               error => {
                 console.error('Error fetching product details', error);

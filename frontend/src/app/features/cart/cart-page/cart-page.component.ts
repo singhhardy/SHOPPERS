@@ -3,16 +3,18 @@ import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [ CommonModule, RouterModule ],
+  imports: [ CommonModule, RouterModule, NgxSkeletonLoaderModule ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css'
 })
 export class CartPageComponent {
   cartItems: any[] = []
   cartTotal: any
+  isLoading: boolean = true;
 
   constructor(private cart: CartService, private toastr: ToastrService){}
 
@@ -33,6 +35,7 @@ export class CartPageComponent {
       (response) => {
         this.cartItems = response.cart.items
         this.cart.updateCartItemCount(this.cartItems.length);
+        this.isLoading = false
       },
       (error) => {
         console.log(error)

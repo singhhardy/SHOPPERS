@@ -37,3 +37,35 @@
         </div>
     </div>
 </div>
+
+<div class="container mt-5" *ngIf="!product">
+    <div class="row">
+      <div class="col-xl-6 mb-3">
+        <ngx-skeleton-loader 
+          count="1" 
+          appearance="circle" 
+          [theme]="{ 'border-radius': '12px', height: '400px', width: '100%' }">
+        </ngx-skeleton-loader>
+      </div>
+  
+      <div class="col-xl-6">
+        <ngx-skeleton-loader count="1" [theme]="{ height: '20px', width: '30%', 'margin-bottom': '10px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader count="1" [theme]="{ height: '32px', width: '60%', 'margin-bottom': '10px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader count="1" [theme]="{ height: '20px', width: '20%', 'margin-bottom': '20px' }"></ngx-skeleton-loader> 
+        
+        <ngx-skeleton-loader count="1" [theme]="{ height: '30px', width: '40%', 'margin-bottom': '20px' }"></ngx-skeleton-loader>
+  
+        <ngx-skeleton-loader count="3" [theme]="{ height: '12px', width: '100%', 'margin-bottom': '6px' }"></ngx-skeleton-loader>
+  
+        <ngx-skeleton-loader count="1" [theme]="{ height: '18px', width: '30%', 'margin-bottom': '10px' }"></ngx-skeleton-loader>
+  
+        <ngx-skeleton-loader count="1" [theme]="{ height: '45px', width: '100%', 'border-radius': '6px' }"></ngx-skeleton-loader>
+  
+        <div class="mt-5">
+          <ngx-skeleton-loader count="1" [theme]="{ height: '25px', width: '50%', 'margin-bottom': '10px' }"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" [theme]="{ height: '20px', width: '30%' }"></ngx-skeleton-loader>
+        </div>
+      </div>
+    </div>
+</div>
+  

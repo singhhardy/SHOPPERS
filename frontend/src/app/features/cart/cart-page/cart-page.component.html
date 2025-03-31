@@ -1,10 +1,6 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-xl-8" >
-            <!-- <div class="card p-2">
-                Deliver to
-                <app-addresses></app-addresses>
-            </div> -->
             <div class="card mb-3" *ngFor="let item of cartItems">
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-start">
@@ -44,8 +40,33 @@
         </div>
     </div>
 
+    <div class="row" *ngIf="!isLoading === false">
+        <div class="col-xl-8">
+            <div *ngFor="let i of [1,2]" class="card mb-3">
+                <div class="card-body d-flex">
+                  <ngx-skeleton-loader [theme]="{ width: '200px', height: '200px', 'margin-right': '1rem' }"></ngx-skeleton-loader>
+                  <div class="flex-grow-1">
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '30px', width: '60%', 'margin-bottom': '8px' }"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '20px', width: '80%', 'margin-bottom': '6px' }"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '20px', width: '70%', 'margin-bottom': '6px' }"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '24px', width: '50%', 'margin-bottom': '10px' }"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="2" [theme]="{ height: '32px', width: '100px', 'margin-right': '8px' }"></ngx-skeleton-loader>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <ngx-skeleton-loader count="2" [theme]="{ height: '32px', width: '100px', 'margin-right': '8px' }"></ngx-skeleton-loader>
+                    <ngx-skeleton-loader count="2" [theme]="{ height: '32px', width: '100px', 'margin-right': '8px' }"></ngx-skeleton-loader>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="text-center mt-5" *ngIf="cartItems.length === 0">
+
+    <div class="text-center mt-5"*ngIf="!isLoading && cartItems.length === 0">
         <div class="card-title">You Cart is empty</div>
         <button class="btn secondary-btn mt-2 rounded-0" [routerLink]="'/'"> Shop Now!</button>
     </div>

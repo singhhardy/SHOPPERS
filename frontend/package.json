@@ -22,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@primeng/themes": "^19.0.10",
     "bootstrap": "^5.3.3",
+    "ngx-skeleton-loader": "^10.0.0",
     "ngx-toastr": "^19.0.0",
     "primeng": "^19.0.10",
     "process": "^0.11.10",

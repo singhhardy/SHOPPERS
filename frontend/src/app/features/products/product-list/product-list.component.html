@@ -11,3 +11,26 @@
         </div>
     </div>
 </div>
+
+<div class="row g-3" *ngIf="!products || products.length === 0">
+    <div class="col-xl-4" *ngFor="let i of [1,2,3,4,5,6]">
+      <div class="card border-0">
+        <ngx-skeleton-loader
+          count="1"
+          [theme]="{ height: '200px', width: '100%', 'border-radius': '4px', 'margin-bottom': '10px' }">
+        </ngx-skeleton-loader>
+  
+        <div class="card-body">
+          <ngx-skeleton-loader
+            count="1"
+            [theme]="{ height: '20px', width: '70%', 'margin-bottom': '10px' }">
+          </ngx-skeleton-loader>
+          <ngx-skeleton-loader
+            count="1"
+            [theme]="{ height: '16px', width: '40%' }">
+          </ngx-skeleton-loader>
+        </div>
+      </div>
+    </div>
+</div>
+  
