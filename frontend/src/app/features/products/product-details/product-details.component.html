@@ -20,7 +20,11 @@
 
             <div class="mt-5">
                 <div class="d-flex mb-3 align-items-center justify-content-between">
-                    <div class="fw-semibold"><span class="text-success border rounded fs-20 border-success p-0 px-1 me-2" *ngIf="product.rating > 0">{{product.rating}} <i class="fa fs-18 fa-star"></i> </span> <span class="fs-20">Reviews & Ratings</span></div>
+                    <div class="fw-semibold" >
+                        <div class="badge bg-success text-white me-2 text-end"  *ngIf="product.rating > 0">
+                            {{ product.rating }} <i class="fa fa-star"></i>
+                        </div>
+                        <span class="fs-20">Reviews & Ratings</span></div>
                     <h6 class="text-primary float-end">
                         {{
                         product.numReviews === 0

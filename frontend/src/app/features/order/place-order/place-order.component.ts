@@ -128,7 +128,7 @@ async confirmOrder(): Promise<void> {
               this.toastr.success("Order placed successfully!");
             }
           } else {
-            this.toastr.warning(response.message);
+            this.toastr.success(response.message);
           }
         },
         error: (error) => {

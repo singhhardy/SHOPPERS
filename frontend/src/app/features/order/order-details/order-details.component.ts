@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order-details',
@@ -23,7 +24,8 @@ export class OrderDetailsComponent {
     private orderService: OrderService, 
     private route: ActivatedRoute, 
     private productService: ProductService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(){
@@ -76,10 +78,12 @@ export class OrderDetailsComponent {
         console.log('Order canceled:', status, orderId);
         this.orderService.CancelOrder(status, orderId).subscribe(
           (response) => {
-            console.log(response)
+            console.log(response.message)
+            this.toastr.success(response.message)
           },
           (error) => {
             console.log(error)
+            this.toastr.error(error)
           }
         )
       } else {

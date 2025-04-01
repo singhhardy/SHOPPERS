@@ -199,25 +199,94 @@ const OrderInfoById = asyncHandler(async (req, res) => {
 
 })
 
-const OrderStatus = asyncHandler(async ( req, res) => {
-    const orderId = req.params.id
-    const order = await Order.findById(orderId)
-    
-    if(!order){
-        res.status(400)
-        throw new Error('Order not found')
-    }
+const OrderStatus = asyncHandler(async (req, res) => {
+  const orderId = req.params.id;
+  const order = await Order.findById(orderId);
+  
+  if (!order) {
+      res.status(400);
+      throw new Error('Order not found');
+  }
 
-    const { status } = req.body
+  const user = await User.findById(order.userId);
+  if (!user) {
+      res.status(400);
+      throw new Error('User not found');
+  }
 
-    order.status = status
+  const { status } = req.body;
+  order.status = status;
 
-    await order.save()
-    res.status(201).json({
-        message: status ===  "Cancelled" ? "Order Cancelled" : "Order Status Updated",
-        order
-    })
-})
+  const cart = await Cart.findOne({ userId: order.userId });
+  if (!cart || cart.items.length === 0) throw new Error('Cart is empty');
+
+  const products = await Product.find({ _id: { $in: cart.items.map(item => item.productId) } });
+  const productDetails = products.map(product =>
+    `<div style="border: 1px solid #fff; border-radius: 8px; padding: 8px; margin: 4px;">
+      <img src="${product.image}" width="80px" style="border-radius:8px;">
+      <p><strong>Product:</strong> ${product.name}</p>
+      <p><strong>Price:</strong> Rs. ${product.price}</p>
+    </div>`
+  ).join('');
+
+  let emailSubject, emailText, emailHtml;
+
+  switch (status) {
+      case "Confirmed":
+          emailSubject = "ORDER CONFIRMED - SHOPPERS";
+          emailText = "Your order has been confirmed successfully.";
+          emailHtml = `<h1 style="color: #4CAF50;">Your Order is Confirmed!</h1>`;
+          break;
+      case "Pending":
+          emailSubject = "ORDER PENDING - SHOPPERS";
+          emailText = "Your order is currently pending.";
+          emailHtml = `<h1 style="color: #FFA500;">Your Order is Pending</h1>`;
+          break;
+      case "Shipped":
+          emailSubject = "ORDER SHIPPED - SHOPPERS";
+          emailText = "Your order has been shipped.";
+          emailHtml = `<h1 style="color: #1E90FF;">Your Order is Shipped</h1>`;
+          break;
+      case "Delivered":
+          emailSubject = "ORDER DELIVERED - SHOPPERS";
+          emailText = "Your order has been delivered.";
+          emailHtml = `<h1 style="color: #008000;">Your Order is Delivered!</h1>
+             <div>
+              <h4>to your Shipping Address:</h4>
+              <p>${order.shippingInfo.street}, ${order.shippingInfo.city}, 
+              ${order.shippingInfo.state}, ${order.shippingInfo.country}, ${order.shippingInfo.zipCode}</p>
+            </div>
+          `;
+          break;
+      case "Cancelled":
+          emailSubject = "ORDER CANCELLED - SHOPPERS";
+          emailText = "Your order has been cancelled.";
+          emailHtml = `<h1 style="color: #FF6F61;">Your Order is Cancelled!</h1>`;
+          break;
+      default:
+          res.status(400);
+          throw new Error('Invalid order status');
+  }
+
+  await sendEmail({
+      to: user.email,
+      subject: emailSubject,
+      text: emailText,
+      html: `
+          <h1 style="color: #FF6F61;">SHOPPERS!</h1>
+          ${emailHtml}
+          <h4>Order Details :</h4>
+          <div>${productDetails}</div>
+          <span style="text-align: end; font-weight: bold;">Total Price : Rs. ${order.totalAmount}</span>
+      `
+  });
+
+  await order.save();
+  res.status(201).json({
+      message: status === "Cancelled" ? "Order Cancelled" : "Order Status Updated",
+      order
+  });
+});
 
 const GetMyOrders = asyncHandler(async (req, res) => {
   const userId = req.user;

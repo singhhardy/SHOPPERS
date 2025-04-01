@@ -5,8 +5,11 @@
                 <img class="card-img-top product-img border" src="{{ product.image }}" alt="Product Image">
             </a>
             <div class="card-body">
+                <div class="badge bg-success text-white float-end text-end"  *ngIf="product.rating > 0">
+                  {{ product.rating }} <i class="fa fa-star"></i>
+                </div>
                 <a class="card-title mb-0 text-primary" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
-                <b>${{ product.price }} /-</b>
+                <b>Rs. {{ product.price }} /-</b>
             </div>
         </div>
     </div>
