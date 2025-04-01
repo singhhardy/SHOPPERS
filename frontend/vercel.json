@@ -1,14 +1,10 @@
 {
-    "builds":[
-        {
-            "src": "frontend/dist/frontend/browser/",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes":[
-        {
-            "src": "/(.*)",
-            "dest": "/frontend/dist/frontend/browser/"
-        }
+    "outputDirectory": "dist/frontend/browser",
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
     ]
-}
+  }
+  
