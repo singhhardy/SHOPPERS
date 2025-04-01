@@ -27,4 +27,8 @@ export class OrderService {
     return this.http.get<any>(`${this.baseUrl}/order/${orderId}`)
   }
 
+  CancelOrder(status: string, orderId: string): Observable<any>{
+    return this.http.put<any>(`${this.baseUrl}/order/status/${orderId}`, { status })
+  }
+
 }

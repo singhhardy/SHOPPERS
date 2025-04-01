@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TimelineComponent } from '../../../shared/components/timeline/timeline.component';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-order-details',
@@ -20,7 +22,8 @@ export class OrderDetailsComponent {
   constructor(
     private orderService: OrderService, 
     private route: ActivatedRoute, 
-    private productService: ProductService
+    private productService: ProductService,
+    private modalService: NgbModal
   ){}
 
   ngOnInit(){
@@ -61,6 +64,28 @@ export class OrderDetailsComponent {
         console.log(error);
       }
     );
+  }
+
+  CancelOrder(status: string, orderId: string) {
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.title = 'Cancel Order';
+    modalRef.componentInstance.message = `Are you sure you want to cancel the order with ID: ${orderId}?`;
+
+    modalRef.componentInstance.confirm.subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        console.log('Order canceled:', status, orderId);
+        this.orderService.CancelOrder(status, orderId).subscribe(
+          (response) => {
+            console.log(response)
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+      } else {
+        console.log('Order cancellation canceled');
+      }
+    });
   }
   
 

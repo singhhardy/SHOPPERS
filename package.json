@@ -1,9 +1,14 @@
 {
   "scripts": {
-  "start": "node backend/index.js",
-  "server": "nodemon backend/index.js",
-  "frontend": "cd frontend && ng serve --port 4200",
-  "dev": "concurrently \"npm run server\" \"npm run frontend\""
-}
-
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "frontend": "cd frontend && ng serve --port 4200",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" (click)="onCancel()" aria-label="Close">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-0">{{ message }}</p>
+  </div>
+  <div class="modal-footer p-2">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="onConfirm()">Confirm</button>
+</div>
+  
