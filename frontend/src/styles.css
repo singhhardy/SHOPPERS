@@ -31,6 +31,9 @@ html, body{
     padding-bottom: 10px;
 }
 
+.showcase{
+    height: 400px;
+}
 .showcase-text{
     font-size: 70px;
 }
@@ -179,4 +182,16 @@ a{
     width: 5px !important; 
     height: 5px !important; 
     padding: 5px;
+}
+
+@media(max-width: 1250px){
+    .showcase-img{
+        display: none;
+    }
+    .showcase-text{
+        font-size: 30px;
+    }
+    .showcase{
+        height: 140px;
+    }
 }
