@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { jsPDF } from 'jspdf';
+import html2Canvas from 'html2canvas'
 
 @Component({
   selector: 'app-order-details',
@@ -32,6 +34,26 @@ export class OrderDetailsComponent {
     this.route.paramMap.subscribe(params => {
       const orderId = params.get('id');
       this.GetOrderById(orderId)
+    })
+  }
+
+  generateInvoice(){
+    const invoiceElement = document.getElementById('invoice-content')
+
+    if(!invoiceElement){
+      console.error("Invoice content not found")
+      return
+    }
+
+    html2Canvas(invoiceElement, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4')
+
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+      pdf.save(`Invoice_${this.order._id}.pdf`);
     })
 
   }
