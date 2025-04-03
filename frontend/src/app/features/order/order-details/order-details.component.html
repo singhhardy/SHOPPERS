@@ -34,7 +34,7 @@
                         {{ order.shippingInfo?.state }}, {{ order.shippingInfo?.country }} -
                         {{ order.shippingInfo?.zipCode }}
                     </p>
-                    <button class="btn btn-danger btn-sm" *ngIf="order.status !== 'Cancelled'" (click)="CancelOrder('Cancelled', order._id)">Cancel Order</button>
+                    <button class="btn btn-danger btn-sm" *ngIf="order.status !== 'Cancelled' && order.status !== 'Delivered'" (click)="CancelOrder('Cancelled', order._id)">Cancel Order</button>
                 </div>
             </div>
             <div class="card mt-2">
