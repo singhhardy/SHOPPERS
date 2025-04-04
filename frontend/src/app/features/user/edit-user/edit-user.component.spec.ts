@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUserComponent } from './edit-user.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('EditUserComponent', () => {
   let component: EditUserComponent;
@@ -8,7 +10,7 @@ describe('EditUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditUserComponent]
+      imports: [EditUserComponent, HttpClientTestingModule, ToastrModule.forRoot()]
     })
     .compileComponents();
 

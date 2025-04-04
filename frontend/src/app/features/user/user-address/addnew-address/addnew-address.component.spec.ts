@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddnewAddressComponent } from './addnew-address.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('AddnewAddressComponent', () => {
   let component: AddnewAddressComponent;
@@ -8,7 +10,7 @@ describe('AddnewAddressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddnewAddressComponent]
+      imports: [AddnewAddressComponent, HttpClientTestingModule, ToastrModule.forRoot()]
     })
     .compileComponents();
 
