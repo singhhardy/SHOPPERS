@@ -1,15 +1,54 @@
-<div class="container">
-
-    <div class="row primary-bg bg-gradient mb-3 position-relative showcase">
-        <div class="col-xl-6 d-flex ps-5 justify-content-center flex-column">
-            <h1 class="text-white showcase-text mt-2">Welcome to <span class="fw-bold">SHOPPERS</span></h1>
-            <p class="text-white fw-semibold">Enjoy Latest Products, Upto <span class="fs-1"><i>40%</i> off.</span></p>
-        </div>
-        <div class="col-xl-6">
-            <img class="img-fluid showcase-img position-absolute" src="assets/showcase.png" alt="showcase" style="right: 0; top:-20px;">
-        </div>
+<div>
+    <div class="row mb-3">
+        <ngb-carousel>
+            <ng-template ngbSlide>
+                <div class="bg-black mxh-500">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-xl-6">
+                                <h1 class="text-light"><span class="showcase-text">NIKE</span> Recent Collection</h1>
+                                <p class="text-light">grab awesome deals, <span class="fs-1 primary-text">40% OFF</span> on nike shoes, starting today.</p>
+                            </div>
+                            <div class="col-xl-6 d-flex justify-content-center">
+                                <img src="assets/nikeshow.png"  class="img-fluid show-img" alt="slide One">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template ngbSlide>
+                <div class="bg-black mxh-500">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-xl-6">
+                                <h1 class="text-light"><span class="showcase-text">PUMA</span> newly launches!</h1>
+                                <p class="text-light">SPORTS & SNEAKERS collection <span class="fs-1 primary-text">15-46% Off</span> on PUMA shoes, starting today.</p>
+                            </div>
+                            <div class="col-xl-6 d-flex justify-content-center">
+                                <img src="assets/pumashow.png" class="img-fluid show-img" alt="slide One">
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </ng-template>
+            <ng-template ngbSlide>
+                <div class="bg-black mxh-500">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-xl-6">
+                                <h1 class="text-light"><span class="showcase-text">Adidas</span> New launches</h1>
+                                <p class="text-light"><b>LIMITED EDITION</b>, Upto <span class="fs-1 primary-text">20% OFF</span> on adidas shoes & sneakers.</p>
+                            </div>
+                            <div class="col-xl-6 d-flex justify-content-center">
+                                <img src="assets/adidasshow.png" class="img-fluid show-img" alt="slide One">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-carousel>
     </div>
-    <div class="my-2 my-md-5 pt-0 pt-md-5">
+    <div class="container my-2 my-md-5 pt-0 pt-md-5">
         <br>
         <app-product-list></app-product-list>
         <br>

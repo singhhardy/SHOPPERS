@@ -19,9 +19,19 @@ html, body{
 .bg-body{
     background: var(--body-color) !important;
 }
+.bg-black{
+    background: #000;
+}
 
+.show-img{
+    max-height: 600px !important;
+}
+
+.mxh-500{
+    max-height: 800px;
+}
 .searchbar{
-    height: 45px    ;
+    height: 45px;
 }
 
 .main-content{
