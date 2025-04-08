@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PricePipe } from '../../../shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [ CommonModule, RouterModule, NgxSkeletonLoaderModule ],
+  imports: [ CommonModule, RouterModule, NgxSkeletonLoaderModule, PricePipe ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css'
 })

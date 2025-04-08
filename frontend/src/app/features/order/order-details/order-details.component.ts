@@ -9,10 +9,11 @@ import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/
 import { ToastrService } from 'ngx-toastr';
 import { jsPDF } from 'jspdf';
 import html2Canvas from 'html2canvas'
+import { PricePipe } from '../../../shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-order-details',
-  imports: [TimelineComponent, CommonModule],
+  imports: [TimelineComponent, CommonModule, PricePipe],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.css'
 })

@@ -10,11 +10,12 @@ import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { firstValueFrom } from 'rxjs';
+import { PricePipe } from '../../../shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-place-order',
   standalone: true,
-  imports: [CommonModule, AddnewAddressComponent, FormsModule, RouterModule],
+  imports: [CommonModule, AddnewAddressComponent, FormsModule, RouterModule, PricePipe],
   templateUrl: './place-order.component.html',
   styleUrl: './place-order.component.css'
 })

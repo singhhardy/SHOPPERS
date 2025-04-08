@@ -11,7 +11,7 @@
                             <h3>{{ item.productId.name }}</h3>
                             <p class="mb-1">{{ item.productId.description }}</p>
                             <p class="fw-semibold">{{ item.productId.brand }}</p>
-                            <h4 class="fw-semibold"><i class="fa-solid fa-indian-rupee-sign"></i> {{ item.productId.price }}</h4>
+                            <h4 class="fw-semibold">{{ item.productId.price | price:'Rs.' }}</h4>
                             <button class="btn border btn-sm" (click)="removeItem( item.productId._id )"><i class="fa fa-bin"></i> Remove</button><br>
                             <div class="btn-group mt-1">
                                 <button class="btn fa btn-sm fa-minus border" (click)="decQuantity(item.productId._id)"></button>
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="text-secondary">Total Items : <span class="fw-semibold text-dark"> {{ cartItems.length }} </span></h6>
-                    <h6 class="text-secondary">Total Amount : <span class="fw-semibold text-dark"><i class="fa-solid fa-indian-rupee-sign"></i> {{ cartTotal }}</span></h6>
+                    <h6 class="text-secondary">Total Amount : <span class="fw-semibold text-dark">{{ cartTotal | price:'Rs.'  }}</span></h6>
                     <h6 class="text-success">Free Delivery</h6>
                 </div>
             </div>

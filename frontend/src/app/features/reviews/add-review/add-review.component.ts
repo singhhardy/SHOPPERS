@@ -65,9 +65,6 @@ export class AddReviewComponent {
         }
         this.ratingText = ''
         this.showTextbox = false
-      },
-      error => {
-        this.toastr.error(error.error.message)
       }
     )
   }

@@ -7,12 +7,13 @@ import { AuthService } from '../core/services/auth.service';
 import { authInterceptor } from '../core/interceptors/auth.interceptor';
 import { provideToastr } from 'ngx-toastr'
 import { errorInterceptor } from '../core/interceptors/error.interceptor';
+import { loaderInterceptor } from '../core/interceptors/loader.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor, loaderInterceptor])),
     AuthService,
     provideAnimations(),
     provideToastr(),

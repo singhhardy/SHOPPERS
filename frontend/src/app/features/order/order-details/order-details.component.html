@@ -8,7 +8,7 @@
                         <div class="d-flex">
                             <img src="{{ product.image }}" class="rounded-2 me-4" alt="Product Image" style="width:100px;" >
                             <div class="w-100">
-                                <h5><i class="fa fa-indian-rupee"></i> {{ product.price }}</h5>
+                                <h5> {{ product.price | price:'Rs.'  }}</h5>
                                 <p class="mb-0">{{ product.brand }}</p>
                                 <span class="badge bg-primary fs-12">{{ product.category }}</span>
                             </div>
@@ -42,7 +42,7 @@
                     <p class="mb-1">Payment Status : <span class="fw-semibold">{{ order.paymentMethod }}</span></p>
                     <p class="mb-1">Payment Status : <span>{{ order.paymentStatus }}</span></p>
                     <p class="mb-1">Total items : <span class="fw-semibold"> {{ fetchedProducts.length }}</span></p>
-                    <p class="mb-1">Total Price : <span class="fw-semibold"><i class="fa fa-indian-rupee"></i> {{ order.totalAmount }}</span></p>
+                    <p class="mb-1">Total Price : <span class="fw-semibold"> {{ order.totalAmount | price:'Rs.'  }}</span></p>
                     <span class="text-success fw-semibold">Free Delivery</span> <br>
                     <button class="btn secondary-btn btn-sm mt-3" (click)="generateInvoice()"><i class="fa fa-download"></i> Download Invoice</button>
                 </div>
