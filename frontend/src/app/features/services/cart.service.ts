@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,10 @@ export class CartService {
   private cartItemCount = new BehaviorSubject<number>(0);
   currentCartItemCount = this.cartItemCount.asObservable()
 
-  constructor(private http: HttpClient) {
-    this.loadCart()
+  constructor(private http: HttpClient, private auth: AuthService) {
+    if(this.auth.isLoggedIn()){
+      this.loadCart()
+    }
   }
 
   loadCart() {

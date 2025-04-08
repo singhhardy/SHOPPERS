@@ -25,6 +25,7 @@ html, body{
 
 .show-img{
     max-height: 600px !important;
+    min-height: 430px;
 }
 
 .mxh-500{

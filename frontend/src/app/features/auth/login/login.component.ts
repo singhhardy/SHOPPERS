@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router } from  '@angular/router'
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   showPassword: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService, private cart: CartService
   ){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,6 +41,7 @@ export class LoginComponent {
           this.auth.getMe().subscribe(
             () => {
               this.router.navigate(['/'])
+              this.cart.loadCart()
               this.toastr.success('Logged In Successfully')
             },
             (error) => {

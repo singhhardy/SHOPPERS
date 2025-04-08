@@ -32,6 +32,7 @@ export class NavbarComponent {
   signOut() {
     this.auth.logout()
     this.toastr.success('Signed Out')
+    this.cartItemsCount = ''
   }
 
 
