@@ -10,8 +10,8 @@
         <ul class="navbar-nav w-100 ms-auto mb-2 mb-lg-0">
             <li class="nav-item w-100">
                 <div class="btn-group w-75 h-100 mt-2 mt-md-0 searchbox">
-                    <input class="form-control w-100 border-0 rounded-0  rounded-start bg-body searchbar" placeholder="Search...">
-                    <button class="btn primary-btn"><i class="fa fa-search"></i></button>
+                    <input class="form-control w-100 border-0 rounded-0  rounded-start bg-body searchbar"  [(ngModel)]="searchText" placeholder="Search...">
+                    <button class="btn primary-btn" (click)="onSearch()"><i class="fa fa-search"></i></button>
                 </div>
             </li>
         </ul>

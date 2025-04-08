@@ -120,11 +120,50 @@ const deleteProduct = asyncHandler(async (req, res) => {
         throw new Error(`Product Not Found!`)
     }
 })
+const searchProducts = asyncHandler(async (req, res) => {
+    try {
+      const query = req.query.q || '';
+      const keywords = query.split(/\s+/).filter(Boolean);
+      const regexes = keywords.map(k => new RegExp(k, 'i'));
+      const limit = parseInt(req.query.limit) || 20;
+      const page = parseInt(req.query.page) || 1;
 
+      const skip = (page -1) * limit
+
+      const conditions = regexes.map(regex => ({
+        $or: [
+          { name: regex },
+          { description: regex },
+          { brand: regex },
+          { category: regex },
+          { tags: regex }
+        ]
+      }));
+  
+      const products = await Product.find({ $and: conditions })
+      .limit(limit)
+      .skip(skip)
+
+      const totalCount = await Product.countDocuments({ $and: conditions });
+  
+      res.json({
+        results: products,
+        total: totalCount,
+        page,
+        limit,
+        totalPages: Math.ceil(totalCount / limit)
+      });
+    } catch (err) {
+      console.error('Search Error:', err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+  
 module.exports = {  
     getAllProducts,
     AddNewProduct,
     deleteProduct,
     editProduct,
-    getProduct
+    getProduct,
+    searchProducts
 }

@@ -12,6 +12,7 @@ import { OrderListComponent } from './features/order/order-list/order-list.compo
 import { ThankyouOrderComponent } from './features/order/thankyou-order/thankyou-order.component';
 import { OrderDetailsComponent } from './features/order/order-details/order-details.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { ProductListComponent } from './features/products/product-list/product-list.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
@@ -23,6 +24,7 @@ export const routes: Routes = [
     
     // PRODUCT DETAILS
     {path: 'product-details/:id', component: ProductDetailsComponent},
+    {path: 'products', component: ProductListComponent},
 
     // CART
     {path: 'cart', component: CartPageComponent,  canActivate: [authGuard]},

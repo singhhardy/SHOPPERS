@@ -1,4 +1,5 @@
-<div class="row g-3">
+<div class="container mt-5">
+  <div class="row g-3">
     <div class="col-xl-4" *ngFor="let product of products">
         <div class="card" >
             <a [routerLink]="['/product-details', product._id]">
@@ -12,6 +13,15 @@
                 <b>Rs.{{ product.price | price }} /-</b>
             </div>
         </div>
+    </div>
+    <div class="pagination-controls text-center mt-4">
+      <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+        Next
+      </button>
     </div>
 </div>
 
@@ -37,3 +47,4 @@
     </div>
 </div>
   
+</div>
