@@ -35,10 +35,6 @@ export class ForgotPasswordComponent {
         console.log(response)
         this.toastr.success(response.message)
       },
-      (error: any) => {
-        const errorMessage = error.error?.message || 'An unexpected error occurred';
-        this.toastr.error(errorMessage) 
-      }
     )
   }
 
@@ -49,16 +45,11 @@ export class ForgotPasswordComponent {
       newPassword: this.resetPassForm.value.newPassword
     }
 
-    console.log(userData)
     this.auth.resetPass(userData).subscribe(
       (response: any) => {
         console.log(response)
         this.toastr.success(response.message)
         this.router.navigate(["/login"])
-      },
-      (error: any) => {
-        const errorMessage = error.error?.message || 'An unexpected error occurred';
-        this.toastr.error(errorMessage)
       }
     )
   }

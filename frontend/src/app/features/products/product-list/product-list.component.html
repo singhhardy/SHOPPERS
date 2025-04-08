@@ -9,7 +9,7 @@
                   {{ product.rating }} <i class="fa fa-star"></i>
                 </div>
                 <a class="card-title mb-0 text-primary" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
-                <b>Rs. {{ product.price }} /-</b>
+                <b>Rs.{{ product.price | price }} /-</b>
             </div>
         </div>
     </div>

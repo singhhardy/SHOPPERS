@@ -46,12 +46,6 @@ export class LoginComponent {
               console.log(error)
             }
           )
-
-
-        },
-        (error: any) => {
-          const errorMessage = error.error?.message || error.message || 'An unexpected error occurred';
-          this.toastr.error(errorMessage, 'Something went wrong');
         }
       );
     }

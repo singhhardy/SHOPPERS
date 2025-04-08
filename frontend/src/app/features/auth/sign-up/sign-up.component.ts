@@ -51,8 +51,6 @@ export class SignUpComponent {
       (error: any) => {
         console.log(error)
         this.isSubmitting = false
-        const errorMessage = error.error?.message || error.message || 'An unexpected error occurred';
-        this.toastr.error(errorMessage)
       }
     )
   }
@@ -70,11 +68,6 @@ export class SignUpComponent {
         console.log(response)
         this.router.navigate(['/login'])
         this.toastr.success('Please Login', response.message)
-      },
-      (error: any) => {
-        console.log(error)
-        const errorMessage = error.error?.message || 'An unexpected error occurred';
-        this.toastr.error(errorMessage)
       }
     )
   }

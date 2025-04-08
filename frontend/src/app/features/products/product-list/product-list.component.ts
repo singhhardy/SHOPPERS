@@ -3,10 +3,11 @@ import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PricePipe } from '../../../shared/pipes/price.pipe';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CommonModule, RouterModule, NgxSkeletonLoaderModule],
+  imports: [CommonModule, RouterModule, NgxSkeletonLoaderModule, PricePipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })

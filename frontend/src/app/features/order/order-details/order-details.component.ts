@@ -102,10 +102,6 @@ export class OrderDetailsComponent {
           (response) => {
             console.log(response.message)
             this.toastr.success(response.message)
-          },
-          (error) => {
-            console.log(error)
-            this.toastr.error(error)
           }
         )
       } else {

@@ -11,6 +11,7 @@ import { PlaceOrderComponent } from './features/order/place-order/place-order.co
 import { OrderListComponent } from './features/order/order-list/order-list.component';
 import { ThankyouOrderComponent } from './features/order/thankyou-order/thankyou-order.component';
 import { OrderDetailsComponent } from './features/order/order-details/order-details.component';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
@@ -30,5 +31,8 @@ export const routes: Routes = [
     {path: 'place-order', component: PlaceOrderComponent, canActivate: [authGuard]},
     {path: 'order-list', component: OrderListComponent, canActivate: [authGuard]},
     {path: 'order-confirmed', component: ThankyouOrderComponent, canActivate: [authGuard]},
-    {path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [authGuard]}
+    {path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [authGuard]},
+
+    // 404
+    {path: '**', component: PageNotFoundComponent}
 ];

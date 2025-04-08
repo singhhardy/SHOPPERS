@@ -36,9 +36,6 @@ export class CartPageComponent {
         this.cartItems = response.cart.items
         this.cart.updateCartItemCount(this.cartItems.length);
         this.isLoading = false
-      },
-      (error) => {
-        console.log(error)
       }
     )
   }
@@ -47,9 +44,6 @@ export class CartPageComponent {
     this.cart.removeItemFromCart(id).subscribe(
       response => {
         this.getCartItems()
-      },
-      error => {
-        console.log(error)
       }
     )
   }
@@ -59,9 +53,6 @@ export class CartPageComponent {
       (response) => {
         this.cartTotal = response.total
         console.log(this.cartTotal)
-      },
-      (error) => {
-        console.log(error)
       }
     )
   }
@@ -71,9 +62,6 @@ export class CartPageComponent {
       (response) => {
         this.toastr.success(response.message)
         this.getCartItems()
-      },
-      (error) =>  {
-        this.toastr.error(error.message)
       }
     )
   }
@@ -114,8 +102,6 @@ export class CartPageComponent {
         // this.toastr.success('Item updated successfully');
       },
       (error) => {
-        console.error('Error updating cart:', error);
-        this.toastr.error(error.error.error);
         const item = this.cartItems.find(item => item.productId._id === productId);
         if (item) {
           item.quantity = quantity - 1;

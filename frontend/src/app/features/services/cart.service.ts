@@ -11,7 +11,21 @@ export class CartService {
   private cartItemCount = new BehaviorSubject<number>(0);
   currentCartItemCount = this.cartItemCount.asObservable()
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadCart()
+  }
+
+  loadCart() {
+    this.getMyCart().subscribe({
+      next: (res) => {
+        const items = res.cart?.items || [];
+        this.updateCartItemCount(items.length);
+      },
+      error: () => {
+        this.updateCartItemCount(0);
+      }
+    });
+  }
 
   updateCartItemCount(count: number){
     this.cartItemCount.next(count)
