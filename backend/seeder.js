@@ -3,11 +3,13 @@ const Product = require('./models/productModel')
 const fs = require('fs')
 const dotenv = require('dotenv');
 const connectDb = require('./config/db')
+const path = require('path')
 
-dotenv.config()
+dotenv.config({ path: path.join(__dirname, '../.env') });
 connectDb()
 
 const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'))
+console.log('MONGO_URI:', process.env.MONGO_URI);
 
 const seedProducts = async () => {
     try{

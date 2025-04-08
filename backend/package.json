@@ -7,6 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
+    "seed": "node backend/seeder.js",
     "start": "node backend/index.js",
     "server": "nodemon backend/index.js",
     "frontend": "cd frontend && ng serve --port 4200",
