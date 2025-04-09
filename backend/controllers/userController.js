@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const { User } = require('../models/usersModel')
 const bcrypt = require('bcryptjs')
+const Newsletter = require('../models/newsletterModel')
 
 // Get All Users
 const GetAllUsers = asyncHandler(async (req, res) => {
@@ -260,6 +261,29 @@ const updateDefaultAddress = asyncHandler(async (req, res) => {
     })
 })
 
+// Add Customer to Newsletter
+
+const addToNewsLetter = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        res.status(400);
+        throw new Error('Email is required');
+    }
+
+    const existing = await Newsletter.findOne({ email });
+    if (existing) {
+        res.status(400);
+        throw new Error('Email already subscribed');
+    }
+
+    const newSubscriber = await Newsletter.create({ email });
+
+    res.status(201).json({
+        message: 'Successfully subscribed to the newsletter!',
+        data: newSubscriber,
+    });
+});
 module.exports = {
     GetAllUsers,
     DeleteUserById,
@@ -271,5 +295,6 @@ module.exports = {
     GetUserAddresses,
     DeleteAddress,
     GetProfile,
-    updateDefaultAddress
+    updateDefaultAddress,
+    addToNewsLetter
 }
