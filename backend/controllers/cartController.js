@@ -36,7 +36,7 @@ const AddToCart = asyncHandler(async (req, res) => {
     if(!cart){
         cart = new Cart({
             userId,
-            items: [{ productId, quantity, price: product.price}]
+            items: [{ productId, quantity, size, price: product.price }]
         })
     } else {
         const existingItem = cart.items.find(item => item.productId.toString() === productId && item.size)

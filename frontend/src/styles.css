@@ -37,8 +37,9 @@ html, body{
 
 .main-content{
     margin-top: 70px;
+    margin-bottom: 70px;
     padding-top: 1px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding-bottom: 10px;
 }
 

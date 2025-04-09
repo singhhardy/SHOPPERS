@@ -28,7 +28,6 @@ export class ReviewsListComponent {
   getReviews(){
     this.review.getProductReviews(this.id).subscribe(
       (response) => {
-        console.log(response)
         this.reviews = response.reviews
       },
       (error) => {

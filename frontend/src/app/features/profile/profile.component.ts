@@ -20,4 +20,8 @@ export class ProfileComponent {
     this.user$ = this.auth.user$
   }
 
+  ngOnInit(){
+    this.user$ = this.auth.user$
+  }
+
 }

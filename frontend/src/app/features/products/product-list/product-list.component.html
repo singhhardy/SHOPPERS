@@ -9,12 +9,12 @@
                 <div class="badge bg-success text-white float-end text-end"  *ngIf="product.rating > 0">
                   {{ product.rating }} <i class="fa fa-star"></i>
                 </div>
-                <a class="card-title mb-0 text-primary" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
+                <a class="card-title mb-0 text-primary text-decoration-none" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
                 <b>Rs.{{ product.price | price }} /-</b>
             </div>
         </div>
     </div>
-    <div class="pagination-controls text-center mt-4">
+    <div class="pagination-controls text-center mt-4" *ngIf="products.length > 6">
       <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
         Previous
       </button>

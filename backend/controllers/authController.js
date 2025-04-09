@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const sendEmail = require('../utils/sendEmail')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Cart = require('../models/cartModel')
 
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString(); 
@@ -68,6 +69,14 @@ const verifyOTP = asyncHandler(async (req, res) => {
 
       if (type === 'register') {
           user.isVerified = true;
+          let cart = await Cart.findOne({ userId: user._id });
+          if (!cart) {
+            cart = new Cart({
+              userId: user._id,
+              items: []
+            });
+            await cart.save();
+          }
       } else if (type === 'reset-password') {
           return res.status(200).json({ message: 'OTP verified. Proceed with password reset.' });
       } else if (type === '2fa') {

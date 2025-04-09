@@ -8,7 +8,11 @@
                          class="img-fluid rounded-pill" alt="profile image" width="50px">
                          <div class="container">
                             <div class="fs-12">Hello</div>
-                            <div class="card-title mb-0 fw-semibold">{{ (user$ | async)?.firstName + ' ' + (user$ | async)?.lastName || (user$ | async)?.email || 'Guest User' }}</div>
+                            <ng-container *ngIf="user$ | async as user">
+                                <div class="card-title mb-0 fw-semibold">
+                                  {{ user.firstName && user.lastName ? (user.firstName + ' ' + user.lastName) : (user.email || 'Guest User') }}
+                                </div>
+                              </ng-container>
                          </div>
                     </div>
                 </div>

@@ -43,7 +43,6 @@ export class ProductDetailsComponent {
     this.productService.getProductById(id).subscribe(
       (response) => {
         this.product = response.product;
-        console.log(this.product);
       },
       (error) => {
         console.log(error);
