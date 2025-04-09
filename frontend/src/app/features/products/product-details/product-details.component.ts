@@ -7,15 +7,17 @@ import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, AddReviewComponent, NgxSkeletonLoaderModule],
+  imports: [CommonModule, AddReviewComponent, NgxSkeletonLoaderModule, NgbCarouselModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent {
-  product: any
+  product: any;
+  selectedSize: string | null = null;
 
   constructor(
     private route: ActivatedRoute, 
@@ -49,30 +51,36 @@ export class ProductDetailsComponent {
     );
   }
 
-  addCartProduct(id: any){
-
-    if(!this.authService.isLoggedIn()){
+  addCartProduct(id: any) {
+    if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
-      this.toastr.warning('You need to Login first!')
+      this.toastr.warning('You need to Login first!');
       return;
     }
-
+  
+    if (!this.selectedSize) {
+      this.toastr.warning('Pick your size please');
+      return;
+    }
+  
     const addItem = {
       productId: id,
-      quantity: 1
-    }
-
+      quantity: 1,
+      size: this.selectedSize
+    };
+  
     this.cart.AddToCart(addItem).subscribe(
       (response) => {
-        console.log(response)
-        this.toastr.success("Added to cart Successfully")
-        this.router.navigate(['/cart'])
+        console.log(response);
+        this.toastr.success("Added to cart Successfully");
+        this.router.navigate(['/cart']);
       },
       (error) => {
-        console.log(error)
-        this.toastr.error(error.error.error)
+        console.log(error);
+        this.toastr.error(error.error.error || "Something went wrong");
       }
-    )
+    );
   }
+  
 
 }

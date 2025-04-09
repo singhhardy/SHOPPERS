@@ -1,113 +1,94 @@
 [
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Nike Air Zoom Pegasus",
-      "brand": "Nike",
-      "description": "Lightweight running shoes with great cushioning.",
-      "price": 9960,
-      "countInStock": 50,
-      "category": "Shoes",
-      "image": "https://via.placeholder.com/300x300?text=Nike+Shoe",
-      "sizes": ["6", "7", "8", "9", "10", "11"],
-      "color": "Black"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Adidas Ultraboost 22",
-      "brand": "Adidas",
-      "description": "High-performance running shoes with boost technology.",
-      "price": 12450,
-      "countInStock": 40,
-      "category": "Shoes",
-      "image": "https://via.placeholder.com/300x300?text=Adidas+Shoe",
-      "sizes": ["6", "7", "8", "9", "10", "11"],
-      "color": "Black"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Puma RS-X",
-      "brand": "Puma",
-      "description": "Stylish and comfortable lifestyle sneakers.",
-      "price": 9130,
-      "countInStock": 30,
-      "category": "Shoes",
-      "image": "https://via.placeholder.com/300x300?text=Puma+Shoe",
-      "sizes": ["6", "7", "8", "9", "10", "11"],
-      "color": "Black"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "New Balance Fresh Foam 1080",
-      "brand": "New Balance",
-      "description": "Versatile running shoes for daily training.",
-      "price": 11620,
-      "countInStock": 20,
-      "category": "Shoes",
-      "image": "https://via.placeholder.com/300x300?text=New+Balance+Shoe",
-      "sizes": ["6", "7", "8", "9", "10", "11"],
-      "color": "Black"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Under Armour HOVR Phantom 2",
-      "brand": "Under Armour",
-      "description": "Responsive and comfortable running shoes.",
-      "price": 10790,
-      "countInStock": 25,
-      "category": "Shoes",
-      "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shoe",
-      "sizes": ["6", "7", "8", "9", "10", "11"],
-      "color": "Black"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Nike Dri-FIT Running Shirt",
-      "brand": "Nike",
-      "description": "Lightweight and breathable running shirt.",
-      "price": 3320,
-      "countInStock": 60,
-      "category": "Shirts",
-      "image": "https://via.placeholder.com/300x300?text=Nike+Shirt"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Adidas Essentials T-Shirt",
-      "brand": "Adidas",
-      "description": "Classic Adidas t-shirt with a soft cotton feel.",
-      "price": 2905,
-      "countInStock": 50,
-      "category": "Shirts",
-      "image": "https://via.placeholder.com/300x300?text=Adidas+Shirt"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Puma Training Tee",
-      "brand": "Puma",
-      "description": "Moisture-wicking training t-shirt for workouts.",
-      "price": 2490,
-      "countInStock": 40,
-      "category": "Shirts",
-      "image": "https://via.placeholder.com/300x300?text=Puma+Shirt"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Under Armour HeatGear Shirt",
-      "brand": "Under Armour",
-      "description": "Compression fit shirt for high-performance training.",
-      "price": 3735,
-      "countInStock": 35,
-      "category": "Shirts",
-      "image": "https://via.placeholder.com/300x300?text=Under+Armour+Shirt"
-    },
-    {
-      "user": "67b80478166eb7c2eef22d61",
-      "name": "Reebok CrossFit T-Shirt",
-      "brand": "Reebok",
-      "description": "Comfortable and durable t-shirt for intense workouts.",
-      "price": 3154,
-      "countInStock": 45,
-      "category": "Shirts",
-      "image": "https://via.placeholder.com/300x300?text=Reebok+Shirt"
-    }
-  ]
-  
+  {
+    "name": "Adidas Ultraboost 22",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "description": "Experience unparalleled comfort and energy return with the Adidas Ultraboost 22. Designed for performance and everyday style, it features a breathable Primeknit upper and Boost midsole for responsive cushioning.",
+    "price": 7200,
+    "countInStock": 35,
+    "image": "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg",
+    "imgs": [
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/5ae921bb08034aa2803fad7800abdd7f_9366/Ultraboost_22_Shoes_Black_GZ0127_02_standard_hover.jpg",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/5ae921bb08034aa2803fad7800abdd7f_9366/Ultraboost_22_Shoes_Black_GZ0127_02_standard_hover.jpg"
+    ],
+    "sizes": ["6", "7", "8", "9", "10"]
+  },
+  {
+    "name": "Nike Air Max 270",
+    "brand": "Nike",
+    "category": "Shoes",
+    "description": "The Nike Air Max 270 offers a stylish design inspired by iconic Air Max models. Featuring a large Air unit in the heel, it provides all-day comfort and a smooth ride with every step.",
+    "price": 8995,
+    "countInStock": 25,
+    "image": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ycmkasd5banf7qfvlpyu/NIKE+AIR+MAX+270+%28GS%29.png",
+    "imgs": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ycmkasd5banf7qfvlpyu/NIKE+AIR+MAX+270+%28GS%29.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/deg7rcray7ct2zoky3qg/NIKE+AIR+MAX+270+%28GS%29.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/deg7rcray7ct2zoky3qg/NIKE+AIR+MAX+270+%28GS%29.png"
+    ],
+    "sizes": ["6", "7", "8", "9", "10", "11"]
+  },
+  {
+    "name": "Puma RS-X³ Puzzle",
+    "brand": "Puma",
+    "category": "Shoes",
+    "description": "Bold and playful, the Puma RS-X³ Puzzle combines retro design with modern materials. Its chunky silhouette, mesh upper, and color-blocked details make it perfect for streetwear lovers.",
+    "price": 5399,
+    "countInStock": 40,
+    "image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes",
+    "imgs": [
+      "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes",
+      "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/sv03/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes",
+      "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/sv04/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes",
+      "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/sv04/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes"
+    ],
+    "sizes": ["7", "8", "9", "10"]
+  },
+  {
+    "name": "Reebok Zig Kinetica II",
+    "brand": "Reebok",
+    "category": "Shoes",
+    "description": "Reebok Zig Kinetica II is engineered for comfort and energy return. Featuring an innovative Zig Energy Shell and breathable mesh upper, it delivers support and style in one sleek package.",
+    "price": 9999,
+    "countInStock": 0,
+    "image": "https://assets.ajio.com/medias/sys_master/root/20210310/pSpP/6047bf9ef997dd5c400add12/-473Wx593H-460834751-black-MODEL5.jpg",
+    "imgs": [
+      "https://assets.ajio.com/medias/sys_master/root/20210310/pSpP/6047bf9ef997dd5c400add12/-473Wx593H-460834751-black-MODEL5.jpg",
+      "https://assets.ajio.com/medias/sys_master/root/20210310/pSpP/6047bf9ef997dd5c400add12/-473Wx593H-460834751-black-MODEL5.jpg"
+    ],
+    "sizes": ["6", "7", "8", "9", "10", "11"]
+  },
+  {
+    "name": "New Balance 997",
+    "brand": "New Balance",
+    "category": "Shoes",
+    "description": "The New Balance 997 modernizes a classic silhouette with a lightweight feel and premium suede and mesh materials. Ideal for casual wear, it offers great cushioning and timeless style.",
+    "price": 11000,
+    "countInStock": 30,
+    "image": "https://nb.scene7.com/is/image/NB/mg997nw_nb_02_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
+    "imgs": [
+      "https://nb.scene7.com/is/image/NB/mg997nw_nb_02_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
+      "https://nb.scene7.com/is/image/NB/mg997nw_nb_05_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
+      "https://nb.scene7.com/is/image/NB/mg997nw_nb_04_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
+      "https://nb.scene7.com/is/image/NB/mg997nw_nb_04_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440"
+    ],
+    "sizes": ["6", "7", "8", "9", "10"]
+  },
+  {
+    "name": "Adidas NMD_R1 V3",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "description": "The Adidas NMD_R1 V3 blends street-ready style with responsive comfort. With a breathable mesh upper, BOOST cushioning, and futuristic design, it's perfect for everyday wear and urban exploration.",
+    "price": 1750,
+    "countInStock": 15,
+    "image": "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce7b2aa3249b4057b31aaef900f7c68b_9366/NMD_R1_V3_Shoes_White_HQ4275_01_standard.jpg",
+    "imgs": [
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce7b2aa3249b4057b31aaef900f7c68b_9366/NMD_R1_V3_Shoes_White_HQ4275_01_standard.jpg",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce7b2aa3249b4057b31aaef900f7c68b_9366/NMD_R1_V3_Shoes_White_HQ4275_01_standard.jpg",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ff5080f33d9248c4acb9aef900fc7f3d_9366/NMD_R1_V3_Shoes_White_HQ4275_03_standard.jpg",
+      "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ff5080f33d9248c4acb9aef900fc7f3d_9366/NMD_R1_V3_Shoes_White_HQ4275_03_standard.jpg"
+    ],
+    "sizes": ["7", "8", "9", "10", "11"]
+  }
+]

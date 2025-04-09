@@ -25,7 +25,7 @@ const getProduct = asyncHandler(async(req, res) => {
 
 // ADD NEW PRODUCT
 const AddNewProduct = asyncHandler(async(req, res) => {
-    const { user, name, category, brand, description, price, countInStock, image } = req.body
+    const { user, name, category, brand, description, price, countInStock, image, imgs, sizes } = req.body
     
     if(!user || !name || !brand || !description || !price || !countInStock){
         res.status(400)
@@ -37,6 +37,8 @@ const AddNewProduct = asyncHandler(async(req, res) => {
             message: "Only Admins & SuperAdmins can Add a product"
         });
     }
+    
+    const coverImage = image || (imgs && imgs.length > 0 ? imgs[0] : '');
 
     const product = new Product({
         user,
@@ -46,7 +48,9 @@ const AddNewProduct = asyncHandler(async(req, res) => {
         description,
         price,
         countInStock,
-        image,
+        image: coverImage,
+        imgs,
+        sizes,
         reviews: [],
         rating: 0,
         numReviews: 0
@@ -64,13 +68,13 @@ const AddNewProduct = asyncHandler(async(req, res) => {
 // EDIT A PRODUCT
 
 const editProduct = asyncHandler(async (req, res) => {
-    const { user, name, brand, description, price, countInStock } = req.body
+    const { user, name, category, brand, description, price, countInStock, image, imgs, sizes } = req.body
     const { id } = req.params;
 
-    if(!user || !name || !brand || !description || !price || !countInStock){
-        res.status(400)
-        throw new Error(`Please Enter All Fields`)
-    }
+    // if(!user || !name || !brand || !description || !price || !countInStock){
+    //     res.status(400)
+    //     throw new Error(`Please Enter All Fields`)
+    // }
 
     if (!["SuperAdmin", "admin"].includes(req.user.role)) {
         return res.status(403).json({
@@ -85,12 +89,17 @@ const editProduct = asyncHandler(async (req, res) => {
         throw new Error(`Product Not found`)
     }
 
-    product.user = user;
-    product.name = name;
-    product.brand = brand;
-    product.description = description;
-    product.price = price;
-    product.countInStock = countInStock;
+    if (user) product.user = user;
+    if (name) product.name = name;
+    if (category) product.category = category;
+    if (brand) product.brand = brand;
+    if (description) product.description = description;
+    if (price) product.price = price;
+    if (countInStock) product.countInStock = countInStock;
+    if (imgs) product.imgs = imgs;
+    if (sizes) product.sizes = sizes;
+
+    product.image = image || (imgs && imgs.length > 0 ? imgs[0] : product.image);
 
     const updatedProduct = await product.save()
 

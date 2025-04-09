@@ -1,7 +1,13 @@
 <div class="container mt-5" *ngIf="product">
     <div class="row">
         <div class="col-xl-6">
-            <img class="img-fluid rounded-2" [src]="product.image" >
+            <ngb-carousel *ngIf="product?.imgs?.length > 0" class="mb-4 rounded-2" [showNavigationArrows]="true" [showNavigationIndicators]="true">
+                <ng-template ngbSlide *ngFor="let img of product.imgs; let i = index">
+                  <img [src]="img" class="d-block w-100 rounded-2" alt="Product image {{i + 1}}" />
+                </ng-template>
+              </ngb-carousel>
+            
+              <img *ngIf="!product?.imgs?.length" [src]="product.image" class="img-fluid rounded-2" />
         </div>
         <div class="col-xl-6">
             <h5 class="mb-1 text-secondary">{{ product.brand }}</h5>
@@ -12,8 +18,22 @@
             <span class="fw-semibold {{ product.countInStock ? 'text-secondary' : 'text-danger' }}">
                 Stock : {{ product.countInStock ? product.countInStock : 'Currently Unavailable' }}
             </span>
+            <div class="mt-3" *ngIf="product?.sizes?.length">
+                <div class="fw-semibold mb-2">Select Size:</div>
+                <div class="d-flex flex-wrap gap-2">
+                  <a
+                    class="border p-2 rounded text-center text-decoration-none text-dark px-3"
+                    *ngFor="let size of product.sizes"
+                    [ngClass]="{'secondary-bg text-white': selectedSize === size}"
+                    (click)="selectedSize = size"
+                  >
+                    {{ size }}
+                </a>
+                </div>
+              </div>
+              
             <br>
-            <div class="my-3 text-nowrap">
+            <div class="text-nowrap">
                 <button class="btn btn-lg me-2 btn-block w-100 primary-btn " (click)="addCartProduct(product._id)"><i class="fa fa-cart-shopping"></i> Add To Bag</button>
                 <!-- <button class="btn btn-lg border-primary primary-text rounded-0">Buy Now</button> -->
             </div>

@@ -12,6 +12,7 @@
                             <p class="mb-1">{{ item.productId.description }}</p>
                             <p class="fw-semibold">{{ item.productId.brand }}</p>
                             <h4 class="fw-semibold">{{ item.productId.price | price:'Rs.' }}</h4>
+                            <p class="fw-semibold">Size: {{ item.size }}</p>
                             <button class="btn border btn-sm" (click)="removeItem( item.productId._id )"><i class="fa fa-bin"></i> Remove</button><br>
                             <div class="btn-group mt-1">
                                 <button class="btn fa btn-sm fa-minus border" (click)="decQuantity(item.productId._id)"></button>

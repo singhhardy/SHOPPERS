@@ -7,12 +7,16 @@ const calculateCartTotal = require('../utils/calcCartTotal')
 
 const AddToCart = asyncHandler(async (req, res) => {
     const userId = req.user
-    const { productId, quantity, } = req.body
+    const { productId, quantity, size } = req.body
     const product = await Product.findById(productId)
 
     if (quantity <= 0) {
         return res.status(400).json({ error: 'Invalid quantity' });
     }
+
+    if (!size) {
+        return res.status(400).json({ error: 'Size is required' });
+    }    
 
     if(!product){
         res.status(400)
@@ -23,6 +27,10 @@ const AddToCart = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Not enough stock available' });
     }
 
+    if (!product.sizes.includes(size)) {
+        return res.status(400).json({ error: 'Selected size is not available' });
+    }
+
     let cart = await Cart.findOne({ userId })
 
     if(!cart){
@@ -31,14 +39,14 @@ const AddToCart = asyncHandler(async (req, res) => {
             items: [{ productId, quantity, price: product.price}]
         })
     } else {
-        const existingItem = cart.items.find(item => item.productId.toString() === productId)
+        const existingItem = cart.items.find(item => item.productId.toString() === productId && item.size)
         if(existingItem){
             if(existingItem.quantity + 1 > product.countInStock){
                 return res.status(400).json({ error: "Not enough stock available"})
             }
             existingItem.quantity += 1
         } else{
-            cart.items.push({ productId, quantity, price: product.price})
+            cart.items.push({ productId, quantity, size, price: product.price });
         }
     }
 
