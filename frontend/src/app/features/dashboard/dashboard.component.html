@@ -1,6 +1,6 @@
 <div>
     <div class="mb-3">
-        <ngb-carousel>
+        <ngb-carousel [showNavigationArrows]="false">
             <ng-template ngbSlide>
                 <div class="bg-black mxh-500">
                     <div class="container">
@@ -8,6 +8,7 @@
                             <div class="col-xl-6">
                                 <h1 class="text-light mt-5"><span class="showcase-text">NIKE</span> Recent Collection</h1>
                                 <p class="text-light">grab awesome deals, <span class="fs-1 primary-text">40% OFF</span> on nike shoes, starting today.</p>
+                                <button [routerLink]="'/products'" class="btn btn-light rounded-0">Go To Store <i class="fa fa-arrow-right"></i></button>
                             </div>
                             <div class="col-xl-6 d-flex justify-content-center">
                                 <img src="assets/nikeshow.png"  class="img-fluid show-img" alt="slide One">
@@ -23,6 +24,7 @@
                             <div class="col-xl-6">
                                 <h1 class="text-light mt-5"><span class="showcase-text">PUMA</span> newly launches!</h1>
                                 <p class="text-light">SPORTS & SNEAKERS collection <span class="fs-1 primary-text">15-46% Off</span> on PUMA shoes, starting today.</p>
+                                <button [routerLink]="'/products'" class="btn btn-light rounded-0">Buy Now! <i class="fa fa-arrow-right"></i></button>
                             </div>
                             <div class="col-xl-6 d-flex justify-content-center">
                                 <img src="assets/pumashow.png" class="img-fluid show-img" alt="slide One">
@@ -38,6 +40,7 @@
                             <div class="col-xl-6">
                                 <h1 class="text-light mt-5"><span class="showcase-text">Adidas</span> New launches</h1>
                                 <p class="text-light"><b>LIMITED EDITION</b>, Upto <span class="fs-1 primary-text">20% OFF</span> on adidas shoes & sneakers.</p>
+                                <button [routerLink]="'/products'" class="btn btn-light rounded-0">Shop <i class="fa fa-arrow-right"></i></button>
                             </div>
                             <div class="col-xl-6 d-flex justify-content-center">
                                 <img src="assets/adidasshow.png" class="img-fluid show-img" alt="slide One">
@@ -48,9 +51,42 @@
             </ng-template>
         </ngb-carousel>
     </div>
-    <div class="container my-2 my-md-5 pt-0 pt-md-5">
-        <br>
-        <app-product-list></app-product-list>
-        <br>
+    <div class="container mb-4">
+        <div class="row g-4">
+            <div class="col-xl-7">
+                <a class="text-decoration-none" [routerLink]="['/products']" [queryParams]="{ q: 'nike' }">
+                    <div class="card banner-card border-0 position-relative h-100 overflow-hidden">
+                        <div class="p-4 banner-card-body position-absolute">
+                            <h1>NIKE AIR SERIES</h1>
+                            <p>Check Out All about Nike</p>
+                        </div>
+                        <img class="img-fluid rounded-2 card-bg-img" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/68a0c580-5a0b-43de-9b08-80fa37171f57/AIR+MAX+DN8.png" alt="Nike">
+                    </div>
+                </a>
+            </div>
+            <div class="col-xl-5 d-flex flex-column h-100 gap-3">
+                <a [routerLink]="['/products']" [queryParams]="{ q: 'adidas' }">
+                    <div class="card banner-card border-0 position-relative h-50 overflow-hidden">
+                        <div class="p-4 banner-card-body position-absolute">
+                            <h1>ADDIDAS SPORTS</h1>
+                            <p>Our Latest Collection and Newly launches of Adidas.</p>
+                        </div>
+                        <img class="img-fluid rounded-2 card-bg-img" src="https://t4.ftcdn.net/jpg/04/28/82/65/360_F_428826506_Qr9L5ScpKXZBAOnmdryBljNiB26hPVhf.jpg" alt="adidas">
+                    </div>
+                </a>
+                <a [routerLink]="['/products']" [queryParams]="{ q: 'puma' }">
+                    <div class="card banner-card border-0  position-relative h-50  overflow-hidden">
+                        <div class="p-4 banner-card-body position-absolute">
+                            <h1> PUMA HIGH TOPS</h1>
+                            <p>Check Out All about Nike</p>
+                        </div>
+                        <img class="img-fluid rounded-2 card-bg-img" src="https://images.pexels.com/photos/2016145/pexels-photo-2016145.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Puma">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
     </div>
 </div>
