@@ -243,6 +243,12 @@ a{
     }
 }
 
+@media(max-width: 450px){
+    .product-img{
+        height: 100%;
+    }
+}
+
 /* LOADER */
 
 #global-loader {

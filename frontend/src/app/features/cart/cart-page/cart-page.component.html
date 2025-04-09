@@ -3,11 +3,13 @@
         <div class="col-xl-8" >
             <div class="card mb-3" *ngFor="let item of cartItems">
                 <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-start">
-                        <a [routerLink]="['/product-details', item.productId._id]">
-                            <img src="{{ item.productId.image }}" class="rounded-2 me-3" width="200px" height="200px">
-                        </a>
-                        <div>
+                    <div class="row g-3 align-items-start justify-content-start">
+                        <div class="col-lg-3">
+                            <a [routerLink]="['/product-details', item.productId._id]">
+                                <img src="{{ item.productId.image }}" class="rounded-2 me-3" width="200px" height="200px">
+                            </a>
+                        </div>
+                        <div class="col-lg-9">
                             <h3>{{ item.productId.name }}</h3>
                             <p class="mb-1">{{ item.productId.description }}</p>
                             <p class="fw-semibold">{{ item.productId.brand }}</p>

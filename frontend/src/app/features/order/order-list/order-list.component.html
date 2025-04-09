@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <div class="row">
+  <div class="row g-4">
     <div class="col-xl-3">
       <div class="card">
         <div class="card-header">
@@ -26,7 +26,7 @@
     <div class="col-xl-9" *ngIf="!isLoading && filteredOrders.length > 0">
       <div class="card mb-3" *ngFor="let order of filteredOrders">
         <a [routerLink]="`/order-details/${order._id}`" class="text-decoration-none">
-          <div class="card-body text-dark py-2 d-flex align-items-center justify-content-between">
+          <div class="card-body text-dark py-2 d-flex align-items-center justify-content-between flex-wrap gap-3">
           
             <img 
               class="img-fluid rounded-2" 
@@ -84,7 +84,7 @@
         <div *ngFor="let order of filteredOrders">
         </div>
       
-        <div class="pagination-controls">
+        <div class="pagination-controls" *ngIf="filteredOrders.length > 5">
           <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
           <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
           <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
