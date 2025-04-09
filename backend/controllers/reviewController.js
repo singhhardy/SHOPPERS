@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Product = require('../models/productModel')
+const Order = require('../models/orderModel')
 
 // Add a Review
 
@@ -19,6 +20,17 @@ const AddReview = asyncHandler(async(req,res) => {
     if(alreadyReviewd){
         res.status(400)
         throw new Error('You have already reviewed this product')
+    }
+
+    const hasPurchased = await Order.findOne({
+        userId,
+        status: "Delivered",
+        "items.productId": id
+    })
+
+    if(!hasPurchased){
+        res.status(400)
+        throw new Error('You must purchase this product to leave a review.');
     }
 
     const review = {
