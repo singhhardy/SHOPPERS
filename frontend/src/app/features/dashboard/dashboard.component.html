@@ -87,6 +87,37 @@
         </div>
     </div>
 
+    <div class="container p-1">
+        <section class="slider-wrapper">
+            <!-- <button class="slider-button">Pause</button> -->
+            <article class="slider-container">
+              <div class="slider-block">
+                <ul class="slider-list">
+                  <li class="slider-item"><img class="slider-img" src="assets/nike-logo.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/puma.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/nb.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/adidas.png" /></li>
+                </ul>
+              </div>
+              <div class="slider-block">
+                <ul class="slider-list">
+                  <li class="slider-item"><img class="slider-img" src="assets/nike-logo.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/puma.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/nb.png" /></li>
+                  <li class="slider-item"><img class="slider-img" src="assets/adidas.png" /></li>
+                </ul>
+              </div>
+            </article>
+          </section>
+    </div>
+
     <div class="container my-4">
+        <div class="card banner-card border-0 position-relative overflow-hidden" style="max-height: 600px;">
+            <div class="banner-card-body position-absolute d-flex align-items-center">
+                <h1 class="fw-bold text-center">CHECK OUT OUR <span class="primary-text fw-bold">LATEST PRODUCTS  </span></h1>
+                <button [routerLink]="'/products'" class="btn btn-outline-light btn-lg rounded-0 px-5">VISIT STORE <i class="fa fa-arrow-right"></i></button>
+            </div>
+            <img class="img-fluid rounded-2 card-bg-img" style="margin-bottom: 200px;" src="https://i.pinimg.com/originals/c7/12/9a/c7129a48ebd427235b8dd895e18c358b.gif" alt="Puma">
+        </div>
     </div>
 </div>

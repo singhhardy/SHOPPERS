@@ -16,6 +16,10 @@ html, body{
     background: var(--body-color);
 }
 
+.main-content{
+    min-height: 65vh;
+}
+
 .bg-body{
     background: var(--body-color) !important;
 }
@@ -271,4 +275,69 @@ a{
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1500px;
     }
+}
+
+/* INFINITE SLIDER */
+
+.slider-body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .slider-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .slider-img {
+    display: block;
+    width: 200px;
+  }
+  
+  .slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slider-container {
+    display: flex;
+    width: 200%;
+    animation: slider-bannermove 20s linear infinite;
+  }
+  
+  .slider-container.paused {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+  
+  .slider-block {
+    width: 100%;
+  }
+  
+  .slider-list {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .slider-item {
+    width: 100%;
+  }
+  
+  @keyframes slider-bannermove {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+
+ngb-modal-backdrop.modal-backdrop.fade.show {
+    background: white;
 }

@@ -8,3 +8,27 @@
 <!-- <footer class="bg-white text-center py-3 w-100 position-fixed bottom-0  border-top">
     copyright 2025 &copy <span class="primary-text fw-semibold">{{ title }}</span>.
 </footer> -->
+<footer class="footer border-top">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="mb-0 fw-semibold">SHOPPERS</h1>
+                <p>Made for <b>Sneakerheads</b></p>                
+                <p>copyright 2025 &copy; <span class="primary-text fw-semibold">{{ title }}</span>.</p>
+            </div>
+            <div class="col-xl-4 d-flex flex-wrap gap-4">
+                <ul class="list-unstyled">
+                    <li><a class="nav-link">About Us</a></li>
+                    <li><a class="nav-link" [routerLink]="'/products'">Our Products</a></li>
+                    <li><a class="nav-link" [routerLink]="'/cart'">Cart</a></li>
+                    <li><a class="nav-link">Terms & Conditions</a></li>
+                    <li><a class="nav-link">Policy</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><b>Customer Support</b></li>
+                    <li><a class="nav-link secondary-text" href="emailto:support@shopper.com">{{ email }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
