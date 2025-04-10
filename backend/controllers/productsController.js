@@ -129,6 +129,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
         throw new Error(`Product Not Found!`)
     }
 })
+
+// GET, FILTER & SEARCH ALL PRODUCTS
 const searchProducts = asyncHandler(async (req, res) => {
     try {
       const query = req.query.q || '';
@@ -137,23 +139,73 @@ const searchProducts = asyncHandler(async (req, res) => {
       const limit = parseInt(req.query.limit) || 20;
       const page = parseInt(req.query.page) || 1;
 
+      // FILTERING
+      const category = req.query.category;
+      const brand = req.query.brand;
+      const minPrice = parseInt(req.query.minPrice) || 0;
+      const maxPrice = parseInt(req.query.maxPrice);
+      const size = parseInt(req.query.size)
+      const minRating = parseFloat(req.query.minRating);
+      const sort = req.query.sort || '';
+      let sortOption = {};
+
       const skip = (page -1) * limit
 
-      const conditions = regexes.map(regex => ({
-        $or: [
-          { name: regex },
-          { description: regex },
-          { brand: regex },
-          { category: regex },
-          { tags: regex }
-        ]
-      }));
+      const andConditions = regexes.length > 0
+        ? regexes.map(regex => ({
+            $or: [
+                { name: regex },
+                { description: regex },
+                { brand: regex },
+                { category: regex },
+                { tags: regex }
+            ]
+            }))
+        : [];
+
+        if (category) {
+            andConditions.push({ category: new RegExp(`^${category}$`, 'i') });
+        }
+        if (brand) {
+            andConditions.push({ brand: new RegExp(`^${brand}$`, 'i') });
+        }
+        if (!isNaN(size)) {
+            andConditions.push({ sizes: size });
+        }
+        
+        if (!isNaN(maxPrice)) {
+            andConditions.push({ price: { $gte: minPrice, $lte: maxPrice } });
+        } else {
+            andConditions.push({ price: { $gte: minPrice } });
+        }
+        
+        if (!isNaN(minRating)) {
+            andConditions.push({ rating: { $gte: minRating } });
+        }
+
+        switch (sort) {
+            case 'price_asc':
+              sortOption = { price: 1 };
+              break;
+            case 'price_desc':
+              sortOption = { price: -1 };
+              break;
+            case 'rating_desc':
+              sortOption = { rating: -1 };
+              break;
+            case 'newest':
+              sortOption = { createdAt: -1 };
+              break;
+          }
+
+      const filterQuery = andConditions.length ? { $and: andConditions } : {};
   
-      const products = await Product.find({ $and: conditions })
+      const products = await Product.find(filterQuery )
+      .sort(sortOption)
       .limit(limit)
       .skip(skip)
 
-      const totalCount = await Product.countDocuments({ $and: conditions });
+      const totalCount = await Product.countDocuments(filterQuery );
   
       res.json({
         results: products,
@@ -166,7 +218,7 @@ const searchProducts = asyncHandler(async (req, res) => {
       console.error('Search Error:', err);
       res.status(500).json({ error: 'Server error' });
     }
-  });
+});
   
 module.exports = {  
     getAllProducts,

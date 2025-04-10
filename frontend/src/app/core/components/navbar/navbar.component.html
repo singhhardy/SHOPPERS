@@ -24,6 +24,7 @@
             <input
               class="form-control w-100 border-0 rounded-0 rounded-start bg-body searchbar"
               [(ngModel)]="searchText"
+              (keydown.enter)="onSearch()"
               placeholder="Search..."
             />
             <button class="btn primary-btn" (click)="onSearch()">
@@ -119,6 +120,8 @@
         type="text"
         class="form-control"
         placeholder="Search..."
+        (keydown.enter)="onSearch()"
+        (keydown.enter)="toggleSidebar()"
         [(ngModel)]="searchText"
       />
       <button class="btn primary-btn" (click)="onSearch()" (click)="toggleSidebar()">

@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class NavbarComponent {
   isNavbarCollapsed = true;
-  isSidebarOpen = true
+  isSidebarOpen = false
   user$: Observable<any>;
   cartItemsCount: any
   searchText = '';

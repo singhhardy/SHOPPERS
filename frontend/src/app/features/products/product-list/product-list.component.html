@@ -1,50 +1,148 @@
 <div class="container">
-  <div class="row g-4 p-0 m-0">
-    <div class="col-xl-4 col-lg-6 col-md-6 col-12" *ngFor="let product of products">
-        <div class="card" >
-            <a [routerLink]="['/product-details', product._id]">
-                <img class="card-img-top card-product-img border" src="{{ product.image }}" alt="Product Image">
-            </a>
-            <div class="card-body">
-                <div class="badge bg-success text-white float-end text-end"  *ngIf="product.rating > 0">
-                  {{ product.rating }} <i class="fa fa-star"></i>
-                </div>
-                <a class="card-title mb-0 text-primary text-decoration-none" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
-                <b>Rs.{{ product.price | price }} /-</b>
-            </div>
+<div class="row">
+  <div class="col-xl-3">
+    <div class="card mt-4">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-title mb-0 fw-semibold" >Filter <i class="fa fa-filter"></i> </div>
+        <button class="btn btn-sm btn-outline-dark" (click)="showFilters = !showFilters"><i class="fa" [ngClass]="showFilters ? 'fa-caret-up' : 'fa-caret-down'"></i></button>
+      </div>
+      <div class="card-body"  *ngIf="showFilters">
+        <div class="d-flex flex-column mb-4">
+          <label class="form-label fw-semibold">Category:</label>
+          <select class="form-control-sm" [(ngModel)]="selectedCategory" (change)="loadProducts()">
+            <option value="">All</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
         </div>
-    </div>
-    <div class="pagination-controls text-center mt-4" *ngIf="products.length > 6">
-      <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
-        Previous
-      </button>
-      <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
-      <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
-        Next
-      </button>
-    </div>
-</div>
+        <div class="d-flex border p-2 rounded-2 flex-column mb-3">
+          <label class="form-label fw-semibold">Price Range:</label>
+          <div *ngFor="let range of priceRanges">
+            <label>
+              <input
+                type="radio"
+                name="priceRange"
+                [value]="range"
+                (change)="onPriceRangeSelect(range)"
+                [checked]="selectedPriceRange?.min === range.min && selectedPriceRange?.max === range.max"
+              />
+              {{ range.label }}
+            </label>
+          </div>
+        </div>
+        <div class="d-flex flex-column mb-4">
+          <label class="form-label fw-semibold">Filter by Brand:</label>
+          <select class="form-control-sm" [(ngModel)]="selectedBrand" (change)="loadProducts()">
+            <option value="">All</option>
+            <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+          </select>
+        </div>
 
-<div class="row g-3 mt-2" *ngIf="!products || products.length === 0">
-    <div class="col-xl-4" *ngFor="let i of [1,2,3,4,5,6]">
-      <div class="card border-0">
-        <ngx-skeleton-loader
-          count="1"
-          [theme]="{ height: '200px', width: '100%', 'border-radius': '4px', 'margin-bottom': '10px' }">
-        </ngx-skeleton-loader>
-  
-        <div class="card-body">
-          <ngx-skeleton-loader
-            count="1"
-            [theme]="{ height: '20px', width: '70%', 'margin-bottom': '10px' }">
-          </ngx-skeleton-loader>
-          <ngx-skeleton-loader
-            count="1"
-            [theme]="{ height: '16px', width: '40%' }">
-          </ngx-skeleton-loader>
+        <div class="d-flex border p-2 rounded-2 flex-column mb-3">
+          <label class="form-label fw-semibold">Minimum Rating:</label>
+          <div *ngFor="let star of [4, 3, 2, 1]">
+            <label>
+              <input
+                type="radio"
+                name="rating"
+                [value]="star"
+                [(ngModel)]="selectedRating"
+                (change)="loadProducts()"
+              />
+              {{ star }} stars & up
+            </label>
+          </div>
+          <label>
+            <input
+              type="radio"
+              name="rating"
+              [value]="null"
+              [(ngModel)]="selectedRating"
+              (change)="loadProducts()"
+            />
+            All Ratings
+          </label>
         </div>
+
+        <button class="btn btn-outline-danger btn-sm mt-3" (click)="resetFilters()">
+          Reset Filters
+        </button>
+        
       </div>
     </div>
+  </div>
+  <div class="col-xl-9">
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <h4 class="fw-semibold mb-0">Our Products :</h4>
+          <div class="d-flex align-items-center justify-content-end">
+            <label class="form-label me-2 mb-0 fw-semibold">Sort by:</label>
+            <select class="form-control-sm" [(ngModel)]="selectedSort" (change)="loadProducts()">
+              <option value="">Relevance</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="rating_desc">Rating: High to Low</option>
+              <option value="newest">Newest First</option>
+            </select>
+          </div>
+        </div>
+        <!-- SKELETON LOADER TEMPLATE -->
+        <div class="row g-3 mt-2" *ngIf="loading">
+          <div class="col-xl-4" *ngFor="let i of [1,2,3,4,5,6]">
+            <div class="card border-0">
+              <ngx-skeleton-loader
+                count="1"
+                [theme]="{ height: '200px', width: '100%', 'border-radius': '4px', 'margin-bottom': '10px' }">
+              </ngx-skeleton-loader>
+        
+              <div class="card-body">
+                <ngx-skeleton-loader
+                  count="1"
+                  [theme]="{ height: '20px', width: '70%', 'margin-bottom': '10px' }">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader
+                  count="1"
+                  [theme]="{ height: '16px', width: '40%' }">
+                </ngx-skeleton-loader>
+              </div>
+            </div>
+          </div>
+      </div>
+    
+
+      <div class="row g-4 p-0 m-0" *ngIf="!loading && products.length > 0">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-12" *ngFor="let product of products">
+            <div class="card" >
+                <a [routerLink]="['/product-details', product._id]">
+                    <img class="card-img-top card-product-img border" src="{{ product.image }}" alt="Product Image">
+                </a>
+                <div class="card-body">
+                    <div class="badge bg-success text-white float-end text-end"  *ngIf="product.rating > 0">
+                      {{ product.rating }} <i class="fa fa-star"></i>
+                    </div>
+                    <a class="card-title mb-0 text-primary text-decoration-none" [routerLink]="['/product-details', product._id]">{{ product.name }}</a> <br>
+                    <b>Rs.{{ product.price | price }} /-</b>
+                </div>
+            </div>
+        </div>
+        <div class="pagination-controls text-center mt-4" *ngIf="products.length > 6">
+          <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button class="btn btn-sm btn-secondary" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && products.length === 0" class="text-center text-muted mt-4 fs-5">
+      No products found.
+    </div>
+    
+  </div>
 </div>
+
+
   
+
+
 </div>
