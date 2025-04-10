@@ -1,0 +1,9 @@
+.show-card{
+    max-height: 600px;
+}
+
+@media(max-width: 1000px){
+    .show-card{
+        max-height: auto;
+    }
+}

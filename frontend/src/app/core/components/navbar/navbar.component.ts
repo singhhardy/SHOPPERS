@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class NavbarComponent {
   isNavbarCollapsed = true;
+  isSidebarOpen = true
   user$: Observable<any>;
   cartItemsCount: any
   searchText = '';
@@ -35,6 +36,14 @@ export class NavbarComponent {
     this.cart.currentCartItemCount.subscribe(count => {
       this.cartItemsCount = count;
     });
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+  
+  closeSidebar() {
+    this.isSidebarOpen = false;
   }
 
   onSearch(){

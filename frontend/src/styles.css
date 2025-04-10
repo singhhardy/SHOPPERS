@@ -221,8 +221,11 @@ a{
     padding: 20px;
 }
 
-.product-img{
-    height: 450px;
+.card-product-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .status-circle{
@@ -246,6 +249,9 @@ a{
 @media(max-width: 450px){
     .product-img{
         height: 100%;
+    }
+    .logo-text{
+        display: none;
     }
 }
 

@@ -1,39 +1,181 @@
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-white border-bottom fixed-top">
-    <div class="container-fluid container">
-      <a class="navbar-brand fw-bold fs-3" [routerLink]="''">
-        <img src="assets/S.png" width="40px" class="rounded-2"> <span class="ms-1">HOPPERS</span> </a>
-      <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse">
-        <ul class="navbar-nav w-100 ms-auto mb-2 mb-lg-0">
-            <li class="nav-item w-100">
-                <div class="btn-group w-75 h-100 mt-2 mt-md-0 searchbox">
-                    <input class="form-control w-100 border-0 rounded-0  rounded-start bg-body searchbar"  [(ngModel)]="searchText" placeholder="Search...">
-                    <button class="btn primary-btn" (click)="onSearch()"><i class="fa fa-search"></i></button>
-                </div>
+  <div class="container-fluid container">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold fs-3" [routerLink]="''">
+      <img src="assets/S.png" width="40px" class="rounded-2" />
+      <span class="ms-1 logo-text">HOPPERS</span>
+    </a>
+
+    <!-- Toggle Button for Mobile -->
+    <button class="btn d-lg-none ms-auto" (click)="toggleSidebar()">
+      <i class="fa fa-bars fs-4"></i>
+    </button>
+
+    <!-- Desktop Menu -->
+    <div
+      class="collapse navbar-collapse d-none d-lg-flex"
+      [ngbCollapse]="isNavbarCollapsed"
+    >
+      <ul class="navbar-nav w-100 ms-auto mb-2 mb-lg-0 align-items-center">
+        <!-- Search box -->
+        <li class="nav-item w-100">
+          <div class="btn-group w-50 h-100 mt-2 mt-md-0 searchbox">
+            <input
+              class="form-control w-100 border-0 rounded-0 rounded-start bg-body searchbar"
+              [(ngModel)]="searchText"
+              placeholder="Search..."
+            />
+            <button class="btn primary-btn" (click)="onSearch()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </li>
+
+        <!-- Store -->
+        <li class="nav-item me-2">
+          <a class="nav-link text-nowrap" [routerLink]="'/products'" routerLinkActive="primary-text" >
+            <i class="fa-solid fa-store"></i> Shop
+          </a>
+        </li>
+
+        <!-- Cart -->
+        <li class="nav-item me-2">
+          <a class="nav-link text-nowrap" [routerLink]="'/cart'" routerLinkActive="primary-text" >
+            <i class="fa-solid fa-cart-shopping"></i> Cart
+            <span
+              *ngIf="cartItemsCount > 0"
+              class="p-2 py-0 rounded-2 primary-bg text-light"
+            >
+              {{ cartItemsCount }}
+            </span>
+          </a>
+        </li>
+
+        <!-- Profile Dropdown -->
+        <li class="nav-item dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+            <i class="fa-regular fa-user"></i>
+            {{ (user$ | async)?.firstName || (user$ | async)?.email || "User" }}
+            <i class="fa-solid fa-angle-down"></i>
+          </a>
+          <ul class="dropdown-menu border-0 shadow-lg" ngbDropdownMenu>
+            <li *ngIf="!auth.isLoggedIn()">
+              <a class="dropdown-item primary-text" [routerLink]="'/login'">
+                <i class="fa fa-user  menu-icon"></i>
+                <span class="link-text">Login</span>
+              </a>
             </li>
-        </ul>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item me-2">
-            <a class="nav-link text-nowrap" aria-current="page" [routerLink]="'/cart'"><i class="fa-solid fa-cart-shopping"></i> Cart <span *ngIf="cartItemsCount > 0" class="p-2 py-0 rounded-2 primary-bg text-light">{{ cartItemsCount }}</span></a>
-          </li>
-          <li class="nav-item dropdown" ngbDropdown>
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" ngbDropdownToggle>
-              <i class="fa-regular fa-user"></i> 
-              {{ (user$ | async)?.firstName || (user$ | async)?.email || 'User' }}  
-              <i class="fa-solid fa-angle-down"></i>            </a>
-            <ul class="dropdown-menu border-0  shadow-lg" aria-labelledby="navbarDropdown" ngbDropdownMenu>
-                <li *ngIf="!auth.isLoggedIn()"><a class="dropdown-item primary-text" [routerLink]="'/login'"><i class="fa fa-user text-muted menu-icon"></i> <span class="side-text">Login</span></a></li>
-                <li *ngIf="!auth.isLoggedIn()"> <a class="dropdown-item secondary-text" [routerLink]="'/sign-up'"><i class="fa-solid text-muted fa-address-book menu-icon"></i> <span class="side-text">Sign Up</span></a></li>
-                <li><a class="dropdown-item" [routerLink]="'/order-list'"><i class="fa-solid fa-list-ul menu-icon text-muted"></i> <span class="side-text">Orders</span></a></li>
-                <li><a class="dropdown-item" [routerLink]="'/profile'" *ngIf="auth.isLoggedIn()"><i class="fa-solid fa-user menu-icon text-muted"></i> <span class="side-text">Profile</span></a></li>
-                <hr class="m-2" *ngIf="auth.isLoggedIn()">
-                <li *ngIf="auth.isLoggedIn()"><a class="dropdown-item" ><i class="fa-solid fa-arrow-right-from-bracket menu-icon text-muted"></i> <span class="side-text" (click)="signOut()">Logout</span> </a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+            <li *ngIf="!auth.isLoggedIn()">
+              <a class="dropdown-item secondary-text" [routerLink]="'/sign-up'">
+                <i class="fa-solid fa-address-book menu-icon"></i>
+                <span class="link-text">Sign Up</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" [routerLink]="'/order-list'">
+                <i class="fa-solid fa-list-ul text-muted menu-icon"></i>
+                <span class="link-text">Orders</span>
+              </a>
+            </li>
+            <li *ngIf="auth.isLoggedIn()">
+              <a class="dropdown-item" [routerLink]="'/profile'">
+                <i class="fa-solid fa-user text-muted menu-icon"></i>                  
+                <span class="link-text">Profile</span>
+              </a>
+            </li>
+            <hr class="m-2" *ngIf="auth.isLoggedIn()" />
+            <li *ngIf="auth.isLoggedIn()">
+              <a class="dropdown-item" (click)="signOut()">
+                <i
+                  class="fa-solid fa-arrow-right-from-bracket text-muted menu-icon"
+                ></i>
+                <span class="link-text">Logout</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<!-- Offcanvas Sidebar -->
+<div
+  class="offcanvas-backdrop"
+  *ngIf="isSidebarOpen"
+  (click)="closeSidebar()"
+></div>
+
+<div class="offcanvas-custom" [class.show]="isSidebarOpen">
+  <div class="offcanvas-header mt-3 align-items-center px-3 py-2">
+    <button class="btn-close" (click)="closeSidebar()"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column gap-3 p-3">
+    <!-- Search -->
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search..."
+        [(ngModel)]="searchText"
+      />
+      <button class="btn primary-btn" (click)="onSearch()" (click)="toggleSidebar()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+
+    <!-- Store -->
+    <a class="nav-link text-nowrap" [routerLink]="'/products'" routerLinkActive="primary-text" (click)="closeSidebar()">
+      <i class="fa-solid fa-store"></i> Shop
+    </a>
+
+    <!-- Links -->
+    <a class="nav-link" [routerLink]="'/cart'" routerLinkActive="primary-text"  (click)="closeSidebar()">
+      <i class="fa-solid fa-cart-shopping"></i> Cart
+      <span *ngIf="cartItemsCount > 0" class="badge bg-primary text-light ms-1">
+        {{ cartItemsCount }}
+      </span>
+    </a>
+
+    <a
+      class="nav-link"
+      *ngIf="!auth.isLoggedIn()"
+      [routerLink]="'/login'"
+      (click)="closeSidebar()"
+    >
+      <i class="fa fa-user"></i> Login
+    </a>
+
+    <a
+      class="nav-link"
+      *ngIf="!auth.isLoggedIn()"
+      [routerLink]="'/sign-up'"
+      (click)="closeSidebar()"
+    >
+      <i class="fa fa-address-book"></i> Sign Up
+    </a>
+
+    <a class="nav-link" [routerLink]="'/order-list'" (click)="closeSidebar()">
+      <i class="fa fa-list-ul"></i> Orders
+    </a>
+
+    <a
+      class="nav-link"
+      *ngIf="auth.isLoggedIn()"
+      [routerLink]="'/profile'"
+      (click)="closeSidebar()"
+    >
+      <i class="fa fa-user"></i> Profile
+    </a>
+
+    <a
+      class="nav-link text-danger"
+      *ngIf="auth.isLoggedIn()"
+      (click)="signOut(); closeSidebar()"
+    >
+      <i class="fa fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+</div>
