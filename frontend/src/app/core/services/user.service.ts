@@ -53,7 +53,7 @@ export class UserService {
   }
 
   SubscribeNewsletter(email: any): Observable<any>{
-    return this.http.post<any>(`${this.baseUrl}/users//subscribe-newsletter`, { email })
+    return this.http.post<any>(`${this.baseUrl}/users/subscribe-newsletter`, { email })
   }
 
 }

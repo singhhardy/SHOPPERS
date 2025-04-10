@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const { User } = require('../models/usersModel')
 const bcrypt = require('bcryptjs')
 const Newsletter = require('../models/newsletterModel')
+const sendEmail = require('../utils/sendEmail')
 
 // Get All Users
 const GetAllUsers = asyncHandler(async (req, res) => {
@@ -279,11 +280,24 @@ const addToNewsLetter = asyncHandler(async (req, res) => {
 
     const newSubscriber = await Newsletter.create({ email });
 
+    await sendEmail({
+        to: email,
+        subject: 'NEWSLETTER SUBSCRIBED - SHOPPER',
+        text: `NEWSLETTER SUBSCRIBED`,
+        html: `
+        <h1 color:#FF6F61;>SHOPPERS</h1>
+        <p>You have successfully subscribed to our newsletter. We'll keep you updated with our Latest Product collections & launches.</p>
+        <p>Thank you!</p>
+        `
+    });
+
     res.status(201).json({
         message: 'Successfully subscribed to the newsletter!',
         data: newSubscriber,
     });
 });
+
+
 module.exports = {
     GetAllUsers,
     DeleteUserById,
