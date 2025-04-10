@@ -12,7 +12,13 @@
       "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/5ae921bb08034aa2803fad7800abdd7f_9366/Ultraboost_22_Shoes_Black_GZ0127_02_standard_hover.jpg",
       "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/5ae921bb08034aa2803fad7800abdd7f_9366/Ultraboost_22_Shoes_Black_GZ0127_02_standard_hover.jpg"
     ],
-    "sizes": ["6", "7", "8", "9", "10"]
+    "sizes": [
+      { "size": 6, "stock": 5 },
+      { "size": 7, "stock": 6 },
+      { "size": 8, "stock": 10 },
+      { "size": 9, "stock": 7 },
+      { "size": 10, "stock": 7 }
+    ]
   },
   {
     "name": "Nike Air Max 270",
@@ -27,7 +33,14 @@
       "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/deg7rcray7ct2zoky3qg/NIKE+AIR+MAX+270+%28GS%29.png",
       "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/deg7rcray7ct2zoky3qg/NIKE+AIR+MAX+270+%28GS%29.png"
     ],
-    "sizes": ["6", "7", "8", "9", "10", "11"]
+   "sizes": [
+      { "size": 6, "stock": 4 },
+      { "size": 7, "stock": 5 },
+      { "size": 8, "stock": 6 },
+      { "size": 9, "stock": 4 },
+      { "size": 10, "stock": 3 },
+      { "size": 11, "stock": 3 }
+    ]
   },
   {
     "name": "Puma RS-X³ Puzzle",
@@ -43,7 +56,12 @@
       "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/sv04/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes",
       "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/371570/02/sv04/fnd/IND/fmt/png/RS-X3-Puzzle-Unisex-Shoes"
     ],
-    "sizes": ["7", "8", "9", "10"]
+    "sizes": [
+      { "size": 7, "stock": 10 },
+      { "size": 8, "stock": 8 },
+      { "size": 9, "stock": 12 },
+      { "size": 10, "stock": 10 }
+    ]
   },
   {
     "name": "Reebok Zig Kinetica II",
@@ -57,7 +75,14 @@
       "https://assets.ajio.com/medias/sys_master/root/20210310/pSpP/6047bf9ef997dd5c400add12/-473Wx593H-460834751-black-MODEL5.jpg",
       "https://assets.ajio.com/medias/sys_master/root/20210310/pSpP/6047bf9ef997dd5c400add12/-473Wx593H-460834751-black-MODEL5.jpg"
     ],
-    "sizes": ["6", "7", "8", "9", "10", "11"]
+    "sizes": [
+      { "size": 6, "stock": 0 },
+      { "size": 7, "stock": 0 },
+      { "size": 8, "stock": 0 },
+      { "size": 9, "stock": 0 },
+      { "size": 10, "stock": 0 },
+      { "size": 11, "stock": 0 }
+    ]
   },
   {
     "name": "New Balance 997",
@@ -73,7 +98,14 @@
       "https://nb.scene7.com/is/image/NB/mg997nw_nb_04_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
       "https://nb.scene7.com/is/image/NB/mg997nw_nb_04_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440"
     ],
-    "sizes": ["6", "7", "8", "9", "10"]
+    "sizes": [
+      { "size": 6, "stock": 6 },
+      { "size": 7, "stock": 6 },
+      { "size": 8, "stock": 6 },
+      { "size": 9, "stock": 6 },
+      { "size": 10, "stock": 6 },
+      { "size": 11, "stock": 6 }
+    ]
   },
   {
     "name": "Adidas NMD_R1 V3",
@@ -81,7 +113,7 @@
     "category": "Shoes",
     "description": "The Adidas NMD_R1 V3 blends street-ready style with responsive comfort. With a breathable mesh upper, BOOST cushioning, and futuristic design, it's perfect for everyday wear and urban exploration.",
     "price": 1750,
-    "countInStock": 15,
+    "countInStock": 50,
     "image": "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce7b2aa3249b4057b31aaef900f7c68b_9366/NMD_R1_V3_Shoes_White_HQ4275_01_standard.jpg",
     "imgs": [
       "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce7b2aa3249b4057b31aaef900f7c68b_9366/NMD_R1_V3_Shoes_White_HQ4275_01_standard.jpg",
@@ -89,6 +121,13 @@
       "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ff5080f33d9248c4acb9aef900fc7f3d_9366/NMD_R1_V3_Shoes_White_HQ4275_03_standard.jpg",
       "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ff5080f33d9248c4acb9aef900fc7f3d_9366/NMD_R1_V3_Shoes_White_HQ4275_03_standard.jpg"
     ],
-    "sizes": ["7", "8", "9", "10", "11"]
+    "sizes": [
+      { "size": 6, "stock": 8 },
+      { "size": 7, "stock": 10 },
+      { "size": 8, "stock": 12 },
+      { "size": 9, "stock": 10 },
+      { "size": 10, "stock": 10 },
+      { "size": 11, "stock": 10 }
+    ]
   }
 ]

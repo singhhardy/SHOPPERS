@@ -68,48 +68,49 @@ export class CartPageComponent {
   }
 
 
-  // Update cart
-  addQuantity(productId: string) {
-    const item = this.cartItems.find(item => item.productId._id === productId);
-    if (item) {
-      if (item.quantity >= item.productId.countInStock) {
-        this.toastr.warning('Not enough stock available');
-        return;
-      }
-      const newQuantity = item.quantity + 1;
-      item.quantity = newQuantity;
-      this.calculateCartTotal();
-      this.updateQuantity(productId, newQuantity);
+// Add to cart (increase quantity)
+addQuantity(productId: string) {
+  const item = this.cartItems.find(item => item.productId._id === productId);
+  if (item) {
+    if (item.quantity >= item.sizeStock) {
+      this.toastr.warning('Not enough stock available');
+      return;
     }
+    
+    const newQuantity = item.quantity + 1;
+    item.quantity = newQuantity;
+    this.calculateCartTotal();
+    this.updateQuantity(productId, newQuantity, item.size);
   }
+}
 
-  decQuantity(productId: string) {
-    const item = this.cartItems.find(item => item.productId._id === productId);
-    if (item && item.quantity > 1) {
-      item.quantity -= 1;
-      this.calculateCartTotal()
-      this.updateQuantity(productId, item.quantity);
-    }
+decQuantity(productId: string) {
+  const item = this.cartItems.find(item => item.productId._id === productId);
+  if (item && item.quantity > 1) {
+    item.quantity -= 1;
+    this.calculateCartTotal();
+    this.updateQuantity(productId, item.quantity, item.size);
   }
+}
 
-  updateQuantity(productId: string, quantity: number) {
-    const cartData = { productId, quantity };
+updateQuantity(productId: string, quantity: number, size: number) {
+  const cartData = { productId, quantity, size };
 
-    this.cart.updateCart(cartData).subscribe(
-      (response) => {
-        console.log('Cart updated:', response);
-        this.getCartItems()
-        this.cartTotal
-        // this.toastr.success('Item updated successfully');
-      },
-      (error) => {
-        const item = this.cartItems.find(item => item.productId._id === productId);
-        if (item) {
-          item.quantity = quantity - 1;
-          this.calculateCartTotal();
-        }
+  this.cart.updateCart(cartData).subscribe(
+    (response) => {
+      console.log('Cart updated:', response);
+      this.getCartItems();
+    },
+    (error) => {
+      const item = this.cartItems.find(item => item.productId._id === productId);
+      if (item) {
+        item.quantity = quantity - 1;
+        this.calculateCartTotal();
       }
-    );
-  }
+      this.toastr.error(error.error.error || "Failed to update cart");
+    }
+  );
+}
+
 
 }
