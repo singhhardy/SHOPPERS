@@ -57,7 +57,7 @@ export const routes: Routes = [
 
     // Order
     {
-        path: 'cart',
+        path: 'place-order',
         loadComponent: () =>
           import(
             './features/order/place-order/place-order.component'
