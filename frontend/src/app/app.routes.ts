@@ -4,15 +4,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { SignUpComponent } from './features/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
-import { ProfileComponent } from './features/profile/profile.component';
-import { ProductDetailsComponent } from './features/products/product-details/product-details.component';
-import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
-import { PlaceOrderComponent } from './features/order/place-order/place-order.component';
-import { OrderListComponent } from './features/order/order-list/order-list.component';
-import { ThankyouOrderComponent } from './features/order/thankyou-order/thankyou-order.component';
-import { OrderDetailsComponent } from './features/order/order-details/order-details.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
-import { ProductListComponent } from './features/products/product-list/product-list.component';
 
 export const routes: Routes = [
     // AUTH ROUTES
