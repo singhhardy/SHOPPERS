@@ -285,7 +285,7 @@ const addToNewsLetter = asyncHandler(async (req, res) => {
         subject: 'NEWSLETTER SUBSCRIBED - SHOPPER',
         text: `NEWSLETTER SUBSCRIBED`,
         html: `
-        <h1 color:#FF6F61;>SHOPPERS</h1>
+        <h1 style="color:#FF6F61;">SHOPPERS</h1>
         <p>You have successfully subscribed to our newsletter. We'll keep you updated with our Latest Product collections & launches.</p>
         <p>Thank you!</p>
         `
